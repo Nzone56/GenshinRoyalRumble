@@ -1,32 +1,72 @@
-* {
+@import "tailwindcss";
+
+@theme {
+  --breakpoint-*: initial;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --background-color: #2d3340;
+  --background-color-light: #fff;
+  --background-color-dark: #2d3340;
+  --text-color: #fff;
+  --text-color-light: #000;
+  --text-color-dark: #fff;
+}
+
+@font-face {
+  font-family: "Hoyo";
+  src: url("./assets/fonts/hoyo.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "HoyoDrip";
+  src: url("./assets/fonts/hoyodrip.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+figure,
+blockquote,
+dl,
+dd {
   margin: 0;
-  border: 0;
   padding: 0;
 }
 
-html {
-  font-size: 62.5%;
-  color-scheme: light dark;
-}
-
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-height: 100vh;
-}
-
-body {
-  font-size: 1.6rem;
   font-weight: 400;
-  font-family: Roboto, Arial, sans-serif;
-  background-color: #2d3340 !important;
-  color: #fff !important;
+  font-family: "Hoyo", Roboto, Arial, sans-serif;
+  background-color: var(--background-color) !important;
+  color: var(--text-color) !important;
   transition: background-color 0.3s ease, color 0.3s ease;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  font-weight: 700;
+  font-family: "HoyoDrip", "Hoyo", Roboto, Arial, sans-serif;
 }
