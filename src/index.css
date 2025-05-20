@@ -59,7 +59,7 @@ body {
   background-color: var(--background-color) !important;
   color: var(--text-color) !important;
   transition: background-color 0.3s ease, color 0.3s ease;
-
+  
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

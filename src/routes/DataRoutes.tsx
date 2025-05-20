@@ -1,7 +1,8 @@
+import { ErrorPage } from "@pages/ErrorPage";
+import { LandingPage } from "@pages/LandingPage";
+import { TournamentPage } from "@pages/TournamentPage";
 import { createBrowserRouter } from "react-router-dom";
-import { LandingPage } from "../pages/LandingPage";
-import { ErrorPage } from "../pages/ErrorPage";
-import { TournamentPage } from "../pages/TournamentPage";
+
 
 export const router = createBrowserRouter([
   {

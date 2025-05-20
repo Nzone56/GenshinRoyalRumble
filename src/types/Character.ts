@@ -1,0 +1,15 @@
+export type VisionType = "Anemo" | "Geo" | "Electro" | "Dendro" | "Hydro"| "Pyro" | "Cryo"
+export type NationType = "Mondstadt" | "Liyue" | "Inazuma" | "Sumeru" | "Fontaine"| "Natlan" | "Snezhnaya"
+export type WeaponType = "Sword" | "Claymore" | "Bow" | "Polearm" | "Catalyst"
+export type GenderType = "Male" | "Female"
+export type RarityType = 5 | 4
+export interface PreviewCharacter {
+  id: string,
+  name: string,
+  gender: GenderType,
+  vision: VisionType,
+  nation: NationType,
+  weapon: WeaponType, 
+  rarity: RarityType,
+
+}
