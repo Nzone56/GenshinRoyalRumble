@@ -7,7 +7,7 @@ export const useTournamentForm = () => {
   const [formConfig, setFormConfig] = useState<TornamentConfig>({
     name: "",
     type: "League",
-    characters: [],
+    characters: ["albedo"],
     categories: [],
   });
 

@@ -9,6 +9,8 @@ import { CharacterCard } from "./components/CharacterCard";
 export const TournamentSetup = () => {
   const { formConfig, characters, handleChangeForm } = useTournamentForm();
 
+  console.log(formConfig.characters)
+  console.log(formConfig.characters.findIndex((item) => item === characters[0].id))
   return (
     <div className="flex flex-col items-center h-screen max-w-screen pt-20">
       <h1 className="text-6xl">GENSHIN ROYAL RUMBLE </h1>
@@ -25,12 +27,7 @@ export const TournamentSetup = () => {
         />
         {/* TYPE */}
         <FormLabel htmlFor="tournament_type">Tournament Type</FormLabel>
-        <FormSelect
-          id="tournament_type"
-          name="type"
-          value={formConfig.type}
-          onChange={handleChangeForm}
-        >
+        <FormSelect id="tournament_type" name="type" value={formConfig.type} onChange={handleChangeForm}>
           {tournametTypes.map((type) => (
             <option id={type} key={type} value={type} disabled={type !== "League"}>
               {type}
@@ -42,7 +39,13 @@ export const TournamentSetup = () => {
         <div id="tournament_characters" className="flex flex-col items-center">
           <CharactersFilters />
           <div className="flex items-center justify-center flex-wrap gap-4 p-4">
-            {characters?.map((char) => <CharacterCard key={char.id} character={char} />)}
+            {characters?.map((char) => (
+              <CharacterCard
+                key={char.id}
+                character={char}
+                isSelected={formConfig.characters.findIndex((item) => item === char.id) !== -1}
+              />
+            ))}
           </div>
         </div>
         <label>Categories</label>

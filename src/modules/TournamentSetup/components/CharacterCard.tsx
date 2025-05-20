@@ -4,17 +4,24 @@ import STAR from "@assets/images/icons/star-fill.svg";
 
 type CharacterCardProps = {
   character: PreviewCharacter;
+  isSelected: boolean,
 };
 
-export const CharacterCard = ({ character }: CharacterCardProps) => {
+export const CharacterCard = ({ character, isSelected }: CharacterCardProps) => {
   const visionImages = getVisionImages();
   const weaponImages = getWeaponImages();
   const nationImages = getNationImages();
 
   const nationIcon = nationImages[character.nation.toLowerCase()] || nationImages["unknown"];
 
+  console.log(isSelected)
   return (
-    <div className="relative bg-gray-700 flex-grow flex-shrink-0 basis-[200px] max-w-[250px] p-3 rounded cursor-pointer overflow-hidden">
+    <div 
+      className={`relative bg-gray-700 flex-grow flex-shrink-0 basis-[200px] max-w-[250px] p-3 rounded cursor-pointer overflow-hidden  border-transparent
+      hover:border-[#98b6e1] border-3
+        ${isSelected ? 'border-[#98b6e1]' : ''} transition-colors duration-300`}
+    > 
+    
       <div
         className="absolute inset-0 bg-center bg-contain bg-no-repeat opacity-10"
         style={{ backgroundImage: `url(${nationIcon})`, backgroundSize: "50% auto" }}
