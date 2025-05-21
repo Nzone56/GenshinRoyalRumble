@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
-import type { PreviewCharacter } from "@mytypes/Character";
 import { fetchCharacters } from "@helpers/fetchCharacters";
-import type { CategoryType, TournamentConfig } from "@mytypes/config";
 import { generateId } from "@helpers/generators";
+import type { PreviewCharacter } from "@mytypes/Character";
+import type { TournamentConfig } from "@mytypes/config";
+import { useCallback, useEffect, useState } from "react";
 
 const initialCategory = {
   name: "",
@@ -15,11 +15,11 @@ export const useTournamentForm = () => {
     name: "",
     type: "League",
     characters: [],
-    categories: [],
+    categories: [{ id: generateId(), ...initialCategory }],
   });
 
   const [characters, setCharacters] = useState<PreviewCharacter[]>([]);
-  const [categories, setCategories] = useState<CategoryType[]>([{ id: generateId(), ...initialCategory }]);
+
   const [disabledAdd, setDisabledAdd] = useState(false);
   const [disabledSubmit, setDisabledSubmit] = useState(true);
   
@@ -52,7 +52,7 @@ export const useTournamentForm = () => {
 
   const handleChangeCategory = useCallback((event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>, index: number) => {
     const { name, type, value } = event.target;
-    const newCategories = [...categories];
+    const newCategories = [...formConfig.categories];
 
     if (type === "checkbox") {
       const checked = (event.target as HTMLInputElement).checked;
@@ -77,15 +77,15 @@ export const useTournamentForm = () => {
       newCategories[index] = { ...newCategories[index], [name]: value};
     }
 
-    setCategories(newCategories);
-  }, [categories]);
+    setFormConfig(prev => ({...prev, categories: newCategories}));
+  }, [formConfig.categories]);
   
   const handleAddCategory = useCallback(() => {
-    const newCategories = [...categories];
+    const newCategories = [...formConfig.categories];
     newCategories.push({ id: generateId(), ...initialCategory });
 
-    setCategories(newCategories);
-  }, [categories]);
+    setFormConfig(prev => ({...prev, categories: newCategories}));
+  }, [formConfig.categories]);
 
   const handleStartTorunament = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -110,11 +110,11 @@ export const useTournamentForm = () => {
   // Watch if we can enable add Category, only when the previus are filled
   useEffect(() => {
     setDisabledAdd(
-      !categories
+      !formConfig.categories
         .map((category) => Object.values(category).every((value) => value !== ""))
         .every((category) => category),
     );
-  }, [categories]);
+  }, [formConfig.categories]);
 
   // Manage form submit button
   useEffect(() => {
@@ -132,7 +132,6 @@ export const useTournamentForm = () => {
   return {
     formConfig,
     characters,
-    categories,
     handleChangeForm,
     handleAddCharacter,
     handleAddGroupCard,

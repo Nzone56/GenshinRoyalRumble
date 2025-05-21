@@ -9,7 +9,6 @@ export const TournamentSetup = () => {
   const {
     formConfig,
     characters,
-    categories,
     handleChangeForm,
     handleAddCharacter,
     handleAddGroupCard,
@@ -38,15 +37,15 @@ export const TournamentSetup = () => {
         <SelectType value={formConfig.type} onChange={handleChangeForm} />
         {/* CATEGORIES */}
         <InputCategories
-          categories={categories}
+          categories={formConfig.categories}
           disabledAdd={disabledAdd}
           handleAddCategory={handleAddCategory}
           handleChangeCategory={handleChangeCategory}
         />
         {/* CHARACTERS */}
         <AccordionCharacters
-          formCharacters={formConfig.characters}
           characters={characters}
+          formCharacters={formConfig.characters}
           handleAddGroupCard={handleAddGroupCard}
           handleAddCharacter={handleAddCharacter}
         />

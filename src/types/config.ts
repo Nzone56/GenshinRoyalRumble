@@ -3,7 +3,7 @@ export interface TournamentConfig {
   name: string;
   type: TournamentType;
   characters: string[];
-  categories: string[];
+  categories: CategoryType[];
 }
 
 export interface CategoryType {

@@ -33,6 +33,7 @@ export const InputCategories = memo(({ categories, disabledAdd, handleChangeCate
                 checked={categories[index].native}
                 onChange={(e) => handleChangeCategory(e, index)}
               />
+              {/* TODO: RETHINK ABOUT THE NATIVE VALUES  */}
               {categories[index].native ? (
                 <FormSelect
                   id="tournament_type"
@@ -56,7 +57,7 @@ export const InputCategories = memo(({ categories, disabledAdd, handleChangeCate
                   required
                 />
               )}
-
+                {/* TODO: CREATE A CHECK THAT MAKES EVERY WIEGHT VALUE 10  */}
               <FormInput
                 id={`tournament_category_${category.id}_weight`}
                 name={`weight`}
