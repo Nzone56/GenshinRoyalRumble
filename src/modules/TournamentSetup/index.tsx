@@ -25,7 +25,7 @@ export const TournamentSetup = () => {
   return (
     <div className="fade-in flex flex-col items-center h-screen max-w-screen ">
       <div className="my-10">
-        <h1 className="text-5xl">GENSHIN ROYAL RUMBLE </h1>
+        <h3 className="text-3xl">CREATE YOUR TOURNAMENT</h3>
       </div>
       <form
         className="flex flex-col items-center justify-center max-w-6xl min-w-3xl rounded-lg p-4 gap-4"

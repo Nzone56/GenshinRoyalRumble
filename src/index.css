@@ -66,7 +66,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1 {
+h1, h2, h3, h4, h5 {
   font-weight: 700;
   font-family: "HoyoDrip", "Hoyo", Roboto, Arial, sans-serif;
 }
