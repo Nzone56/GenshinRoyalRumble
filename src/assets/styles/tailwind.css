@@ -12,14 +12,34 @@
     background-size: 1.25rem 1.25rem;
     padding-right: 2.5rem;
   }
+}
 
-  .btn-primary {
-    @apply bg-blue-600 
-      text-white 
-      px-4 
-      py-2 
-      rounded 
-      hover:bg-blue-700 
-      transition;
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
   }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.blink {
+  animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.fade-in {
+  animation: fadeIn 2.5s ease-out forwards;
 }

@@ -1,4 +1,3 @@
-
 import { TournamentSetup } from "@modules/TournamentSetup";
 import "../assets/styles/tailwind.css";
 

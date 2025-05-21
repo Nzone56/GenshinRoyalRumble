@@ -1,31 +1,30 @@
+/// <reference types="vite-plugin-svgr/client" />
 import type { PreviewCharacter } from "@mytypes/Character";
 import { getNationImages, getVisionImages, getWeaponImages } from "@helpers/getIcons";
 import STAR from "@assets/images/icons/star-fill.svg";
+import CHECK from "@assets/images/icons/check.svg?react";
+import { Card } from "./Card";
 
 type CharacterCardProps = {
   character: PreviewCharacter;
-  isSelected: boolean,
+  isSelected: boolean;
+  handleAddCharacter: (characterId: string) => void;
 };
 
-export const CharacterCard = ({ character, isSelected }: CharacterCardProps) => {
+export const CharacterCard = ({ character, isSelected, handleAddCharacter }: CharacterCardProps) => {
   const visionImages = getVisionImages();
   const weaponImages = getWeaponImages();
   const nationImages = getNationImages();
 
   const nationIcon = nationImages[character.nation.toLowerCase()] || nationImages["unknown"];
 
-  console.log(isSelected)
   return (
-    <div 
-      className={`relative bg-gray-700 flex-grow flex-shrink-0 basis-[200px] max-w-[250px] p-3 rounded cursor-pointer overflow-hidden  border-transparent
-      hover:border-[#98b6e1] border-3
-        ${isSelected ? 'border-[#98b6e1]' : ''} transition-colors duration-300`}
-    > 
-    
+    <Card isSelected={isSelected} onClick={() => handleAddCharacter(character.id)}>
       <div
         className="absolute inset-0 bg-center bg-contain bg-no-repeat opacity-10"
         style={{ backgroundImage: `url(${nationIcon})`, backgroundSize: "50% auto" }}
       />
+      {isSelected && <CHECK className="absolute -top-2 -left-2 w-4 h-4 fill-blue-500" />}
       <div className="relative z-10 flex justify-between">
         <div className="flex">
           <img src={visionImages[character.vision.toLowerCase()]} className="w-5" />
@@ -43,6 +42,6 @@ export const CharacterCard = ({ character, isSelected }: CharacterCardProps) => 
       </div>
 
       <span className="relative z-10">{character.name}</span>
-    </div>
+    </Card>
   );
 };

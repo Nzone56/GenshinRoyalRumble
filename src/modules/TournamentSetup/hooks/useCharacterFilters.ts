@@ -1,19 +1,8 @@
 // src/hooks/useCharacterFilters.ts
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { genders, nations, rarities, visions, weapons } from "../variables/SetupVariables";
-
-export interface FiltersType {
-  gender: string;
-  vision: string;
-  nation: string;
-  weapon: string;
-  rarity: string;
-}
-
-export interface FiltersSelect {
-  name: keyof FiltersType;
-  variable: string[] | number[];
-}
+import type { FiltersSelect, FiltersType } from "@mytypes/Filters";
+import type { PreviewCharacter } from "@mytypes/Character";
 
 export const filtersSelects: FiltersSelect[] = [
   { name: "gender", variable: genders },
@@ -23,14 +12,21 @@ export const filtersSelects: FiltersSelect[] = [
   { name: "rarity", variable: rarities },
 ];
 
-export const useCharacterFilters = () => {
-  const [filters, setFilters] = useState<FiltersType>({
-    gender: "",
-    vision: "",
-    nation: "",
-    weapon: "",
-    rarity: "",
-  });
+const initialFilters: FiltersType = {
+  gender: "",
+  vision: "",
+  nation: "",
+  weapon: "",
+  rarity: "",
+};
+
+type useCharacterFiltersProps = {
+  characters: PreviewCharacter[];
+};
+
+export const useCharacterFilters = ({ characters }: useCharacterFiltersProps) => {
+  const [filters, setFilters] = useState<FiltersType>(initialFilters);
+  const [filteredCharacters, setFilteredCharacters] = useState([...characters]);
 
   const handleChangeFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -40,10 +36,30 @@ export const useCharacterFilters = () => {
     }));
   };
 
+  const handleResetFilters = () => {
+    setFilters(initialFilters);
+  };
+
+  useEffect(() => {
+    setFilteredCharacters(() => {
+      return characters.filter((character) => {
+        return Object.entries(filters).every(([key, value]) => {
+          if (value === "") return true;
+          if (key === "rarity") {
+            return character[key] === Number(value);
+          }
+          return character[key as keyof PreviewCharacter] === value;
+        });
+      });
+    });
+  }, [filters, characters]);
+
   return {
     filters,
+    filteredCharacters,
     filtersSelects,
     handleChangeFilter,
+    handleResetFilters,
     setFilters,
   };
 };

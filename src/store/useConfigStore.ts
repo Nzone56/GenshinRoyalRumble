@@ -1,19 +1,10 @@
+import type { TournamentConfig } from "@mytypes/config";
 import { create } from "zustand";
 
-type TournamentType = "League" | "RoundRobin" | "Elimination" | "GroupsElimination" | "Sides";
-export interface TornamentConfig {
-  name: string;
-  type: TournamentType;
-  characters: string[];
-  categories: string[];
-}
-
-interface TornamentConfigStore extends TornamentConfig {
+interface TornamentConfigStore extends TournamentConfig {
   //Setters
-  setName: (name: string) => void;
-  setType: (type: TournamentType) => void;
-  setCharacters: (characters: string[]) => void;
-  setCategories: (categories: string[]) => void;
+  setConfig: (config: TournamentConfig) => void;
+  reset: () => void;
 }
 
 export const useConfigStore = create<TornamentConfigStore>((set) => ({
@@ -22,9 +13,13 @@ export const useConfigStore = create<TornamentConfigStore>((set) => ({
   characters: [],
   categories: [],
 
-  //Setters
-  setName: (name: string) => set({ name }),
-  setType: (type: TournamentType) => set({ type }),
-  setCharacters: (characters: string[]) => set({ characters }),
-  setCategories: (categories: string[]) => set({ categories }),
+  setConfig: (config) => set(config),
+
+  reset: () =>
+    set({
+      name: "",
+      type: "League",
+      characters: [],
+      categories: [],
+    }),
 }));
