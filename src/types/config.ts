@@ -5,3 +5,10 @@ export interface TournamentConfig {
   characters: string[];
   categories: string[];
 }
+
+export interface CategoryType {
+  id: string;
+  name: string;
+  weight: string;
+  native: boolean;
+}

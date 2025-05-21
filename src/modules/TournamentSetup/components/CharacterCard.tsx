@@ -4,6 +4,7 @@ import { getNationImages, getVisionImages, getWeaponImages } from "@helpers/getI
 import STAR from "@assets/images/icons/star-fill.svg";
 import CHECK from "@assets/images/icons/check.svg?react";
 import { Card } from "./Card";
+import { memo } from "react";
 
 type CharacterCardProps = {
   character: PreviewCharacter;
@@ -11,13 +12,13 @@ type CharacterCardProps = {
   handleAddCharacter: (characterId: string) => void;
 };
 
-export const CharacterCard = ({ character, isSelected, handleAddCharacter }: CharacterCardProps) => {
-  const visionImages = getVisionImages();
-  const weaponImages = getWeaponImages();
-  const nationImages = getNationImages();
+const visionImages = getVisionImages();
+const weaponImages = getWeaponImages();
+const nationImages = getNationImages();
+
+export const CharacterCard = memo(({ character, isSelected, handleAddCharacter }: CharacterCardProps) => {
 
   const nationIcon = nationImages[character.nation.toLowerCase()] || nationImages["unknown"];
-
   return (
     <Card isSelected={isSelected} onClick={() => handleAddCharacter(character.id)}>
       <div
@@ -44,4 +45,4 @@ export const CharacterCard = ({ character, isSelected, handleAddCharacter }: Cha
       <span className="relative z-10">{character.name}</span>
     </Card>
   );
-};
+});

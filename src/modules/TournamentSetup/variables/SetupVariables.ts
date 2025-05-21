@@ -10,6 +10,12 @@ export const tournametTypes = [
   "Sides"
 ]
 
+export const nativeCategories = [
+  "HP", 
+  "ATK",
+  "DEF", 
+]
+
 export const visions: VisionType[] = [
   "Anemo", 
   "Geo", 
@@ -43,3 +49,5 @@ export const rarities: RarityType[] = [
   5,
   4
 ]
+
+

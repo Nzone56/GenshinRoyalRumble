@@ -43,3 +43,24 @@
 .fade-in {
   animation: fadeIn 2.5s ease-out forwards;
 }
+
+.custom-characters-scrollbar {
+  @apply overflow-y-auto;
+  scrollbar-width: thin;
+  scrollbar-color: #4B5563 #1F2937; /* Firefox: thumb & track */
+}
+
+.custom-characters-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.custom-characters-scrollbar::-webkit-scrollbar-track {
+  @apply bg-gray-800 rounded;
+}
+
+.custom-characters-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-gray-600 rounded;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
