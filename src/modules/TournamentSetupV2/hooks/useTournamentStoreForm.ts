@@ -1,0 +1,172 @@
+import { fetchCharacters } from "@helpers/fetchCharacters";
+import { generateId } from "@helpers/generators";
+import type { TournamentType } from "@mytypes/config";
+import { useConfigStore } from "@store/useConfigStore";
+import { useCallback, useEffect, useState } from "react";
+
+const initialCategory = {
+  name: "",
+  weight: "",
+  native: false,
+};
+
+export const useTournamentStoreForm = () => {
+  const {
+    name,
+    type,
+    characters,
+    categories,
+    setName,
+    setType,
+    setCharacters,
+    setCategories,
+    reset,
+    loading,
+    setLoading,
+    charactersList,
+    setCharactersList,
+  } = useConfigStore();
+
+  const [disabledAdd, setDisabledAdd] = useState(false);
+  const [disabledSubmit, setDisabledSubmit] = useState(true);
+
+  // Change the form for name
+  const handleChangeName = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const value = event.target.value.slice(0, 20);
+      setName(value);
+    },
+    [setName],
+  );
+
+  // Change the form for type
+  const handleChangeType = useCallback(
+    (selecterType: TournamentType) => {
+      setType(selecterType);
+    },
+    [setType],
+  );
+
+  // Change the form for Characters
+  const handleAddCharacter = useCallback(
+    (id: string) => {
+      const isSelected = characters.includes(id);
+      if (isSelected) {
+        setCharacters(characters.filter((item: string) => item !== id));
+      } else {
+        setCharacters([...characters, id]);
+      }
+    },
+    [characters, setCharacters],
+  );
+
+  // Change the form for Categories
+  const handleChangeCategory = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>, index: number) => {
+      const { name, type, value } = event.target;
+      const newCategories = [...categories];
+
+      if (type === "checkbox") {
+        const checked = (event.target as HTMLInputElement).checked;
+        newCategories[index] = {
+          ...newCategories[index],
+          [name]: checked,
+          name: "", // reset name on checkbox toggle
+        };
+      } else if (type === "number" && name === "weight") {
+        if (value === "") {
+          newCategories[index] = { ...newCategories[index], [name]: value };
+        } else {
+          let num = parseFloat(value);
+          if (isNaN(num)) return;
+          if (num < 0) num = 0;
+          if (num > 10) num = 10;
+          num = Math.round(num * 10) / 10;
+          newCategories[index] = { ...newCategories[index], [name]: String(num) };
+        }
+      } else {
+        newCategories[index] = { ...newCategories[index], [name]: value };
+      }
+
+      setCategories(newCategories);
+    },
+    [categories, setCategories],
+  );
+
+  // Function that adds multiple characters from the same group
+  // If the group is "all" it will add all characters
+  const handleAddGroupCard = useCallback(
+    (id: string) => {
+      if (id === "all") {
+        if (characters.length === charactersList.length) {
+          setCharacters([]);
+        } else {
+          setCharacters(charactersList.map((char) => char.id));
+        }
+      }
+    },
+    [characters, charactersList, setCharacters],
+  );
+
+  // Function that adds a new category
+  const handleAddCategory = useCallback(() => {
+    const newCategories = [...categories, { id: generateId(), ...initialCategory }];
+    setCategories(newCategories);
+  }, [categories, setCategories]);
+
+  // Finish setup and start the tournament
+  const handleStartTournament = () => {
+    console.log({ name, type, characters, categories });
+  };
+
+  // Fetch Characters
+  useEffect(() => {
+    const loadCharacters = async () => {
+      if (charactersList.length > 0) {
+        setLoading(false);
+        return;
+      }
+      try {
+        const data = await fetchCharacters();
+        setCharactersList(data);
+      } catch (err) {
+        console.error("Error loading characters", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadCharacters();
+    //eslint-disable-next-line
+  }, []);
+
+  // Watch if we can enable "Add Category"
+  useEffect(() => {
+    const canAdd = categories.every((category) => Object.values(category).every((value) => value !== ""));
+    setDisabledAdd(!canAdd);
+  }, [categories]);
+
+  // Watch if we can enable submit
+  useEffect(() => {
+    const canSubmit = name.trim() !== "" && characters.length >= 4 && categories.length >= 1 && !disabledAdd;
+    setDisabledSubmit(!canSubmit);
+  }, [name, characters, categories, disabledAdd]);
+
+  return {
+    name: name,
+    type: type,
+    characters: characters,
+    categories: categories,
+    charactersList,
+    handleChangeName,
+    handleChangeType,
+    handleAddCharacter,
+    handleAddGroupCard,
+    handleAddCategory,
+    handleChangeCategory,
+    handleStartTournament,
+    disabledAdd,
+    disabledSubmit,
+    loading,
+    reset,
+  };
+};

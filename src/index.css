@@ -58,15 +58,18 @@ body {
   font-family: "Hoyo", Roboto, Arial, sans-serif;
   background-color: var(--background-color) !important;
   color: var(--text-color) !important;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2 {
   font-weight: 700;
   font-family: "HoyoDrip", "Hoyo", Roboto, Arial, sans-serif;
 }

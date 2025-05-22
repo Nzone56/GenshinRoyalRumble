@@ -51,7 +51,7 @@ export const TournamentSetup = () => {
         />
         <button
           type="submit"
-          disabled={disabledSubmit} // tu lógica aquí
+          disabled={disabledSubmit}
           className="w-full max-w-xs px-6 py-2 bg-gray-700 text-white font-semibold rounded-xl shadow-md transition duration-200 ease-in-out active:scale-95 cursor-pointer
                      hover:bg-gray-600 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none"
         >

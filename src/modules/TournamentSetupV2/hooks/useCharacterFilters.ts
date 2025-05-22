@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { genders, nations, rarities, visions, weapons } from "../variables/SetupVariables";
 import type { FiltersSelect, FiltersType } from "@mytypes/Filters";
 import type { PreviewCharacter } from "@mytypes/Character";
-import { useTournamentStoreForm } from "@modules/TournamentSetupV2/hooks/useTournamentStoreForm";
 
 export const filtersSelects: FiltersSelect[] = [
   { name: "gender", variable: genders },
@@ -21,11 +20,13 @@ const initialFilters: FiltersType = {
   rarity: "",
 };
 
-export const useCharacterFilters = () => {
-  const { charactersList } = useTournamentStoreForm();
+type useCharacterFiltersProps = {
+  characters: PreviewCharacter[];
+};
 
+export const useCharacterFilters = ({ characters }: useCharacterFiltersProps) => {
   const [filters, setFilters] = useState<FiltersType>(initialFilters);
-  const [filteredCharacters, setFilteredCharacters] = useState([...charactersList]);
+  const [filteredCharacters, setFilteredCharacters] = useState([...characters]);
 
   const handleChangeFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -41,7 +42,7 @@ export const useCharacterFilters = () => {
 
   useEffect(() => {
     setFilteredCharacters(() => {
-      return charactersList.filter((character) => {
+      return characters.filter((character) => {
         return Object.entries(filters).every(([key, value]) => {
           if (value === "") return true;
           if (key === "rarity") {
@@ -51,7 +52,7 @@ export const useCharacterFilters = () => {
         });
       });
     });
-  }, [filters, charactersList]);
+  }, [filters, characters]);
 
   return {
     filters,

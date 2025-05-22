@@ -1,9 +1,26 @@
-type TournamentType = "League" | "RoundRobin" | "Elimination" | "GroupsElimination" | "Sides";
+import type { PreviewCharacter } from "./Character";
+
+export type TournamentType =
+  | "League" // Home and away league format, all teams play each other twice
+  | "RoundRobin" // Single round-robin, each team plays each other once
+  | "Elimination" // Knockout bracket, direct elimination
+  | "GroupsElimination" // Group stage followed by knockout rounds (like Champions League/World Cup)
+  | "Swiss" // Swiss system tournament format
+  | "DoubleElimination" // Double elimination format
+  | "RegionalGroups"; // Large regional group stage with different paths to next roundsase de grupos por regiones con pases diferenciados
+
+export interface TournamentTypeOption {
+  label: string;
+  value: TournamentType;
+  icon: string;
+}
 export interface TournamentConfig {
   name: string;
   type: TournamentType;
   characters: string[];
   categories: CategoryType[];
+  loading: boolean;
+  charactersList: PreviewCharacter[];
 }
 
 export interface CategoryType {
