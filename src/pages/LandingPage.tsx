@@ -3,13 +3,13 @@ import { useSectionScroll } from "@hooks/useSectionScroll";
 import "../assets/styles/tailwind.css";
 import { WelcomeBanner } from "@modules/TournamentIntroduction/components/WelcomeBanner";
 import { TournamentInstructions } from "@modules/TournamentIntroduction/components/TournamentInstructions";
-import { TournamentSetupV2 } from "@modules/TournamentSetupV2";
+import { TournamentSetup } from "@modules/TournamentSetup";
 import { LoadingLogo } from "@components/ui/LoadingLogo";
-import { useTournamentStoreForm } from "@modules/TournamentSetupV2/hooks/useTournamentStoreForm";
+import { useTournamentStoreForm } from "@modules/TournamentSetup/hooks/useTournamentStoreForm";
 
 export const LandingPage = () => {
   const { loading } = useTournamentStoreForm();
-  const sections = [<WelcomeBanner />, <TournamentInstructions />, <TournamentSetupV2 />];
+  const sections = [<WelcomeBanner />, <TournamentInstructions />, <TournamentSetup />];
 
   const containerRef = useSectionScroll(!loading ? sections.length : 0, 500);
 

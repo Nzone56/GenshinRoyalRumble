@@ -1,5 +1,5 @@
-import { useTournamentStoreForm } from "@modules/TournamentSetupV2/hooks/useTournamentStoreForm";
-import { tournamentOptions } from "@modules/TournamentSetupV2/variables/SetupVariables";
+import { useTournamentStoreForm } from "@modules/TournamentSetup/hooks/useTournamentStoreForm";
+import { tournamentOptions } from "@modules/TournamentSetup/variables/SetupVariables";
 import { memo } from "react";
 import { evaluationTypes } from "../EvaluationTypeSlide.tsx/EvaluationTypeVariables";
 

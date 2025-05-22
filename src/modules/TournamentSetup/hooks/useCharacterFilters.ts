@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { genders, nations, rarities, visions, weapons } from "../variables/SetupVariables";
 import type { FiltersSelect, FiltersType } from "@mytypes/Filters";
 import type { PreviewCharacter } from "@mytypes/Character";
-import { useTournamentStoreForm } from "@modules/TournamentSetupV2/hooks/useTournamentStoreForm";
+import { useTournamentStoreForm } from "@modules/TournamentSetup/hooks/useTournamentStoreForm";
 
 export const filtersSelects: FiltersSelect[] = [
   { name: "gender", variable: genders },

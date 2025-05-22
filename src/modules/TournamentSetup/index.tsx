@@ -1,63 +1,82 @@
-import { LoadingLogo } from "@components/ui/LoadingLogo";
-import { useTournamentForm } from "./hooks/useTournamentForm";
-import { InputName } from "./components/form-config/InputName";
-import { SelectType } from "./components/form-config/SelectType";
-import { AccordionCharacters } from "./components/form-config/AccordionCharacters";
-import { InputCategories } from "./components/form-config/InputCategories";
+/// <reference types="vite-plugin-svgr/client" />
+import LCHEVRON from "@assets/images/icons/left-chevron.svg?react";
+import RCHEVRON from "@assets/images/icons/right-chevron.svg?react";
+import { useState } from "react";
+import { CategoriesSlide } from "./components/CategoriesSlide";
+import { NameSlide } from "./components/NameSlide";
+import { useTournamentStoreForm } from "./hooks/useTournamentStoreForm";
+import { TypeSlide } from "./components/TypeSlide";
+import { CharactersSlide } from "./components/CharactersSlide";
+import { EvaluationTypeSlide } from "./components/EvaluationTypeSlide.tsx";
+import { SummarySlide } from "./components/SummarySlide/index.tsx";
+
+const slides = [
+  <NameSlide key="name" />,
+  <TypeSlide key="type" />,
+  <EvaluationTypeSlide key="evaluation" />,
+  <CategoriesSlide key="categories" />,
+  <CharactersSlide key="characters" />,
+  <SummarySlide key="summary" />,
+];
+
+const SECTIONS = slides.length;
+const NAME_SLIDE_INDEX = slides.findIndex((slide) => slide.key === "name");
+const TYPE_SLIDE_INDEX = slides.findIndex((slide) => slide.key === "type");
+const EVALUATION_SLIDE_INDEX = slides.findIndex((slide) => slide.key === "evaluation");
+const CATEGORIES_SLIDE_INDEX = slides.findIndex((slide) => slide.key === "categories");
+const CHARACTERS_SLIDE_INDEX = slides.findIndex((slide) => slide.key === "characters");
 
 export const TournamentSetup = () => {
-  const {
-    formConfig,
-    characters,
-    handleChangeForm,
-    handleAddCharacter,
-    handleAddGroupCard,
-    handleAddCategory,
-    handleChangeCategory,
-    handleStartTorunament,
-    disabledAdd,
-    disabledSubmit,
-    loading,
-  } = useTournamentForm();
+  const [activeIndex, setActiveIndex] = useState(0);
+  const { name, type, evaluationType, charactersValidation, disabledAdd } = useTournamentStoreForm();
 
-  if (loading) return <LoadingLogo />;
+  const handleNext = () => {
+    if (activeIndex < SECTIONS - 1) setActiveIndex(activeIndex + 1);
+  };
+
+  const handlePrev = () => {
+    if (activeIndex > 0) setActiveIndex(activeIndex - 1);
+  };
 
   return (
-    <div className="fade-in flex flex-col items-center h-screen max-w-screen ">
-      <div className="my-10">
-        <h3 className="text-3xl">CREATE YOUR TOURNAMENT</h3>
-      </div>
-      <form
-        className="flex flex-col items-center justify-center max-w-6xl min-w-3xl rounded-lg p-4 gap-4"
-        onSubmit={handleStartTorunament}
+    <div className="relative w-screen h-screen overflow-hidden bg-gray-950 text-white">
+      {/* CARROUSEL */}
+      <div
+        className="flex transition-transform duration-700 ease-in-out h-full"
+        style={{ transform: `translateX(-${activeIndex * 100}vw)` }}
       >
-        {/* NAME */}
-        <InputName value={formConfig.name} onChange={handleChangeForm} />
-        {/* TYPE */}
-        <SelectType value={formConfig.type} onChange={handleChangeForm} />
-        {/* CATEGORIES */}
-        <InputCategories
-          categories={formConfig.categories}
-          disabledAdd={disabledAdd}
-          handleAddCategory={handleAddCategory}
-          handleChangeCategory={handleChangeCategory}
-        />
-        {/* CHARACTERS */}
-        <AccordionCharacters
-          characters={characters}
-          formCharacters={formConfig.characters}
-          handleAddGroupCard={handleAddGroupCard}
-          handleAddCharacter={handleAddCharacter}
-        />
+        {slides.map((Slide, index) => (
+          <div key={index} className="min-w-screen flex items-center justify-center p-6 px-16">
+            {Slide}
+          </div>
+        ))}
+      </div>
+
+      {/* LEFT ARROW */}
+      {activeIndex !== 0 && (
         <button
-          type="submit"
-          disabled={disabledSubmit}
-          className="w-full max-w-xs px-6 py-2 bg-gray-700 text-white font-semibold rounded-xl shadow-md transition duration-200 ease-in-out active:scale-95 cursor-pointer
-                     hover:bg-gray-600 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none"
+          onClick={handlePrev}
+          className="cursor-pointer absolute left-4 top-1/2 transform -translate-y-1/2 disabled:opacity-30 disabled:cursor-not-allowed"
         >
-          Create Tournament
+          <LCHEVRON className="w-14 h-14 fill-slate-300" />
         </button>
-      </form>
+      )}
+      {/* RIGHT ARROW */}
+      {activeIndex !== SECTIONS - 1 && (
+        <button
+          onClick={handleNext}
+          disabled={
+            (activeIndex === TYPE_SLIDE_INDEX && type !== "League") ||
+            (activeIndex === NAME_SLIDE_INDEX && name === "") ||
+            (activeIndex === EVALUATION_SLIDE_INDEX && evaluationType !== "random") ||
+            (activeIndex === CATEGORIES_SLIDE_INDEX && disabledAdd) ||
+            (activeIndex === CHARACTERS_SLIDE_INDEX && !charactersValidation.isValid)
+          }
+          className="cursor-pointer absolute right-4 top-1/2 transform -translate-y-1/2 disabled:opacity-30 disabled:cursor-not-allowed"
+        >
+          <RCHEVRON className="w-14 h-14 fill-slate-300" />
+        </button>
+      )}
     </div>
   );
 };

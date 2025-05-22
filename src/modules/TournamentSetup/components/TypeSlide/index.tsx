@@ -1,7 +1,7 @@
-import { useTournamentStoreForm } from "@modules/TournamentSetupV2/hooks/useTournamentStoreForm";
+import { useTournamentStoreForm } from "@modules/TournamentSetup/hooks/useTournamentStoreForm";
 import { memo } from "react";
 import { TypeCard } from "./TypeCard";
-import { tournamentOptions } from "@modules/TournamentSetupV2/variables/SetupVariables";
+import { tournamentOptions } from "@modules/TournamentSetup/variables/SetupVariables";
 import { TypePreview } from "./TypePreview";
 
 export const TypeSlide = memo(() => {
