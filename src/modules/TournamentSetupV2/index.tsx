@@ -3,23 +3,32 @@ import LCHEVRON from "@assets/images/icons/left-chevron.svg?react";
 import RCHEVRON from "@assets/images/icons/right-chevron.svg?react";
 import { useState } from "react";
 import { CategoriesSlide } from "./components/CategoriesSlide";
-
 import { NameSlide } from "./components/NameSlide";
 import { useTournamentStoreForm } from "./hooks/useTournamentStoreForm";
 import { TypeSlide } from "./components/TypeSlide";
 import { CharactersSlide } from "./components/CharactersSlide";
+import { EvaluationTypeSlide } from "./components/EvaluationTypeSlide.tsx";
+import { SummarySlide } from "./components/SummarySlide/index.tsx";
 
-const SECTIONS = 4;
 const slides = [
   <NameSlide key="name" />,
   <TypeSlide key="type" />,
+  <EvaluationTypeSlide key="evaluation" />,
   <CategoriesSlide key="categories" />,
   <CharactersSlide key="characters" />,
+  <SummarySlide key="summary" />,
 ];
+
+const SECTIONS = slides.length;
+const NAME_SLIDE_INDEX = slides.findIndex((slide) => slide.key === "name");
+const TYPE_SLIDE_INDEX = slides.findIndex((slide) => slide.key === "type");
+const EVALUATION_SLIDE_INDEX = slides.findIndex((slide) => slide.key === "evaluation");
+const CATEGORIES_SLIDE_INDEX = slides.findIndex((slide) => slide.key === "categories");
+const CHARACTERS_SLIDE_INDEX = slides.findIndex((slide) => slide.key === "characters");
 
 export const TournamentSetupV2 = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const { handleStartTournament, disabledSubmit } = useTournamentStoreForm();
+  const { name, type, evaluationType, charactersValidation, disabledAdd } = useTournamentStoreForm();
 
   const handleNext = () => {
     if (activeIndex < SECTIONS - 1) setActiveIndex(activeIndex + 1);
@@ -44,35 +53,29 @@ export const TournamentSetupV2 = () => {
       </div>
 
       {/* LEFT ARROW */}
-      <button
-        onClick={handlePrev}
-        disabled={activeIndex === 0}
-        className="cursor-pointer absolute left-4 top-1/2 transform -translate-y-1/2 disabled:opacity-30 disabled:cursor-not-allowed"
-      >
-        <LCHEVRON className="w-14 h-14 fill-slate-300" />
-      </button>
-
+      {activeIndex !== 0 && (
+        <button
+          onClick={handlePrev}
+          className="cursor-pointer absolute left-4 top-1/2 transform -translate-y-1/2 disabled:opacity-30 disabled:cursor-not-allowed"
+        >
+          <LCHEVRON className="w-14 h-14 fill-slate-300" />
+        </button>
+      )}
       {/* RIGHT ARROW */}
-      <button
-        onClick={handleNext}
-        disabled={activeIndex === SECTIONS - 1}
-        className="cursor-pointer absolute right-4 top-1/2 transform -translate-y-1/2 disabled:opacity-30 disabled:cursor-not-allowed"
-      >
-        <RCHEVRON className="w-14 h-14 fill-slate-300" />
-      </button>
-
-      {/* SUBMIT BUTTON   */}
-      {activeIndex === SECTIONS - 1 && (
-        <div className="absolute bottom-10 w-full flex justify-center">
-          <button
-            type="button"
-            disabled={disabledSubmit}
-            onClick={handleStartTournament}
-            className="px-8 py-3 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-white font-semibold disabled:bg-gray-400 disabled:cursor-not-allowed"
-          >
-            Create Tournament
-          </button>
-        </div>
+      {activeIndex !== SECTIONS - 1 && (
+        <button
+          onClick={handleNext}
+          disabled={
+            (activeIndex === TYPE_SLIDE_INDEX && type !== "League") ||
+            (activeIndex === NAME_SLIDE_INDEX && name === "") ||
+            (activeIndex === EVALUATION_SLIDE_INDEX && evaluationType !== "random") ||
+            (activeIndex === CATEGORIES_SLIDE_INDEX && disabledAdd) ||
+            (activeIndex === CHARACTERS_SLIDE_INDEX && !charactersValidation.isValid)
+          }
+          className="cursor-pointer absolute right-4 top-1/2 transform -translate-y-1/2 disabled:opacity-30 disabled:cursor-not-allowed"
+        >
+          <RCHEVRON className="w-14 h-14 fill-slate-300" />
+        </button>
       )}
     </div>
   );

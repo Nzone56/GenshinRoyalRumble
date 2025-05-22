@@ -9,6 +9,12 @@ export type TournamentType =
   | "DoubleElimination" // Double elimination format
   | "RegionalGroups"; // Large regional group stage with different paths to next roundsase de grupos por regiones con pases diferenciados
 
+export type EvaluationType = "manual" | "total" | "random";
+export type EvaluationTypeOption = {
+  key: EvaluationType,
+  name: string,
+  description: string,
+}
 export interface TournamentTypeOption {
   label: string;
   value: TournamentType;
@@ -17,6 +23,7 @@ export interface TournamentTypeOption {
 export interface TournamentConfig {
   name: string;
   type: TournamentType;
+  evaluationType: EvaluationType;
   characters: string[];
   categories: CategoryType[];
   loading: boolean;

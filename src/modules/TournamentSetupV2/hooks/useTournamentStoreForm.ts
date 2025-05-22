@@ -1,8 +1,9 @@
 import { fetchCharacters } from "@helpers/fetchCharacters";
 import { generateId } from "@helpers/generators";
-import type { TournamentType } from "@mytypes/config";
+import type { EvaluationType, TournamentType } from "@mytypes/config";
 import { useConfigStore } from "@store/useConfigStore";
 import { useCallback, useEffect, useState } from "react";
+import { charactersValidationRules } from "../variables/SetupVariables";
 
 const initialCategory = {
   name: "",
@@ -16,20 +17,24 @@ export const useTournamentStoreForm = () => {
     type,
     characters,
     categories,
+    reset,
+    loading,
+    charactersList,
+    evaluationType,
     setName,
     setType,
     setCharacters,
     setCategories,
-    reset,
-    loading,
     setLoading,
-    charactersList,
     setCharactersList,
+    setEvaluationType,
   } = useConfigStore();
 
   const [disabledAdd, setDisabledAdd] = useState(false);
-  const [disabledSubmit, setDisabledSubmit] = useState(true);
-
+  const [charactersValidation, setCharactersValidation] = useState<{ isValid: boolean; message: string }>({
+    isValid: true,
+    message: "",
+  });
   // Change the form for name
   const handleChangeName = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,8 +98,16 @@ export const useTournamentStoreForm = () => {
     [categories, setCategories],
   );
 
-  // Function that adds multiple characters from the same group
-  // If the group is "all" it will add all characters
+  // Change the form for Evaluation Type
+  const handleChangeEvaluation = useCallback(
+    (type: EvaluationType) => {
+      setEvaluationType(type);
+    },
+    [setEvaluationType],
+  );
+
+  /* Function that adds multiple characters from the same group
+  If the group is "all" it will add all characters */
   const handleAddGroupCard = useCallback(
     (id: string) => {
       if (id === "all") {
@@ -112,6 +125,12 @@ export const useTournamentStoreForm = () => {
   const handleAddCategory = useCallback(() => {
     const newCategories = [...categories, { id: generateId(), ...initialCategory }];
     setCategories(newCategories);
+  }, [categories, setCategories]);
+
+  const handleDeleteCategory = useCallback((index: number) => {
+    const updated = [...categories];
+    updated.splice(index, 1);
+    setCategories(updated);
   }, [categories, setCategories]);
 
   // Finish setup and start the tournament
@@ -145,28 +164,38 @@ export const useTournamentStoreForm = () => {
     setDisabledAdd(!canAdd);
   }, [categories]);
 
-  // Watch if we can enable submit
+  // Validate if we have enough characters depending of the selected tournament type 
   useEffect(() => {
-    const canSubmit = name.trim() !== "" && characters.length >= 4 && categories.length >= 1 && !disabledAdd;
-    setDisabledSubmit(!canSubmit);
-  }, [name, characters, categories, disabledAdd]);
+    const validator = charactersValidationRules[type];
+    if (!validator) {
+      setCharactersValidation({ isValid: false, message: "Unknown tournament type." });
+      return;
+    }
 
+    const result = validator(characters.length);
+    setCharactersValidation(result);
+  }, [characters, type]);
+
+  
   return {
-    name: name,
-    type: type,
-    characters: characters,
-    categories: categories,
+    name,
+    type,
+    characters,
+    categories,
     charactersList,
+    loading,
+    evaluationType,
     handleChangeName,
     handleChangeType,
+    handleChangeEvaluation,
     handleAddCharacter,
     handleAddGroupCard,
     handleAddCategory,
+    handleDeleteCategory,
     handleChangeCategory,
     handleStartTournament,
     disabledAdd,
-    disabledSubmit,
-    loading,
+    charactersValidation,
     reset,
   };
 };

@@ -1,5 +1,6 @@
 import { memo } from "react";
-import NEW from "@assets/images/icons/new.svg";
+import NEW from "@assets/images/icons/new.svg?react";
+import DELETE from "@assets/images/icons/xmark.svg?react";
 import { FormCheck } from "@components/form/FormCheck";
 import { FormInput } from "@components/form/FormInput";
 import { nativeCategories } from "@modules/TournamentSetup/variables/SetupVariables";
@@ -7,19 +8,24 @@ import { FormSelect } from "@components/form/FormSelect";
 import { useTournamentStoreForm } from "../../hooks/useTournamentStoreForm";
 
 export const CategoriesSlide = memo(() => {
-  const { categories, disabledAdd, handleChangeCategory, handleAddCategory } = useTournamentStoreForm();
+  const { categories, disabledAdd, handleChangeCategory, handleAddCategory, handleDeleteCategory } = useTournamentStoreForm();
 
   return (
-    <div className="flex flex-col items-center mb-5">
-      <h3 className="mb-2 text-3xl">Categories</h3>
+    <div className="flex flex-col items-center gap-10 mb-5 text-center justify-center h-full animate-fade-in px-8">
+      <h3 className="text-4xl font-semibold text-white">NOW CHOOSE THE EVALUATION CATEGORIES</h3>
+      <p className="leading-loose text-lg max-w-3xl text-gray-300 ">
+        Now, choose how matches will be evaluated in your tournament.
+        <span className="text-amber-400"> Each method offers distinct rules and strategic depth</span>, so pick the one
+        that best matches your vision for the competition!
+      </p>
       <div>
         <div className="flex gap-4 mb-2">
           <span className="w-[calc(65px)] text-center">Native</span>
           <span className="flex-1">Name</span>
-          <span className="w-[100px]">Weight</span>
+          <span className="w-[140px]">Weight</span>
         </div>
         {categories.map((category, index) => (
-          <div key={category.id} className="flex gap-4 mb-4">
+          <div key={category.id} className="flex items-center gap-4 mb-4">
             <FormCheck
               id={`tournament_category_${category.id}_native`}
               name={`native`}
@@ -59,23 +65,24 @@ export const CategoriesSlide = memo(() => {
               min="0"
               max="10"
               step="0.1"
-              sizeClass="w-[100px]"
+              sizeClass="w-[70px]"
               className=""
               value={categories[index].weight}
               placeholder=""
               onChange={(e) => handleChangeCategory(e, index)}
               required
             />
+            {
+              index !== 0 && <DELETE className="w-4 h-4 fill-amber-500 cursor-pointer" onClick={() => handleDeleteCategory(index)}/>
+            }
           </div>
         ))}
       </div>
-      <img
-        src={NEW}
-        alt="Agregar categoría"
-        className={`w-6 h-6 p-1 rounded-full shadow-md transition-transform duration-200 ${
+      <NEW
+        className={`w-6 h-6 p-1 rounded-full shadow-md transition-transform duration-200 mt-0${
           disabledAdd
-            ? "bg-gray-400 cursor-not-allowed opacity-50"
-            : "bg-gray-700 hover:bg-gray-800 cursor-pointer hover:scale-110"
+            ? "fill-gray-300 cursor-not-allowed opacity-50"
+            : "fill-amber-500 hover:bg-amber-500 cursor-pointer hover:scale-110"
         }`}
         onClick={!disabledAdd ? handleAddCategory : undefined}
       />
