@@ -11,7 +11,6 @@ export const useTournamentCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const { name, type, evaluationType, charactersValidation, disabledAdd } = useTournamentStoreForm();
 
-
   const slides = [
     <NameSlide key="name" />,
     <TypeSlide key="type" />,

@@ -4,6 +4,7 @@ import type { EvaluationType, TournamentType } from "@mytypes/config";
 import { useConfigStore } from "@store/useConfigStore";
 import { useCallback, useEffect, useState } from "react";
 import { charactersValidationRules } from "../variables/SetupVariables";
+import { useNavigate } from "react-router";
 
 const initialCategory = {
   name: "",
@@ -35,6 +36,8 @@ export const useTournamentStoreForm = () => {
     isValid: true,
     message: "",
   });
+  const navigate = useNavigate();
+
   // Change the form for name
   const handleChangeName = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -135,7 +138,7 @@ export const useTournamentStoreForm = () => {
 
   // Finish setup and start the tournament
   const handleStartTournament = () => {
-    console.log({ name, type, characters, categories });
+    navigate("/tournament");
   };
 
   // Fetch Characters
