@@ -1,5 +1,5 @@
 import type { GenderType, NationType, RarityType, VisionType, WeaponType } from "@mytypes/Character";
-import type { TournamentTypeOption } from "@mytypes/config";
+import type { TournamentTypeOption } from "@mytypes/Config";
 
 export const tournamentOptions = <TournamentTypeOption[]>[
   { label: "League Format", value: "League", icon: "league" },

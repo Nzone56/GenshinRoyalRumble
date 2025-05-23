@@ -1,8 +1,14 @@
+import { restrictAccess } from "@helpers/authLoader";
+import { TournamentLayout } from "@layouts/TournamentLayout";
 import { ErrorPage } from "@pages/ErrorPage";
 import { LandingPage } from "@pages/LandingPage";
-import { TournamentPage } from "@pages/TournamentPage";
+import { TournamentCategories } from "@pages/TournamentCategories";
+import { TournamentCharacters } from "@pages/TournamentCharacters";
+import { TournamentHome } from "@pages/TournamentHome";
+import { TournamentSettings } from "@pages/TournamentSettings";
+import { TournamentStats } from "@pages/TournamentStats";
+import { TournamentTable } from "@pages/TournamentTable";
 import { createBrowserRouter } from "react-router-dom";
-
 
 export const router = createBrowserRouter([
   {
@@ -11,8 +17,38 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/tournament",
-    element: <TournamentPage />,
+    element: <TournamentLayout />,
     errorElement: <ErrorPage />,
+    loader: restrictAccess,
+    children: [
+      {
+        path: "/tournament/home",
+        element: <TournamentHome />,
+      },
+      {
+        path: "/tournament/table",
+        element: <TournamentTable />,
+      },
+      {
+        path: "/tournament/stats",
+        element: <TournamentStats />,
+      },
+      {
+        path: "/tournament/characters",
+        element: <TournamentCharacters />,
+      },
+      {
+        path: "/tournament/categories",
+        element: <TournamentCategories />,
+      },
+      {
+        path: "/tournament/settings",
+        element: <TournamentSettings />,
+      },
+    ],
+  },
+  {
+
+   
   },
 ]);

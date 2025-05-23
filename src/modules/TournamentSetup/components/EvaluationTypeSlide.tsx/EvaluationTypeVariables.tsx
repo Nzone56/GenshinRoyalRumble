@@ -1,4 +1,4 @@
-import type { EvaluationTypeOption } from "@mytypes/config";
+import type { EvaluationTypeOption } from "@mytypes/Config";
 
 export const evaluationTypes: EvaluationTypeOption[]  = [
   {

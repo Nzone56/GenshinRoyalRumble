@@ -1,4 +1,4 @@
-import type { TournamentType, TournamentTypeOption } from "@mytypes/config";
+import type { TournamentType, TournamentTypeOption } from "@mytypes/Config";
 import LEAGUE from "@assets/images/icons/tournament/league.svg?react";
 import ROUNDROBIN from "@assets/images/icons/tournament/round-robin.svg?react";
 import ELIMINATION from "@assets/images/icons/tournament/knockout.svg?react";

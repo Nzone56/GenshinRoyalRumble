@@ -1,6 +1,6 @@
 import { fetchCharacters } from "@helpers/fetchCharacters";
 import { generateId } from "@helpers/generators";
-import type { EvaluationType, TournamentType } from "@mytypes/config";
+import type { EvaluationType, TournamentType } from "@mytypes/Config";
 import { useConfigStore } from "@store/useConfigStore";
 import { useCallback, useEffect, useState } from "react";
 import { charactersValidationRules } from "../variables/SetupVariables";
@@ -138,7 +138,8 @@ export const useTournamentStoreForm = () => {
 
   // Finish setup and start the tournament
   const handleStartTournament = () => {
-    navigate("/tournament");
+    localStorage.setItem("Tournament", JSON.stringify({id: generateId(), name, type, characters, categories, evaluationType}));
+    navigate("/tournament/home");
   };
 
   // Fetch Characters

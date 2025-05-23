@@ -1,5 +1,5 @@
 import { useTournamentStoreForm } from "@modules/TournamentSetup/hooks/useTournamentStoreForm";
-import type { EvaluationTypeOption } from "@mytypes/config";
+import type { EvaluationTypeOption } from "@mytypes/Config";
 
 type EvaluationTypeCardProps =  {
   type: EvaluationTypeOption

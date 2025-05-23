@@ -26,6 +26,9 @@ export interface TournamentConfig {
   evaluationType: EvaluationType;
   characters: string[];
   categories: CategoryType[];
+}
+
+export interface TournamentConfigManagement extends TournamentConfig {
   loading: boolean;
   charactersList: PreviewCharacter[];
 }

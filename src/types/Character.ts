@@ -11,5 +11,16 @@ export interface PreviewCharacter {
   nation: NationType,
   weapon: WeaponType, 
   rarity: RarityType,
+}
+
+export interface Character extends PreviewCharacter{
+  title: string;
+  description: string;
+  images: {
+    card: string;
+    icon: string;
+    iconside: string;
+    portrait: string;
+  }
 
 }
