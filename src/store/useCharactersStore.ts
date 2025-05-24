@@ -16,15 +16,13 @@ export const useCharactersStore = create<CharactersStore>((set) => ({
   charactersData: {},
   selectedCharacterIndex: 0,
   loading: false,
-  
+
   setCharactersData: (characters: Character[]) => {
     const data = Object.fromEntries(characters.map((c) => [c.id, c]));
     set({ charactersData: data });
   },
 
   setSelectedCharacterIndex: (index: number) => set({ selectedCharacterIndex: index }),
-
   setLoading: (loading: boolean) => set({ loading }),
-
   resetCharactersData: () => set({ charactersData: {}, selectedCharacterIndex: 0 }),
 }));

@@ -23,10 +23,7 @@ const isPowerOfTwo = (n: number) => (n & (n - 1)) === 0 && n !== 0;
 const isEven = (n: number) => n % 2 === 0;
 const isMultipleOf = (n: number, factor: number) => n % factor === 0;
 
-export const charactersValidationRules: Record<
-  string,
-  (count: number) => { isValid: boolean; message: string }
-> = {
+export const charactersValidationRules: Record<string, (count: number) => { isValid: boolean; message: string }> = {
   League: (count) => {
     if (count < 4) return { isValid: false, message: "Minimum 4 players required." };
     if (!isEven(count)) return { isValid: false, message: "Number must be even (4, 6, 8...)." };
@@ -48,18 +45,15 @@ export const charactersValidationRules: Record<
     return { isValid: true, message: "" };
   },
   GroupsElimination: (count) => {
-    if (count < 8 || !isEven(count))
-      return { isValid: false, message: "Minimum 8 players, and must be even." };
+    if (count < 8 || !isEven(count)) return { isValid: false, message: "Minimum 8 players, and must be even." };
     return { isValid: true, message: "" };
   },
   Swiss: (count) => {
-    if (count < 4)
-      return { isValid: false, message: "Minimum 4 players required." };
+    if (count < 4) return { isValid: false, message: "Minimum 4 players required." };
     return { isValid: true, message: "" };
   },
   RegionalGroups: (count) => {
-    if (count < 8 || !isMultipleOf(count, 4))
-      return { isValid: false, message: "Must be 8, 16, 32 (multiples of 4)." };
+    if (count < 8 || !isMultipleOf(count, 4)) return { isValid: false, message: "Must be 8, 16, 32 (multiples of 4)." };
     return { isValid: true, message: "" };
   },
 };

@@ -1,11 +1,13 @@
 import { fetchCharacter, preloadCharacterImages } from "@helpers/fetchCharacters";
 import { useCharactersStore } from "@store/useCharactersStore";
+import { useCharactersStatsStore } from "@store/useCharacterStatsStore";
 import { useTournamentStore } from "@store/useTournamentStore";
 import { useCallback, useEffect } from "react";
 
 export const useTournament = () => {
   const { id, config, loading, setTournament, setLoading } = useTournamentStore();
   const { charactersData, setCharactersData } = useCharactersStore();
+  const { categories, setCategoryValue, setInitialCharacterStatsData } = useCharactersStatsStore();
 
   const getTournament = useCallback(() => {
     const storagedTournament = localStorage.getItem("Tournament");
@@ -15,7 +17,7 @@ export const useTournament = () => {
       setTournament(id, rest);
     }
   }, [setTournament]);
-  
+
   // Get Tournament
   useEffect(() => {
     if (!id) {
@@ -29,21 +31,29 @@ export const useTournament = () => {
     const loadCharacters = async () => {
       try {
         setLoading(true);
-        const characters = await Promise.all(
-          config.characters.map((id) => fetchCharacter(id))
-        );
+        const characters = await Promise.all(config.characters.map((id) => fetchCharacter(id)));
         setCharactersData(characters);
+        setInitialCharacterStatsData(
+          characters,
+          config.categories.map((cat) => cat.name),
+        );
       } catch (error) {
         console.error("Error loading characters", error);
       } finally {
         setLoading(false);
       }
     };
-    if(Object.keys(charactersData).length === 0){
+    if (Object.keys(charactersData).length === 0) {
       loadCharacters();
     }
-  }, [config.characters, charactersData, setCharactersData, setLoading]);
-
+  }, [
+    config.characters,
+    config.categories,
+    charactersData,
+    setCharactersData,
+    setLoading,
+    setInitialCharacterStatsData,
+  ]);
 
   useEffect(() => {
     if (config.characters.length > 0) {
@@ -55,7 +65,9 @@ export const useTournament = () => {
     id,
     loading,
     config,
+    categories,
+    setCategoryValue,
     tournamentName: config.name,
-    characters: charactersData
+    characters: charactersData,
   };
 };

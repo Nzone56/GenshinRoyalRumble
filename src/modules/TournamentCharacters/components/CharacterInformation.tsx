@@ -8,7 +8,7 @@ import POINSF from "@assets/images/icons/stats/points-favor.svg?react";
 import POINSA from "@assets/images/icons/stats/points-against.svg?react";
 import DIFFP from "@assets/images/icons/stats/diff-points.svg?react";
 import { MatchPreview } from "./MatchPreview";
-import type { Match } from "@mytypes/Tournament";
+import type { CharacterStats, Match } from "@mytypes/Tournament";
 
 export const CharacterInformation = () => {
   const { currentCharacter } = useCharacter();
@@ -24,7 +24,7 @@ export const CharacterInformation = () => {
     losses: LOOSES,
   };
 
-  const placeholderStats = {
+  const placeholderStats: CharacterStats = {
     position: 2,
     battles: 10,
     wins: 5,

@@ -8,7 +8,8 @@ import { FormSelect } from "@components/form/FormSelect";
 import { useTournamentStoreForm } from "../../hooks/useTournamentStoreForm";
 
 export const CategoriesSlide = memo(() => {
-  const { categories, disabledAdd, handleChangeCategory, handleAddCategory, handleDeleteCategory } = useTournamentStoreForm();
+  const { categories, disabledAdd, handleChangeCategory, handleAddCategory, handleDeleteCategory } =
+    useTournamentStoreForm();
 
   return (
     <div className="flex flex-col items-center gap-10 mb-5 text-center justify-center h-full animate-fade-in px-8">
@@ -50,6 +51,7 @@ export const CategoriesSlide = memo(() => {
             ) : (
               <FormInput
                 id={`tournament_category_${category.id}_name`}
+                className="p-2.5"
                 name={`name`}
                 value={categories[index].name}
                 placeholder=""
@@ -66,15 +68,14 @@ export const CategoriesSlide = memo(() => {
               max="10"
               step="0.1"
               sizeClass="w-[70px]"
-              className=""
+              className="p-2.5"
               value={categories[index].weight}
-              placeholder=""
               onChange={(e) => handleChangeCategory(e, index)}
               required
             />
-            {
-              index !== 0 && <DELETE className="w-4 h-4 fill-amber-500 cursor-pointer" onClick={() => handleDeleteCategory(index)}/>
-            }
+            {index !== 0 && (
+              <DELETE className="w-4 h-4 fill-amber-500 cursor-pointer" onClick={() => handleDeleteCategory(index)} />
+            )}
           </div>
         ))}
       </div>

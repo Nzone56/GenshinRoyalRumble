@@ -28,7 +28,7 @@ export const CharacterSelector = ({ setNextAnimation, setPrevAnimation }: props)
       <button className="cursor-pointer" onClick={prevSlide} disabled={loading} aria-label="Previous Character">
         <LCHEVRON className={iconsStyles} />
       </button>
-      <span className="text-xl w-[200px] px-4">{currentCharacter?.name}</span>
+      <span className="text-xl w-[275px] px-4">{currentCharacter?.name}</span>
       <button className="cursor-pointer" onClick={nextSlide} disabled={loading} aria-label="Next Character">
         <RCHEVRON className={iconsStyles} />
       </button>

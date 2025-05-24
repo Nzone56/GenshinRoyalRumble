@@ -1,3 +1,5 @@
+import type { CharacterStats } from "./Tournament";
+
 export type VisionType = "Anemo" | "Geo" | "Electro" | "Dendro" | "Hydro" | "Pyro" | "Cryo";
 export type NationType = "Mondstadt" | "Liyue" | "Inazuma" | "Sumeru" | "Fontaine" | "Natlan" | "Snezhnaya";
 export type WeaponType = "Sword" | "Claymore" | "Bow" | "Polearm" | "Catalyst";
@@ -21,5 +23,14 @@ export interface Character extends PreviewCharacter {
     icon: string;
     iconside: string;
     portrait: string;
+  };
+}
+
+export interface TournamentCharacter {
+  id: string;
+  name: string;
+  stats: CharacterStats;
+  categories: {
+    [key: string]: number;
   };
 }

@@ -14,3 +14,14 @@ export interface Match {
   awayPoints: number;
   mathcweek: number;
 }
+
+export interface CharacterStats {
+  position: number;
+  battles: number;
+  wins: number;
+  draws: number;
+  pointsF: number;
+  pointsA: number;
+  diffP: number;
+  losses: number;
+}

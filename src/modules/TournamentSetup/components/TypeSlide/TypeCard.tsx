@@ -14,8 +14,7 @@ type TypeCardProps = {
 };
 
 export const TypeCard = ({ type, handleSelectType, isSelected }: TypeCardProps) => {
-
-  const iconClasses = `${isSelected ? "fill-amber-400" : "fill-gray-200"} w-8 h-8 mb-2`
+  const iconClasses = `${isSelected ? "fill-amber-400" : "fill-gray-200"} w-8 h-8 mb-2`;
   const TypeIcons = {
     league: <LEAGUE className={iconClasses} />,
     roundRobin: <ROUNDROBIN className={iconClasses} />,

@@ -24,30 +24,29 @@ export const useTournamentStore = create<TornamentConfigStore>((set) => ({
         weight: "",
         native: false,
       },
-    
     ],
   },
   loading: false,
 
-  setTournament: (id: string, config: TournamentConfig) => set({id, config}),
-  setLoading: (loading: boolean ) => set({ loading }),
-  reset: () => set(({
-    id: "",
-    config: {
-      name: "",
-      type: "League",
-      characters: [],
-      evaluationType: "random",
-      categories: [
-        {
-          id: generateId(),
-          name: "",
-          weight: "",
-          native: false,
-        },
-      
-      ],
-    },
-    loading: false
-  })),
+  setTournament: (id: string, config: TournamentConfig) => set({ id, config }),
+  setLoading: (loading: boolean) => set({ loading }),
+  reset: () =>
+    set({
+      id: "",
+      config: {
+        name: "",
+        type: "League",
+        characters: [],
+        evaluationType: "random",
+        categories: [
+          {
+            id: generateId(),
+            name: "",
+            weight: "",
+            native: false,
+          },
+        ],
+      },
+      loading: false,
+    }),
 }));

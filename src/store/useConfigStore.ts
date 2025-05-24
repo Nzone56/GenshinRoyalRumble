@@ -1,6 +1,12 @@
 import { generateId } from "@helpers/generators";
 import type { PreviewCharacter } from "@mytypes/Character";
-import type { CategoryType, EvaluationType, TournamentConfig, TournamentConfigManagement, TournamentType } from "@mytypes/Config";
+import type {
+  CategoryType,
+  EvaluationType,
+  TournamentConfig,
+  TournamentConfigManagement,
+  TournamentType,
+} from "@mytypes/Config";
 import { create } from "zustand";
 
 interface TornamentConfigStore extends TournamentConfigManagement {
@@ -12,7 +18,7 @@ interface TornamentConfigStore extends TournamentConfigManagement {
   setCategories: (categories: CategoryType[]) => void;
   setLoading: (state: boolean) => void;
   setCharactersList: (list: PreviewCharacter[]) => void;
-  setEvaluationType: (evaluation: EvaluationType) => void,
+  setEvaluationType: (evaluation: EvaluationType) => void;
   reset: () => void;
 }
 
@@ -41,13 +47,14 @@ export const useConfigStore = create<TornamentConfigStore>((set) => ({
   setCharactersList: (charactersList: PreviewCharacter[]) => set({ charactersList }),
   setEvaluationType: (evaluationType: EvaluationType) => set({ evaluationType }),
 
-  reset: () => set((state) => ({
-    name: "",
-    type: "League",
-    evaluationType: "random",
-    characters: [],
-    categories: [],
-    loading: false,
-    charactersList: state.charactersList,
-  })),
+  reset: () =>
+    set((state) => ({
+      name: "",
+      type: "League",
+      evaluationType: "random",
+      characters: [],
+      categories: [],
+      loading: false,
+      charactersList: state.charactersList,
+    })),
 }));

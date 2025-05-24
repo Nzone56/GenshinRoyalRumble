@@ -19,7 +19,7 @@ export const NameSlide = memo(() => {
           name="name"
           value={name}
           placeholder="Ex. Teyvat League"
-          className="rounded-xl h-14 text-xl mt-12"
+          className="rounded-xl h-14 text-xl mt-12 p-2.5"
           onChange={handleChangeName}
           required
         />

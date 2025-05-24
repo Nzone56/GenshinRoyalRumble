@@ -130,15 +130,21 @@ export const useTournamentStoreForm = () => {
     setCategories(newCategories);
   }, [categories, setCategories]);
 
-  const handleDeleteCategory = useCallback((index: number) => {
-    const updated = [...categories];
-    updated.splice(index, 1);
-    setCategories(updated);
-  }, [categories, setCategories]);
+  const handleDeleteCategory = useCallback(
+    (index: number) => {
+      const updated = [...categories];
+      updated.splice(index, 1);
+      setCategories(updated);
+    },
+    [categories, setCategories],
+  );
 
   // Finish setup and start the tournament
   const handleStartTournament = () => {
-    localStorage.setItem("Tournament", JSON.stringify({id: generateId(), name, type, characters, categories, evaluationType}));
+    localStorage.setItem(
+      "Tournament",
+      JSON.stringify({ id: generateId(), name, type, characters, categories, evaluationType }),
+    );
     navigate("/tournament/home");
   };
 
@@ -168,7 +174,7 @@ export const useTournamentStoreForm = () => {
     setDisabledAdd(!canAdd);
   }, [categories]);
 
-  // Validate if we have enough characters depending of the selected tournament type 
+  // Validate if we have enough characters depending of the selected tournament type
   useEffect(() => {
     const validator = charactersValidationRules[type];
     if (!validator) {
@@ -180,7 +186,6 @@ export const useTournamentStoreForm = () => {
     setCharactersValidation(result);
   }, [characters, type]);
 
-  
   return {
     name,
     type,
