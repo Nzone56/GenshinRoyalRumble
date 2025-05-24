@@ -90,7 +90,7 @@ export const CharacterInformation = () => {
   ];
 
   return (
-    <div className="flex flex-col items-center m-12 max-w-5xl">
+    <div className="flex flex-col items-center m-12 flex-grow-1 max-w-5xl">
       <div className="flex flex-col gap-8">
         <div className="flex flex-col items-center">
           <h2 className="text-3xl font-bold text-center">{currentCharacter?.name}</h2>
