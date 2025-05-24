@@ -1,24 +1,65 @@
+import { FormSelect } from "@components/form/FormSelect";
 import { LoadingLogo } from "@components/ui/LoadingLogo";
 import { useTournament } from "@hooks/useTournament";
-import { CharacterCategoriesCard } from "@modules/TournamentCategories/components/CharacterCategoriesCard";
+import { CharacterSetup } from "@modules/TournamentCategories/components/CharacterSetup";
+import { useTournamentCategories } from "@modules/TournamentCategories/hooks/useTournamentCategories";
+import { useEffect } from "react";
 
 export const TournamentCategories = () => {
   const { config, characters, categories } = useTournament();
+  const { imgError, setImgError, loading, setLoading, selectedCharacter, handleSelectCharacter } =
+    useTournamentCategories();
 
-  console.log(categories);
+  useEffect(() => {
+    setLoading(true);
+    setImgError(false);
+
+    const img = new Image();
+    img.src = `https://genshin.jmp.blue/characters/${selectedCharacter}/gacha-card`;
+
+    img.onload = () => {
+      setLoading(false);
+    };
+
+    img.onerror = () => {
+      setImgError(true);
+      setLoading(false);
+    };
+  }, [selectedCharacter, setImgError, setLoading]);
+
+  console.log(categories.amber);
   if (Object.keys(characters).length === 0) return <LoadingLogo />;
 
   return (
     <div className="m-8">
-      <span className="text-lg">
-        Antes de empezar el torneo tienes que definir el valor de cada categoria para cada personaje{" "}
-        <span className="text-amber-400"> este valor no podra ser cambiado una vez empiece el torneo</span>
-      </span>
-      <div className="flex flex-wrap items-center justify-around m-8 gap-4">
-        {config.characters.map((characterId: string) => (
-          <CharacterCategoriesCard key={characterId} characterId={characterId} />
-        ))}
+      <div className="flex flex-col items-center justify-between mb-4 gap-4 ">
+        <p className="text-lg">
+          Before starting the tournament, you must assign a value to each category for every character.
+          <span className="text-amber-400"> This value cannot be changed once the tournament begins. </span>
+          In the selection list, characters who still need category values will be highlighted in{" "}
+          <span className="text-amber-400">amber</span>. Keep in mind that{" "}
+          <span className="text-amber-400">no value can be 0</span>.
+        </p>
+        <FormSelect
+          id="select_character_categories"
+          name="selected_character_categories"
+          value={selectedCharacter}
+          disabled={loading && !imgError}
+          onChange={handleSelectCharacter}
+        >
+          {config.characters.map((curr) => (
+            <option
+              id={characters[curr].id}
+              key={characters[curr].id}
+              value={curr}
+              className={`${Object.values(categories[curr]).every((value) => value > 0) ? "" : "text-amber-400"}`}
+            >
+              {characters[curr].name}
+            </option>
+          ))}
+        </FormSelect>
       </div>
+      {loading ? <LoadingLogo /> : <CharacterSetup imgError={imgError} selectedCharacter={selectedCharacter} />}
     </div>
   );
 };

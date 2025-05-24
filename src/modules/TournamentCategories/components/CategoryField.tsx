@@ -18,7 +18,7 @@ export const CategoryField = ({ character, category }: CategoryFieldProps) => {
 
   return (
     <div className="flex items-center justify-between p-2">
-      <span className="text-sm">
+      <span className="">
         {category.name} <span className="text-amber-400">({category.weight})</span>
       </span>
       <FormInput
@@ -28,13 +28,12 @@ export const CategoryField = ({ character, category }: CategoryFieldProps) => {
         min="0"
         max="10"
         step="0.1"
-        sizeClass="w-[70px] "
-        className="ml-2 px-2 py-1"
+        sizeClass="w-[150px] "
+        className="ml-2 p-2.5"
         disabled={false}
         value={character.categories[category.name] || 0}
         onChange={(e) => {
           let num = parseFloat(e.target.value);
-          console.log(num);
           if (isNaN(num)) return;
           if (num < 0) num = 0;
           if (num > 10) num = 10;
