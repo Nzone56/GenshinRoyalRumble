@@ -51,10 +51,16 @@ export const useCharacter = () => {
     setLoading(false);
   };
 
+  const setCharacterById = (id: string) => {
+    setSelectedCharacterIndex(characterIds.findIndex((char: string) => char === id));
+  };
+
   return {
+    charactersData,
     loading,
     setLoading,
     selectedCharacterIndex,
+    setCharacterById,
     currentCharacter,
     currentCharacterId,
     nextCharacter,

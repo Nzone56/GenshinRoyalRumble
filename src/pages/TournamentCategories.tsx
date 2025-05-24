@@ -27,7 +27,6 @@ export const TournamentCategories = () => {
     };
   }, [selectedCharacter, setImgError, setLoading]);
 
-  console.log(categories.amber);
   if (Object.keys(characters).length === 0) return <LoadingLogo />;
 
   return (
