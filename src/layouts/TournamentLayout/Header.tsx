@@ -2,10 +2,9 @@ import { useTournament } from "@hooks/useTournament";
 import { Tab } from "./Tab";
 import { useNavigate } from "react-router";
 
-
 export const Header = () => {
   const { tournamentName } = useTournament();
-  const tabs = ["Table", "Stats", "Characters", "Categories", "Settings"];
+  const tabs = ["Table", "Matches", "Characters", "Categories", "Settings"];
   const navigate = useNavigate();
 
   const goHome = () => {
