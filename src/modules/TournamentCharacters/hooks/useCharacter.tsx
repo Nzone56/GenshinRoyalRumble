@@ -1,4 +1,6 @@
 import { useTournament } from "@hooks/useTournament";
+import { useSchedule } from "@modules/TournamentMatches/hook/useSchedule";
+import type { Match } from "@mytypes/Tournament";
 import { useCharactersStore } from "@store/useCharactersStore";
 import { useCharactersStatsStore } from "@store/useCharacterStatsStore";
 import { useMemo, useState } from "react";
@@ -9,6 +11,8 @@ export const useCharacter = () => {
   const { charactersData, selectedCharacterIndex, setSelectedCharacterIndex, loading, setLoading } =
     useCharactersStore();
   const { stats } = useCharactersStatsStore();
+  const { schedule, currentRound } = useSchedule();
+
   const currentCharacterId = config.characters[selectedCharacterIndex];
 
   const [cardNotAvailable, setCardNotAvailable] = useState(false);
@@ -56,6 +60,26 @@ export const useCharacter = () => {
     setLoading(false);
   };
 
+  const getLastMatches = () => {
+    const playedRounds = schedule?.rounds.filter((r) => r.id < currentRound);
+    if (!playedRounds) return [];
+    const allMatches = playedRounds
+      .flatMap((r) => r.matches)
+      .filter((match: Match) => match?.home === currentCharacter?.id || match?.away === currentCharacter?.id);
+
+    return allMatches.slice(-3);
+  };
+
+  const getNextMatches = () => {
+    const upcomingRounds = schedule?.rounds.filter((r) => r.id >= currentRound);
+    if (!upcomingRounds) return [];
+    const allMatches = upcomingRounds
+      .flatMap((r) => r.matches)
+      .filter((match: Match) => match?.home === currentCharacter?.id || match?.away === currentCharacter?.id);
+
+    return allMatches.slice(0, 3);
+  };
+
   return {
     CharactersStats: stats,
     cardNotAvailable,
@@ -72,5 +96,7 @@ export const useCharacter = () => {
     handleNextCharacter,
     handlePrevCharacter,
     setSelectedCharacterIndex,
+    getLastMatches,
+    getNextMatches,
   };
 };

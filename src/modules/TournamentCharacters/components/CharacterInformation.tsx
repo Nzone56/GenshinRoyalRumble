@@ -8,11 +8,10 @@ import POINSF from "@assets/images/icons/stats/points-favor.svg?react";
 import POINSA from "@assets/images/icons/stats/points-against.svg?react";
 import DIFFP from "@assets/images/icons/stats/diff-points.svg?react";
 import { MatchPreview } from "./MatchPreview";
-import type { Match } from "@mytypes/Tournament";
 import { LoadingLogo } from "@components/ui/LoadingLogo";
 
 export const CharacterInformation = () => {
-  const { CharactersStats, currentCharacter } = useCharacter();
+  const { CharactersStats, currentCharacter, getLastMatches, getNextMatches } = useCharacter();
 
   const icons = {
     position: POSITION,
@@ -24,60 +23,6 @@ export const CharacterInformation = () => {
     diffP: DIFFP,
     losses: LOOSES,
   };
-
-  const placeholderLastMatches: Match[] = [
-    {
-      id: "8-1",
-      round: 8,
-      home: "albedo",
-      away: "amber",
-      homePoints: 3.14,
-      awayPoints: 2.5,
-    },
-    {
-      id: "9-1",
-      round: 9,
-      home: "amber",
-      away: "albedo",
-      homePoints: 2.4,
-      awayPoints: 2.1,
-    },
-    {
-      id: "10-1",
-      round: 10,
-      home: "albedo",
-      away: "amber",
-      homePoints: 3.14,
-      awayPoints: 3.5,
-    },
-  ];
-
-  const placeholderNextMatches: Match[] = [
-    {
-      id: "11-1",
-      round: 11,
-      home: "albedo",
-      away: "amber",
-      homePoints: 0,
-      awayPoints: 0,
-    },
-    {
-      id: "12-1",
-      round: 12,
-      home: "amber",
-      away: "albedo",
-      homePoints: 0,
-      awayPoints: 0,
-    },
-    {
-      id: "13-1",
-      round: 13,
-      home: "albedo",
-      away: "amber",
-      homePoints: 0,
-      awayPoints: 0,
-    },
-  ];
 
   return (
     <div className="flex flex-col items-center m-12 flex-grow-1 max-w-5xl">
@@ -109,7 +54,7 @@ export const CharacterInformation = () => {
               <div className="flex flex-col gap-4 mt-8">
                 <span className="text-lg text-amber-400">Last 3 Matches</span>
                 <div className="flex flex-col items-center justify-between w-full px-4 py-2 gap-4 flex-wrap bg-gray-800 rounded-lg">
-                  {placeholderLastMatches.map((match) => (
+                  {getLastMatches().map((match) => (
                     <MatchPreview key={match.id} match={match} />
                   ))}
                 </div>
@@ -117,7 +62,7 @@ export const CharacterInformation = () => {
               <div className="flex flex-col gap-4 mt-8">
                 <span className="text-lg text-amber-400">Next 3 Matches</span>
                 <div className="flex flex-col items-center justify-between w-full px-4 py-2 gap-4 flex-wrap bg-gray-800 rounded-lg">
-                  {placeholderNextMatches.map((match) => (
+                  {getNextMatches().map((match) => (
                     <MatchPreview key={match.id} match={match} />
                   ))}
                 </div>
