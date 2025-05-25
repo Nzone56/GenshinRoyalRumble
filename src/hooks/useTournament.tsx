@@ -5,8 +5,8 @@ import { useTournamentStore } from "@store/useTournamentStore";
 import { useCallback, useEffect } from "react";
 
 export const useTournament = () => {
-  const { id, config, loading, setTournament, setLoading } = useTournamentStore();
-  const { charactersData, setCharactersData } = useCharactersStore();
+  const { id, config, loading, started: tournamentStarted, setTournament, setLoading } = useTournamentStore();
+  const { charactersData, setCharactersData, hasLoadedCharacters, setHasLoadedCharacters } = useCharactersStore();
   const { categories, setCategoryValue, setInitialCharacterStatsData } = useCharactersStatsStore();
 
   const getTournament = useCallback(() => {
@@ -28,31 +28,47 @@ export const useTournament = () => {
 
   // Fetch Characters
   useEffect(() => {
+    if (hasLoadedCharacters || !config.characters?.length || Object.keys(charactersData).length > 0) {
+      return;
+    }
+
+    let cancelled = false;
+
     const loadCharacters = async () => {
       try {
         setLoading(true);
         const characters = await Promise.all(config.characters.map((id) => fetchCharacter(id)));
+
+        if (cancelled) return;
+
         setCharactersData(characters);
         setInitialCharacterStatsData(
           characters,
           config.categories.map((cat) => cat.name),
         );
+
+        setHasLoadedCharacters(true);
       } catch (error) {
         console.error("Error loading characters", error);
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     };
-    if (Object.keys(charactersData).length === 0) {
-      loadCharacters();
-    }
+
+    loadCharacters();
+
+    return () => {
+      cancelled = true;
+    };
   }, [
     config.characters,
     config.categories,
+    hasLoadedCharacters,
     charactersData,
     setCharactersData,
-    setLoading,
     setInitialCharacterStatsData,
+    setHasLoadedCharacters,
+    setLoading,
   ]);
 
   useEffect(() => {
@@ -66,6 +82,7 @@ export const useTournament = () => {
     loading,
     config,
     categories,
+    tournamentStarted,
     setCategoryValue,
     tournamentName: config.name,
     characters: charactersData,

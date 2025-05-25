@@ -3,6 +3,8 @@ import type { TournamentConfig } from "./Config";
 export interface Tournament {
   id: string;
   config: TournamentConfig;
+  started: boolean;
+  round: number;
   loading: boolean;
 }
 

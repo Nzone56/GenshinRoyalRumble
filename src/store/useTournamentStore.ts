@@ -7,6 +7,8 @@ interface TornamentConfigStore extends Tournament {
   //Setters
   setLoading: (loading: boolean) => void;
   setTournament: (id: string, config: TournamentConfig) => void;
+  setStarted: (started: boolean) => void;
+  setRound: (round: number) => void;
   reset: () => void;
 }
 
@@ -26,9 +28,13 @@ export const useTournamentStore = create<TornamentConfigStore>((set) => ({
       },
     ],
   },
+  started: false,
+  round: 1,
   loading: false,
 
   setTournament: (id: string, config: TournamentConfig) => set({ id, config }),
+  setRound: (round: number) => set({ round }),
+  setStarted: (started: boolean) => set({ started }),
   setLoading: (loading: boolean) => set({ loading }),
   reset: () =>
     set({
