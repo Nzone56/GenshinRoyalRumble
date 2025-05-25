@@ -5,5 +5,5 @@ import { HomeTutorial } from "@modules/TournamentHome/components/HomeTutorial";
 export const TournamentHome = () => {
   const { tournamentStarted } = useTournament();
 
-  return <div>{tournamentStarted ? <Home /> : <HomeTutorial />}</div>;
+  return <div className="flex flex-grow-1">{tournamentStarted ? <Home /> : <HomeTutorial />}</div>;
 };

@@ -24,7 +24,7 @@ export const RoundMatches = () => {
             className="flex justify-between items-center gap-4 p-4 rounded-xl shadow-md transition bg-gray-700"
           >
             {/* Home */}
-            <div className="flex items-center gap-2 w-1/3">
+            <div className="flex items-center gap-2 w-1/3" title={home?.name}>
               <img
                 src={home?.images?.iconside || "/placeholder.png"}
                 alt={home?.name || "Home character"}
@@ -45,7 +45,7 @@ export const RoundMatches = () => {
             </div>
 
             {/* Away */}
-            <div className="flex items-center gap-2 justify-end w-1/3">
+            <div className="flex items-center gap-2 justify-end w-1/3" title={away?.name}>
               <span className="text-white font-medium truncate text-right">{away?.name || "--"}</span>
               <img
                 src={away?.images?.iconside || "/placeholder.png"}

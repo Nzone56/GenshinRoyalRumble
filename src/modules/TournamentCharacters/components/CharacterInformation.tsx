@@ -54,9 +54,11 @@ export const CharacterInformation = () => {
               <div className="flex flex-col gap-4 mt-8">
                 <span className="text-lg text-amber-400">Last 3 Matches</span>
                 <div className="flex flex-col items-center justify-between w-full px-4 py-2 gap-4 flex-wrap bg-gray-800 rounded-lg">
-                  {getLastMatches().map((match) => (
-                    <MatchPreview key={match.id} match={match} />
-                  ))}
+                  {getLastMatches().length > 0 ? (
+                    getLastMatches().map((match) => <MatchPreview key={match.id} match={match} />)
+                  ) : (
+                    <div className="text-gray-400 italic text-sm py-4">No matches played yet.</div>
+                  )}
                 </div>
               </div>
               <div className="flex flex-col gap-4 mt-8">
