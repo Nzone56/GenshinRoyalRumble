@@ -40,8 +40,8 @@
   display: none;
 }
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .blink {
@@ -52,22 +52,21 @@
   animation: fadeIn 2.5s ease-out forwards;
 }
 
-.custom-characters-scrollbar {
+.custom-scrollbar {
   @apply overflow-y-auto;
-  scrollbar-width: thin;
-  scrollbar-color: #4B5563 #1F2937; /* Firefox: thumb & track */
+  scrollbar-color: #4b5563 #1f2937; /* Firefox: thumb & track */
 }
 
-.custom-characters-scrollbar::-webkit-scrollbar {
+.custom-scrollbar::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
-.custom-characters-scrollbar::-webkit-scrollbar-track {
+.custom-scrollbar::-webkit-scrollbar-track {
   @apply bg-gray-800 rounded;
 }
 
-.custom-characters-scrollbar::-webkit-scrollbar-thumb {
+.custom-scrollbar::-webkit-scrollbar-thumb {
   @apply bg-gray-600 rounded;
   border: 2px solid transparent;
   background-clip: content-box;

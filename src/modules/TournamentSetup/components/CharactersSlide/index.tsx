@@ -7,7 +7,8 @@ import { CharacterCard } from "./CharacterCard";
 
 export const CharactersSlide = memo(() => {
   const { filters, filtersSelects, filteredCharacters, handleChangeFilter, handleResetFilters } = useCharacterFilters();
-  const { characters, charactersList, charactersValidation, handleAddGroupCard, handleAddCharacter } = useTournamentStoreForm();
+  const { characters, charactersList, charactersValidation, handleAddGroupCard, handleAddCharacter } =
+    useTournamentStoreForm();
 
   return (
     <div className="flex flex-col items-center gap-5 mb-5 text-center justify-center h-full animate-fade-in px-8">
@@ -27,7 +28,7 @@ export const CharactersSlide = memo(() => {
           handleResetFilters={handleResetFilters}
         />
         {!charactersValidation.isValid && <span className="text-amber-400">{charactersValidation.message}</span>}
-        <div className="flex items-stretch justify-center flex-wrap gap-4 mt-4 max-h-[300px] overflow-y-auto px-2 custom-characters-scrollbar">
+        <div className="flex items-stretch justify-center flex-wrap gap-4 mt-4 max-h-[300px] overflow-y-auto px-2 custom-scrollbar">
           {Object.values(filters).every((filter) => filter === "") && (
             //TODO: Make this component for every current filter option
             <CharacterGroupCard

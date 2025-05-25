@@ -28,7 +28,7 @@ export const CharacterInformation = () => {
   const placeholderLastMatches: Match[] = [
     {
       id: "8-1",
-      mathcweek: 8,
+      round: 8,
       home: "albedo",
       away: "amber",
       homePoints: 3.14,
@@ -36,7 +36,7 @@ export const CharacterInformation = () => {
     },
     {
       id: "9-1",
-      mathcweek: 9,
+      round: 9,
       home: "amber",
       away: "albedo",
       homePoints: 2.4,
@@ -44,7 +44,7 @@ export const CharacterInformation = () => {
     },
     {
       id: "10-1",
-      mathcweek: 10,
+      round: 10,
       home: "albedo",
       away: "amber",
       homePoints: 3.14,
@@ -55,7 +55,7 @@ export const CharacterInformation = () => {
   const placeholderNextMatches: Match[] = [
     {
       id: "11-1",
-      mathcweek: 11,
+      round: 11,
       home: "albedo",
       away: "amber",
       homePoints: 0,
@@ -63,7 +63,7 @@ export const CharacterInformation = () => {
     },
     {
       id: "12-1",
-      mathcweek: 12,
+      round: 12,
       home: "amber",
       away: "albedo",
       homePoints: 0,
@@ -71,7 +71,7 @@ export const CharacterInformation = () => {
     },
     {
       id: "13-1",
-      mathcweek: 13,
+      round: 13,
       home: "albedo",
       away: "amber",
       homePoints: 0,

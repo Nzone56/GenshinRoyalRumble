@@ -14,9 +14,21 @@ export interface Match {
   away: string;
   homePoints: number;
   awayPoints: number;
-  mathcweek: number;
+  round: number;
 }
 
+export interface Round {
+  id: number;
+  title?: string;
+  matches: Match[];
+  isKnockout?: boolean;
+}
+
+export interface Schedule {
+  id: string;
+  currentRound: number;
+  rounds: Round[];
+}
 export interface CharacterStats {
   position: number;
   battles: number;

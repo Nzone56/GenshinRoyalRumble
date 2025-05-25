@@ -7,7 +7,7 @@ type MatchPreviewProps = {
 export const MatchPreview = ({ match }: MatchPreviewProps) => {
   return (
     <div className="flex flex-col items-center gap-2">
-      <span className="text-xs">{match.mathcweek}</span>
+      <span className="text-xs">{match.round}</span>
       <div className="flex items-center gap-4">
         <div className="flex flex-col items-center gap-2">
           <img src={`https://genshin.jmp.blue/characters/${match.home}/icon`} alt={match.home} className="w-12 h-12" />
