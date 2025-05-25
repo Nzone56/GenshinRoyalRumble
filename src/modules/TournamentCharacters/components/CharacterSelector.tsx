@@ -10,8 +10,15 @@ type props = {
 };
 
 export const CharacterSelector = ({ setNextAnimation, setPrevAnimation }: props) => {
-  const { charactersData, currentCharacter, loading, setLoading, setCharacterById } = useCharacter();
+  const { characterIds, charactersData, currentCharacter, loading, setLoading, setSelectedCharacterIndex } =
+    useCharacter();
   const [isEditing, setIsEditing] = useState(false);
+
+  const prevSlide = () => {
+    setLoading(true);
+    setPrevAnimation(true);
+    setNextAnimation(false);
+  };
 
   const nextSlide = () => {
     setLoading(true);
@@ -19,10 +26,10 @@ export const CharacterSelector = ({ setNextAnimation, setPrevAnimation }: props)
     setPrevAnimation(false);
   };
 
-  const prevSlide = () => {
-    setLoading(true);
-    setPrevAnimation(true);
-    setNextAnimation(false);
+  // Handles the select item from the carrousel
+  const setCharacterById = (id: string) => {
+    setSelectedCharacterIndex(characterIds.findIndex((char: string) => char === id) - 1);
+    nextSlide();
   };
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

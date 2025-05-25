@@ -16,10 +16,19 @@ export const CharacterSelectedPreview = ({
   setPrevAnimation,
 }: props) => {
   const imgStyles = "absolute h-full w-full object-fill";
-  const { currentCharacter, nextCharacter, prevCharacter, handleNextCharacter, handlePrevCharacter } = useCharacter();
+  const {
+    currentCharacter,
+    nextCharacter,
+    prevCharacter,
+    handleNextCharacter,
+    handlePrevCharacter,
+    cardNotAvailable,
+    setCardNotAvailable,
+  } = useCharacter();
 
   const incomingImgRef = useRef<HTMLImageElement>(null);
 
+  // Animation handler
   useEffect(() => {
     const node = incomingImgRef.current;
     if (!node) return;
@@ -50,11 +59,20 @@ export const CharacterSelectedPreview = ({
       )}
 
       {/* Current character */}
-      <img
-        src={currentCharacter?.images.card}
-        alt="Current Character"
-        className={`${nextAnimation ? "next-slide" : ""} ${prevAnimation ? "prev-slide" : ""} ${imgStyles}`}
-      />
+      {cardNotAvailable ? (
+        <div
+          className={`${nextAnimation ? "next-slide" : ""} ${prevAnimation ? "prev-slide" : ""} flex items-center justify-center h-full`}
+        >
+          Card not available
+        </div>
+      ) : (
+        <img
+          src={currentCharacter?.images.card}
+          onError={() => setCardNotAvailable(true)}
+          alt="Current Character"
+          className={`${nextAnimation ? "next-slide" : ""} ${prevAnimation ? "prev-slide" : ""} ${imgStyles}`}
+        />
+      )}
 
       {/* Next character */}
       {nextCharacter && (

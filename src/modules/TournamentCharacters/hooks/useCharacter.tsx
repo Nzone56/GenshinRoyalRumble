@@ -1,6 +1,6 @@
 import { useTournament } from "@hooks/useTournament";
 import { useCharactersStore } from "@store/useCharactersStore";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 export const useCharacter = () => {
   const { config } = useTournament();
@@ -9,17 +9,18 @@ export const useCharacter = () => {
     useCharactersStore();
   const currentCharacterId = config.characters[selectedCharacterIndex];
 
+  const [cardNotAvailable, setCardNotAvailable] = useState(false);
   const characterIds = config.characters;
 
   // Get the current character based on the selected index
   const currentCharacter = useMemo(() => {
-    if (!characterIds.length) return undefined;
+    if (!characterIds.length) return null;
     return charactersData[characterIds[selectedCharacterIndex]];
   }, [charactersData, characterIds, selectedCharacterIndex]);
 
   // Get the previous character based on the selected index
   const prevCharacter = useMemo(() => {
-    if (!characterIds.length) return undefined;
+    if (!characterIds.length) return null;
     let prevIndex = selectedCharacterIndex - 1;
     if (selectedCharacterIndex === 0) {
       prevIndex = characterIds.length - 1;
@@ -29,7 +30,7 @@ export const useCharacter = () => {
 
   // Get the next character based on the selected index
   const nextCharacter = useMemo(() => {
-    if (!characterIds.length) return undefined;
+    if (!characterIds.length) return null;
     let nextIndex = selectedCharacterIndex + 1;
     if (selectedCharacterIndex === characterIds.length - 1) {
       nextIndex = 0;
@@ -40,6 +41,7 @@ export const useCharacter = () => {
   // Handles the event when the user clicks on the next character button
   const handleNextCharacter = () => {
     if (characterIds.length === 0) return;
+    setCardNotAvailable(false);
     setSelectedCharacterIndex(selectedCharacterIndex === characterIds.length - 1 ? 0 : selectedCharacterIndex + 1);
     setLoading(false);
   };
@@ -47,25 +49,25 @@ export const useCharacter = () => {
   // Handles the event when the user clicks on the previous character button
   const handlePrevCharacter = () => {
     if (characterIds.length === 0) return;
+    setCardNotAvailable(false);
     setSelectedCharacterIndex(selectedCharacterIndex === 0 ? characterIds.length - 1 : selectedCharacterIndex - 1);
     setLoading(false);
   };
 
-  const setCharacterById = (id: string) => {
-    setSelectedCharacterIndex(characterIds.findIndex((char: string) => char === id));
-  };
-
   return {
+    cardNotAvailable,
+    setCardNotAvailable,
+    characterIds,
     charactersData,
     loading,
     setLoading,
     selectedCharacterIndex,
-    setCharacterById,
     currentCharacter,
     currentCharacterId,
     nextCharacter,
     prevCharacter,
     handleNextCharacter,
     handlePrevCharacter,
+    setSelectedCharacterIndex,
   };
 };
