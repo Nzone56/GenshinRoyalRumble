@@ -8,10 +8,11 @@ import POINSF from "@assets/images/icons/stats/points-favor.svg?react";
 import POINSA from "@assets/images/icons/stats/points-against.svg?react";
 import DIFFP from "@assets/images/icons/stats/diff-points.svg?react";
 import { MatchPreview } from "./MatchPreview";
-import type { CharacterStats, Match } from "@mytypes/Tournament";
+import type { Match } from "@mytypes/Tournament";
+import { LoadingLogo } from "@components/ui/LoadingLogo";
 
 export const CharacterInformation = () => {
-  const { currentCharacter } = useCharacter();
+  const { CharactersStats, currentCharacter } = useCharacter();
 
   const icons = {
     position: POSITION,
@@ -22,17 +23,6 @@ export const CharacterInformation = () => {
     pointsA: POINSA,
     diffP: DIFFP,
     losses: LOOSES,
-  };
-
-  const placeholderStats: CharacterStats = {
-    position: 2,
-    battles: 10,
-    wins: 5,
-    draws: 2,
-    pointsF: 20,
-    pointsA: 10,
-    diffP: 10,
-    losses: 3,
   };
 
   const placeholderLastMatches: Match[] = [
@@ -91,47 +81,53 @@ export const CharacterInformation = () => {
 
   return (
     <div className="flex flex-col items-center m-12 flex-grow-1 max-w-5xl">
-      <div className="flex flex-col gap-8">
-        <div className="flex flex-col items-center">
-          <h2 className="text-3xl font-bold text-center">{currentCharacter?.name}</h2>
-          <span className="text-amber-400">{currentCharacter?.title} </span>
-        </div>
-        <p>{currentCharacter?.description || "No description available"}</p>
-      </div>
-      <div>
-        <div className="flex flex-col gap-4 mt-8">
-          <span className="text-lg text-amber-400">Tournament Stats</span>
-          <div className="flex items-center justify-between w-full px-4 py-2 gap-4 flex-wrap bg-gray-800 rounded-lg">
-            {Object.entries(placeholderStats).map(([key, value]) => {
-              const Icon = icons[key as keyof typeof icons];
-              return (
-                <div key={key} className="flex items-center gap-4">
-                  <Icon className="w-4 h-4 fill-gray-950" />
-                  <span>{value}</span>
+      {currentCharacter ? (
+        <>
+          <div className="flex flex-col gap-8">
+            <div className="flex flex-col items-center">
+              <h2 className="text-3xl font-bold text-center">{currentCharacter?.name}</h2>
+              <span className="text-amber-400">{currentCharacter?.title} </span>
+            </div>
+            <p>{currentCharacter?.description || "No description available"}</p>
+          </div>
+          <div>
+            <div className="flex flex-col gap-4 mt-8">
+              <span className="text-lg text-amber-400">Tournament Stats</span>
+              <div className="flex items-center justify-between w-full px-4 py-2 gap-4 flex-wrap bg-gray-800 rounded-lg">
+                {Object.entries(CharactersStats[currentCharacter?.id]).map(([key, value]) => {
+                  const Icon = icons[key as keyof typeof icons];
+                  return (
+                    <div key={key} className="flex items-center gap-4">
+                      <Icon className="w-4 h-4 fill-gray-950" />
+                      <span>{value}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            <div className="flex justify-around w-full gap-4 mt-8">
+              <div className="flex flex-col gap-4 mt-8">
+                <span className="text-lg text-amber-400">Last 3 Matches</span>
+                <div className="flex flex-col items-center justify-between w-full px-4 py-2 gap-4 flex-wrap bg-gray-800 rounded-lg">
+                  {placeholderLastMatches.map((match) => (
+                    <MatchPreview key={match.id} match={match} />
+                  ))}
                 </div>
-              );
-            })}
-          </div>
-        </div>
-        <div className="flex justify-around w-full gap-4 mt-8">
-          <div className="flex flex-col gap-4 mt-8">
-            <span className="text-lg text-amber-400">Last 3 Matches</span>
-            <div className="flex flex-col items-center justify-between w-full px-4 py-2 gap-4 flex-wrap bg-gray-800 rounded-lg">
-              {placeholderLastMatches.map((match) => (
-                <MatchPreview key={match.id} match={match} />
-              ))}
+              </div>
+              <div className="flex flex-col gap-4 mt-8">
+                <span className="text-lg text-amber-400">Next 3 Matches</span>
+                <div className="flex flex-col items-center justify-between w-full px-4 py-2 gap-4 flex-wrap bg-gray-800 rounded-lg">
+                  {placeholderNextMatches.map((match) => (
+                    <MatchPreview key={match.id} match={match} />
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
-          <div className="flex flex-col gap-4 mt-8">
-            <span className="text-lg text-amber-400">Next 3 Matches</span>
-            <div className="flex flex-col items-center justify-between w-full px-4 py-2 gap-4 flex-wrap bg-gray-800 rounded-lg">
-              {placeholderNextMatches.map((match) => (
-                <MatchPreview key={match.id} match={match} />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+        </>
+      ) : (
+        <LoadingLogo />
+      )}
     </div>
   );
 };

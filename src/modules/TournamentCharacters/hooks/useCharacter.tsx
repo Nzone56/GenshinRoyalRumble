@@ -1,5 +1,6 @@
 import { useTournament } from "@hooks/useTournament";
 import { useCharactersStore } from "@store/useCharactersStore";
+import { useCharactersStatsStore } from "@store/useCharacterStatsStore";
 import { useMemo, useState } from "react";
 
 export const useCharacter = () => {
@@ -7,6 +8,7 @@ export const useCharacter = () => {
 
   const { charactersData, selectedCharacterIndex, setSelectedCharacterIndex, loading, setLoading } =
     useCharactersStore();
+  const { stats } = useCharactersStatsStore();
   const currentCharacterId = config.characters[selectedCharacterIndex];
 
   const [cardNotAvailable, setCardNotAvailable] = useState(false);
@@ -55,6 +57,7 @@ export const useCharacter = () => {
   };
 
   return {
+    CharactersStats: stats,
     cardNotAvailable,
     setCardNotAvailable,
     characterIds,
