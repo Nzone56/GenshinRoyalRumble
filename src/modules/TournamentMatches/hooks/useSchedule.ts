@@ -40,6 +40,7 @@ export const useSchedule = () => {
           homePoints: 0,
           awayPoints: 0,
           round: round + 1,
+          categoriesResults: [],
         });
       }
 
@@ -71,7 +72,6 @@ export const useSchedule = () => {
 
     const fullSchedule: Schedule = {
       id: `${config.name}-schedule`,
-      currentRound: 1,
       rounds: [...firstLeg, ...secondLeg],
     };
 
@@ -80,26 +80,40 @@ export const useSchedule = () => {
 
   useEffect(() => {
     if (Object.keys(config.characters).length > 1 && (!schedule || schedule.rounds.length === 0)) {
+      console.log("GEnerate Schedule");
       generateSchedule();
     }
   }, [config.characters, schedule, generateSchedule]);
 
-  const updateMatch = (roundId: number, matchId: string, updatedFields: Partial<Match>) => {
+  // const updateMatch = (roundId: number, matchId: string, updatedFields: Partial<Match>) => {
+  //   if (!schedule) return;
+  //   console.log(roundId, matchId, updatedFields)
+  //   const updatedRounds = schedule.rounds.map((round) => {
+  //     if (round.id !== roundId) return round;
+
+  //     const updatedMatches = round.matches.map((match) =>
+  //       match.id === matchId ? { ...match, ...updatedFields } : match,
+  //     );
+
+  //     return { ...round, matches: updatedMatches };
+  //   });
+  //   console.log({...schedule, rounds: updatedRounds})
+  //   // setSchedule({ ...schedule, rounds: updatedRounds });
+  // };
+
+  const updateRound = (updatedRound: Round) => {
     if (!schedule) return;
-
-    const updatedRounds = schedule.rounds.map((round) => {
-      if (round.id !== roundId) return round;
-
-      const updatedMatches = round.matches.map((match) =>
-        match.id === matchId ? { ...match, ...updatedFields } : match,
-      );
-
-      return { ...round, matches: updatedMatches };
-    });
-
-    setSchedule({ ...schedule, rounds: updatedRounds });
+  
+    const updatedRounds = schedule.rounds.map((round) =>
+      round.id === updatedRound.id ? updatedRound : round
+    );
+  
+    const updatedSchedule = { ...schedule, rounds: updatedRounds };
+    console.log(updatedSchedule);
+    setSchedule(updatedSchedule);
+    setCurrentRound(currentRound + 1)
   };
-
+  
   const markRoundAsCompleted = () => {
     if (!schedule) return;
     setCurrentRound(currentRound + 1);
@@ -114,7 +128,8 @@ export const useSchedule = () => {
     setSelectedRound,
     setLoading,
     resetSchedule,
-    updateMatch,
+    // updateMatch,
+    updateRound,
     markRoundAsCompleted,
   };
 };

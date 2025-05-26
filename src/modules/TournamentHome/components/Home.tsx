@@ -2,15 +2,20 @@ import { TablePreview } from "./TablePreview";
 import { LastFixturePreview } from "./LastFixturePreview";
 import { FixturePreview } from "./FixturePreview";
 import { StartFixture } from "./StartFixture";
-import { useState } from "react";
 import { FixtureResults } from "./SimulateFixture/FixtureResults";
+import { useMatchSimulation } from "../hooks/useMatchSimulation";
 
 export const Home = () => {
-  const [simulatingFixture, setSimulatingFixture] = useState(false);
+  const {
+    simulatingFixture,
+    handleSimulateRound,
+    handleContinueNextRound
+  } = useMatchSimulation()
+
   return (
     <div className="flex flex-col w-full m-8 gap-8">
       {simulatingFixture ? (
-        <FixtureResults />
+        <FixtureResults handleContinueNextRound={handleContinueNextRound}/>
       ) : (
         <>
           <div className="flex items-center justify-between w-full gap-8">
@@ -18,7 +23,7 @@ export const Home = () => {
             <LastFixturePreview />
           </div>
           <FixturePreview />
-          <StartFixture handleStartFixture={() => setSimulatingFixture(true)} />
+          <StartFixture handleStartFixture={handleSimulateRound} />
         </>
       )}
     </div>

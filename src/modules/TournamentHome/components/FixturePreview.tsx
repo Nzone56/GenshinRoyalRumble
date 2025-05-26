@@ -2,16 +2,14 @@ import { useTournament } from "@hooks/useTournament";
 import { useSchedule } from "@modules/TournamentMatches/hooks/useSchedule";
 
 export const FixturePreview = () => {
-  const { schedule } = useSchedule();
+  const { schedule, currentRound } = useSchedule();
   const { characters } = useTournament();
 
   if (!schedule?.rounds || schedule.rounds.length === 0) {
     return <div className="text-gray-300">No rounds available.</div>;
   }
 
-  const { currentRound, rounds } = schedule;
-
-  const nextRound = rounds[currentRound - 1];
+  const nextRound = schedule.rounds[currentRound - 1];
 
   if (!nextRound) {
     return <div className="p-6 bg-gray-800 rounded-2xl shadow-lg">No upcoming fixtures available.</div>;

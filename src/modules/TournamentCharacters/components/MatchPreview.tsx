@@ -3,9 +3,11 @@ import type { Match } from "@mytypes/Tournament";
 
 type MatchPreviewProps = {
   match: Match;
+  played: boolean;
 };
 
-export const MatchPreview = ({ match }: MatchPreviewProps) => {
+export const MatchPreview = ({ match, played }: MatchPreviewProps) => {
+  console.log(match)
   return (
     <div className="flex flex-col items-center gap-2">
       <span className="text-xs">{match.round}</span>
@@ -18,7 +20,7 @@ export const MatchPreview = ({ match }: MatchPreviewProps) => {
             className="w-12 h-12"
           />
           <span className={`${match?.homePoints > match?.awayPoints ? "text-amber-400" : ""}`}>
-            {match.homePoints || "N/A"}
+            {played ? match.homePoints : "N/A"}
           </span>
         </div>
 
@@ -30,7 +32,7 @@ export const MatchPreview = ({ match }: MatchPreviewProps) => {
             className="w-12 h-12"
           />
           <span className={`${match?.awayPoints > match?.homePoints ? "text-amber-400" : ""}`}>
-            {match.awayPoints || "N/A"}
+            {played ? match.awayPoints : "N/A"}
           </span>
         </div>
       </div>

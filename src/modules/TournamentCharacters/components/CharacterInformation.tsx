@@ -48,7 +48,7 @@ export const CharacterInformation = () => {
                   const value = charactersStats[currentCharacter?.id][key];
                   if (value === undefined) return null;
                   return (
-                    <div key={key} className="flex items-center gap-4">
+                    <div key={key} className="flex items-center gap-4" title={key}>
                       <Icon className="w-4 h-4 fill-gray-950" />
                       <span>{value}</span>
                     </div>
@@ -61,7 +61,7 @@ export const CharacterInformation = () => {
                 <span className="text-lg text-amber-400">Last 3 Matches</span>
                 <div className="flex flex-col items-center justify-between w-full px-4 py-2 gap-4 flex-wrap bg-gray-800 rounded-lg">
                   {getLastMatches().length > 0 ? (
-                    getLastMatches().map((match) => <MatchPreview key={match.id} match={match} />)
+                    getLastMatches().map((match) => <MatchPreview key={match.id} match={match} played={true} />)
                   ) : (
                     <div className="text-gray-400 italic text-sm py-4">No matches played yet.</div>
                   )}
@@ -71,7 +71,7 @@ export const CharacterInformation = () => {
                 <span className="text-lg text-amber-400">Next 3 Matches</span>
                 <div className="flex flex-col items-center justify-between w-full px-4 py-2 gap-4 flex-wrap bg-gray-800 rounded-lg">
                   {getNextMatches().map((match) => (
-                    <MatchPreview key={match.id} match={match} />
+                    <MatchPreview key={match.id} match={match} played={false}/>
                   ))}
                 </div>
               </div>

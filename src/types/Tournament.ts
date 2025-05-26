@@ -1,4 +1,4 @@
-import type { TournamentConfig } from "./Config";
+import type { TournamentConfig } from "./config";
 
 export interface Tournament {
   id: string;
@@ -8,6 +8,16 @@ export interface Tournament {
   loading: boolean;
 }
 
+export interface CategoryComparison {
+  category: string;
+  homeRaw: number;
+  awayRaw: number;
+  weight: number;
+  homeWeighted: number;
+  awayWeighted: number;
+  difference: number;
+}
+
 export interface Match {
   id: string;
   home: string;
@@ -15,6 +25,7 @@ export interface Match {
   homePoints: number;
   awayPoints: number;
   round: number;
+  categoriesResults: CategoryComparison[]
 }
 
 export interface Round {
@@ -26,7 +37,6 @@ export interface Round {
 
 export interface Schedule {
   id: string;
-  currentRound: number;
   rounds: Round[];
 }
 export interface CharacterStats {
