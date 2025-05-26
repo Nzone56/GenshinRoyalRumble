@@ -70,17 +70,17 @@ export const TableRow = ({ character, visibleColumns }: TableRowProps) => {
     },
     {
       key: "pointsF",
-      label: "GF",
+      label: "PF",
       render: () => character.pointsF,
     },
     {
       key: "pointsA",
-      label: "GA",
+      label: "PA",
       render: () => character.pointsA,
     },
     {
       key: "diffP",
-      label: "GD",
+      label: "PD",
       render: () => character.diffP,
     },
     {

@@ -10,8 +10,8 @@ export const columns: { key: TableColumn; label: string }[] = [
   { key: "wins", label: "W" },
   { key: "draws", label: "D" },
   { key: "losses", label: "L" },
-  { key: "pointsF", label: "GF" },
-  { key: "pointsA", label: "GA" },
-  { key: "diffP", label: "GD" },
+  { key: "pointsF", label: "PF" },
+  { key: "pointsA", label: "PA" },
+  { key: "diffP", label: "PD" },
   { key: "points", label: "PTS" },
 ];

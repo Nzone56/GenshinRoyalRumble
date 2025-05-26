@@ -9,7 +9,7 @@ export const TournamentLayout = () => {
   if (loading) return <LoadingLogo />;
 
   return (
-    <div className="flex flex-col p-5 text-center bg-gray-950 w-full min-h-screen gap-4">
+    <div className="relative flex flex-col p-5 text-center bg-gray-950 w-full min-h-screen gap-4">
       <Header />
       <Outlet />
     </div>

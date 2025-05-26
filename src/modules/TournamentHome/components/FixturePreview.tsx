@@ -6,17 +6,17 @@ export const FixturePreview = () => {
   const { characters } = useTournament();
 
   if (!schedule?.rounds || schedule.rounds.length === 0) {
-    return <div className="text-gray-300">No rounds available.</div>;
+    return <div className="text-gray-300 flex-grow-1 max-w-[500px]">No rounds available.</div>;
   }
 
   const nextRound = schedule.rounds[currentRound - 1];
 
   if (!nextRound) {
-    return <div className="p-6 bg-gray-800 rounded-2xl shadow-lg">No upcoming fixtures available.</div>;
+    return <div className="p-6 bg-gray-800 rounded-2xl shadow-lg flex-grow-1 max-w-[500px]">No upcoming fixtures available.</div>;
   }
 
   return (
-    <div className="p-6 bg-gray-800 rounded-2xl shadow-lg">
+    <div className="p-6 bg-gray-800 rounded-2xl shadow-lg flex-grow-1 max-w-[500px]">
       <h3 className="text-2xl  text-amber-400">Next Fixture ({nextRound.id})</h3>
       <div className="h-[320px] overflow-auto custom-scrollbar pr-2">
         {nextRound.matches.map((match) => {

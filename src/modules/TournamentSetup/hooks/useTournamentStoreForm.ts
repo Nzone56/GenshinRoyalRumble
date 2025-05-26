@@ -1,6 +1,6 @@
 import { fetchCharacters } from "@helpers/fetchCharacters";
 import { generateId } from "@helpers/generators";
-import type { EvaluationType, TournamentType } from "@mytypes/Config";
+import type { EvaluationType, TournamentType } from "@mytypes/config";
 import { useConfigStore } from "@store/useConfigStore";
 import { useCallback, useEffect, useState } from "react";
 import { charactersValidationRules } from "../variables/SetupVariables";

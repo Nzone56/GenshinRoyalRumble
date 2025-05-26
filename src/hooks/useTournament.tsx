@@ -1,6 +1,8 @@
 import { fetchCharacter } from "@helpers/fetchCharacters";
+import type { CharacterStats } from "@mytypes/Tournament";
 import { useCharactersStore } from "@store/useCharactersStore";
 import { useCharactersStatsStore } from "@store/useCharacterStatsStore";
+import { useScheduleStore } from "@store/useScheduleStore";
 import { useTournamentStore } from "@store/useTournamentStore";
 import { useCallback, useEffect } from "react";
 
@@ -15,7 +17,8 @@ export const useTournament = () => {
     setStarted,
   } = useTournamentStore();
   const { charactersData, setCharactersData, hasLoadedCharacters, setHasLoadedCharacters } = useCharactersStore();
-  const { categories, stats, setCategoryValue, setInitialCharacterStatsData } = useCharactersStatsStore();
+  const { categories, stats, setStats, setCategoryValue, setInitialCharacterStatsData } = useCharactersStatsStore();
+  const { schedule, currentRound } = useScheduleStore();
 
   const getTournament = useCallback(() => {
     const storagedTournament = localStorage.getItem("Tournament");
@@ -28,6 +31,93 @@ export const useTournament = () => {
 
   const handleStartTournament = () => {
     setStarted(!tournamentStarted);
+  };
+
+  const calculateStandings = () => {
+    if (!schedule) return [];
+  
+    // Create a fresh copy of the stats object with zeroed values
+    const newStats: Record<string, CharacterStats> = {};
+    
+    for (const id in stats) {
+      newStats[id] = {
+        position: 0,
+        battles: 0,
+        wins: 0,
+        draws: 0,
+        losses: 0,
+        pointsF: 0,
+        pointsA: 0,
+        diffP: 0,
+        points: 0,
+      };
+    }
+  
+    // Process all matches up to the current round
+    for (const round of schedule.rounds.slice(0, currentRound - 1)) {
+      for (const match of round.matches) {
+        const isPlayed =
+          match.homePoints !== null && match.awayPoints !== null;
+        if (!isPlayed) continue;
+  
+        const home = newStats[match.home];
+        const away = newStats[match.away];
+  
+        // Update battles
+        home.battles++;
+        away.battles++;
+  
+        // Update points scored and received
+        home.pointsF += match.homePoints!;
+        home.pointsA += match.awayPoints!;
+  
+        away.pointsF += match.awayPoints!;
+        away.pointsA += match.homePoints!;
+  
+        // Update results
+        if (match.homePoints! > match.awayPoints!) {
+          home.wins++;
+          away.losses++;
+        } else if (match.homePoints! < match.awayPoints!) {
+          away.wins++;
+          home.losses++;
+        } else {
+          home.draws++;
+          away.draws++;
+        }
+      }
+    }
+  
+    // Calculate diffP and points
+    const resultStats = Object.entries(newStats).map(([id, data]) => {
+      const points = data.wins * 3 + data.draws;
+      return {
+        id,
+        ...data,
+        diffP: data.pointsF - data.pointsA,
+        points,
+      };
+    });
+  
+    // Sort based on points, then diffP, then pointsF, then pointsA, then wins
+    resultStats.sort((a, b) => {
+      if (b.points !== a.points) return b.points - a.points;
+      if (b.diffP !== a.diffP) return b.diffP - a.diffP;
+      if (b.pointsF !== a.pointsF) return b.pointsF - a.pointsF;
+      if (b.pointsA !== a.pointsA) return a.pointsA - b.pointsA;
+      return b.wins - a.wins;
+    });
+  
+    // Assign positions based on sorted order
+    resultStats.forEach((entry, index) => {
+      newStats[entry.id].position = index + 1;
+      newStats[entry.id].points = entry.points;
+      newStats[entry.id].diffP = entry.diffP;
+    });
+    console.log("OLD STATS", stats)
+    console.log("NEW STATS", newStats)
+    // Update the state with new standings
+    setStats(newStats);
   };
 
   // Get Tournament
@@ -95,6 +185,7 @@ export const useTournament = () => {
     config,
     categories,
     stats,
+    calculateStandings,
     tournamentStarted,
     setCategoryValue,
     tournamentName: config.name,

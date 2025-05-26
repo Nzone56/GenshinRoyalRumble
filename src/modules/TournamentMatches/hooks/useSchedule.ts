@@ -85,22 +85,6 @@ export const useSchedule = () => {
     }
   }, [config.characters, schedule, generateSchedule]);
 
-  // const updateMatch = (roundId: number, matchId: string, updatedFields: Partial<Match>) => {
-  //   if (!schedule) return;
-  //   console.log(roundId, matchId, updatedFields)
-  //   const updatedRounds = schedule.rounds.map((round) => {
-  //     if (round.id !== roundId) return round;
-
-  //     const updatedMatches = round.matches.map((match) =>
-  //       match.id === matchId ? { ...match, ...updatedFields } : match,
-  //     );
-
-  //     return { ...round, matches: updatedMatches };
-  //   });
-  //   console.log({...schedule, rounds: updatedRounds})
-  //   // setSchedule({ ...schedule, rounds: updatedRounds });
-  // };
-
   const updateRound = (updatedRound: Round) => {
     if (!schedule) return;
   

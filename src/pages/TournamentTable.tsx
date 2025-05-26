@@ -10,10 +10,10 @@ import { useMemo } from "react";
 
 export const TournamentTable = () => {
   const { characters } = useTournament();
-  const { standings } = useTable();
+  const { getStandings } = useTable();
 
   const charactersList = useMemo(() => {
-    return standings.map((character) => ({
+    return getStandings().map((character) => ({
       ...character,
       name: characters[character.id]?.name ?? "",
       icon: characters[character.id]?.images?.icon ?? "",
@@ -22,7 +22,7 @@ export const TournamentTable = () => {
       vision: characters[character.id]?.vision ?? "",
       rarity: characters[character.id]?.rarity ?? 0,
     }));
-  }, [standings, characters]);
+  }, [getStandings, characters]);
 
   const { filteredCharacters, visibleColumns, filters, handleChangeFilter, resetFilters, toggleColumn } =
     useTableFilters({
@@ -31,7 +31,7 @@ export const TournamentTable = () => {
 
   if (!filteredCharacters) return <LoadingLogo />;
 
-  return (
+  return ( 
     <div className="w-full">
       <div className="flex flex-col items-center justify-center my-8">
         <CharactersFilters

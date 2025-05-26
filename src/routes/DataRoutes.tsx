@@ -5,8 +5,8 @@ import { LandingPage } from "@pages/LandingPage";
 import { TournamentCategories } from "@pages/TournamentCategories";
 import { TournamentCharacters } from "@pages/TournamentCharacters";
 import { TournamentHome } from "@pages/TournamentHome";
-import { TournamentSettings } from "@pages/TournamentSettings";
 import { TournamentMatches } from "@pages/TournamentMatches";
+import { TournamentStats } from "@pages/TournamentStats";
 import { TournamentTable } from "@pages/TournamentTable";
 import { createBrowserRouter } from "react-router-dom";
 
@@ -42,8 +42,8 @@ export const router = createBrowserRouter([
         element: <TournamentCategories />,
       },
       {
-        path: "/tournament/settings",
-        element: <TournamentSettings />,
+        path: "/tournament/stats",
+        element: <TournamentStats />,
       },
     ],
   },

@@ -6,7 +6,7 @@ interface CharactersStatsStore {
   stats: Record<string, CharacterStats>;
   categories: Record<string, { [key: string]: number }>;
 
-  setStats: (id: string, stats: CharacterStats) => void;
+  setStats: (stats: Record<string,CharacterStats>) => void;
   setCategories: (id: string, categories: { [key: string]: number }) => void;
   setInitialCharacterStatsData: (characters: Character[], allCategoryIds: string[]) => void;
   setCategoryValue: (characterId: string, categoryId: string, value: number) => void;
@@ -17,10 +17,7 @@ export const useCharactersStatsStore = create<CharactersStatsStore>((set) => ({
   stats: {},
   categories: {},
 
-  setStats: (id, newStats) =>
-    set((state) => ({
-      stats: { ...state.stats, [id]: newStats },
-    })),
+  setStats: (stats) => set({stats}),
 
   setCategories: (id, newCategories) =>
     set((state) => ({

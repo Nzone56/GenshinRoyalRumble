@@ -23,9 +23,15 @@ export const FixtureResults = ({handleContinueNextRound}: {handleContinueNextRou
   };
 
   return (
-    <div className="flex flex-col items-center gap-8">
+    <div className="flex flex-col items-center gap-4 m-8">
       <h3 className="text-2xl text-amber-400">FIXTURE {currentRound}</h3>
-
+      <button
+            type="button"
+            onClick={handleContinueNextRound}
+            className={`mt-4 px-8 py-3 rounded-xl text-white  transition duration-300 bg-amber-400 hover:scale-110 cursor-pointer`}
+          >
+            Back to home
+          </button>
       <div>
         {/* Match */}
         <FixtureMatch match={matches?.[currentIndex]} />
@@ -51,13 +57,7 @@ export const FixtureResults = ({handleContinueNextRound}: {handleContinueNextRou
           </button>
           
         </div>
-        <button
-            type="button"
-            onClick={handleContinueNextRound}
-            className={`mt-4 px-8 py-3 rounded-xl text-white  transition duration-300 bg-amber-400 hover:scale-110 cursor-pointer`}
-          >
-            Back to home
-          </button>
+       
       </div>
     </div>
   );

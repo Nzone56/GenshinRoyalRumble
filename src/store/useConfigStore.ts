@@ -6,7 +6,7 @@ import type {
   TournamentConfig,
   TournamentConfigManagement,
   TournamentType,
-} from "@mytypes/Config";
+} from "@mytypes/config";
 import { create } from "zustand";
 
 interface TornamentConfigStore extends TournamentConfigManagement {

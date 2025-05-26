@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 
 export const Header = () => {
   const { tournamentName } = useTournament();
-  const tabs = ["Table", "Matches", "Characters", "Categories", "Settings"];
+  const tabs = ["Table", "Matches", "Characters", "Categories", "Stats"];
   const navigate = useNavigate();
 
   const goHome = () => {

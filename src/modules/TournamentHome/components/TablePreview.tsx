@@ -2,10 +2,10 @@ import { useTournament } from "@hooks/useTournament";
 import { useTable } from "@modules/TournamentTable/hooks/useTable";
 
 export const TablePreview = () => {
-  const { standings } = useTable();
+  const { getStandings } = useTable();
   const { characters } = useTournament();
 
-  const topFive = standings?.slice(0, 5) || [];
+  const topFive = getStandings()?.slice(0, 5) || [];
 
   return (
     <div className="flex flex-col w-full p-4 bg-white dark:bg-gray-800 rounded-xl h-[320px] flex-grow-1 max-w-[400px]">

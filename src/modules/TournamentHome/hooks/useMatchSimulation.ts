@@ -7,7 +7,7 @@ type Categories = Record<string, number>;
 
 
 export const useMatchSimulation = () => {
-  const { config, categories } = useTournament();
+  const { config, categories, calculateStandings } = useTournament();
   const { schedule, currentRound, updateRound, } = useSchedule();
   const [simulatingFixture, setSimulatingFixture] = useState(false);
 
@@ -120,6 +120,7 @@ export const useMatchSimulation = () => {
   }
 
   const handleContinueNextRound = () => {
+    calculateStandings()
     setSimulatingFixture(false)
   }
 
