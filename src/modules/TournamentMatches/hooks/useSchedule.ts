@@ -93,7 +93,6 @@ export const useSchedule = () => {
     );
   
     const updatedSchedule = { ...schedule, rounds: updatedRounds };
-    console.log(updatedSchedule);
     setSchedule(updatedSchedule);
     setCurrentRound(currentRound + 1)
   };

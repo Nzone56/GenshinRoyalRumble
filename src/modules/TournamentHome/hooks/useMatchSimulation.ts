@@ -105,13 +105,8 @@ export const useMatchSimulation = () => {
       }
     })
     
-    // filledMatches.map(match => 
-    //   updateMatch(match.round, match.id, match)
-    // )
 
     updateRound({id: fullCurrentRound.id, matches: filledMatches})
-    // updateMatch(currentRound, )
-    // console.log(filledMatches)
   };
 
   const handleSimulateRound = () => {

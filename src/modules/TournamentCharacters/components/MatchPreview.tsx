@@ -7,7 +7,7 @@ type MatchPreviewProps = {
 };
 
 export const MatchPreview = ({ match, played }: MatchPreviewProps) => {
-  console.log(match)
+
   return (
     <div className="flex flex-col items-center gap-2">
       <span className="text-xs">{match.round}</span>

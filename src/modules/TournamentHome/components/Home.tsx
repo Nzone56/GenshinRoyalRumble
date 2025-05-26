@@ -14,7 +14,7 @@ type Props = {
 
 export const Home = ({ simulatingFixture, handleSimulateRound, handleContinueNextRound }: Props) => {
   const { currentRound, schedule } = useScheduleStore();
-  if(!schedule) return <span>Unexpected Error</span>
+  if (!schedule) return <span>Unexpected Error</span>;
 
   return (
     <div className={`${simulatingFixture ? "absolute h-screen w-screen " : "flex flex-col w-full m-8 gap-8"} `}>
@@ -28,14 +28,12 @@ export const Home = ({ simulatingFixture, handleSimulateRound, handleContinueNex
             <LastFixturePreview />
           </div>
 
-          {
-            schedule?.rounds.length &&  currentRound < schedule?.rounds.length && 
+          {schedule?.rounds.length && currentRound < schedule?.rounds.length && (
             <>
-                      <FixturePreview />
-            <StartFixture handleStartFixture={handleSimulateRound} />
+              <FixturePreview />
+              <StartFixture handleStartFixture={handleSimulateRound} />
             </>
-          }
-         
+          )}
         </div>
       )}
     </div>

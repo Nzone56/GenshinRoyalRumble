@@ -114,8 +114,6 @@ export const useTournament = () => {
       newStats[entry.id].points = entry.points;
       newStats[entry.id].diffP = entry.diffP;
     });
-    console.log("OLD STATS", stats)
-    console.log("NEW STATS", newStats)
     // Update the state with new standings
     setStats(newStats);
   };

@@ -20,7 +20,7 @@ export const FixtureMatch = ({ match }: Props) => {
 
 
   const allImagesLoaded = imagesLoaded.every(Boolean);
-  console.log(match.categoriesResults)
+
   return (
     <div className="relative">
       {!allImagesLoaded && (
