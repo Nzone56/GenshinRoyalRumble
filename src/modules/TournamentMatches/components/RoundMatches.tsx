@@ -1,5 +1,5 @@
 import { useTournament } from "@hooks/useTournament";
-import { useSchedule } from "../hook/useSchedule";
+import { useSchedule } from "../hooks/useSchedule";
 
 export const RoundMatches = () => {
   const { selectedRound, currentRound, schedule } = useSchedule();

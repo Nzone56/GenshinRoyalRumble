@@ -7,22 +7,26 @@ import LOOSES from "@assets/images/icons/xmark.svg?react";
 import POINSF from "@assets/images/icons/stats/points-favor.svg?react";
 import POINSA from "@assets/images/icons/stats/points-against.svg?react";
 import DIFFP from "@assets/images/icons/stats/diff-points.svg?react";
+import POINTS from "@assets/images/icons/stats/points.svg?react";
 import { MatchPreview } from "./MatchPreview";
 import { LoadingLogo } from "@components/ui/LoadingLogo";
 
 export const CharacterInformation = () => {
-  const { CharactersStats, currentCharacter, getLastMatches, getNextMatches } = useCharacter();
+  const { charactersStats, currentCharacter, getLastMatches, getNextMatches } = useCharacter();
 
   const icons = {
     position: POSITION,
+    points: POINTS,
     battles: BATTLES,
     wins: WINS,
     draws: DRAWS,
+    losses: LOOSES,
     pointsF: POINSF,
     pointsA: POINSA,
     diffP: DIFFP,
-    losses: LOOSES,
   };
+
+  const iconKeys = Object.keys(icons) as (keyof typeof icons)[];
 
   return (
     <div className="flex flex-col items-center m-12 flex-grow-1 max-w-5xl">
@@ -39,8 +43,10 @@ export const CharacterInformation = () => {
             <div className="flex flex-col gap-4 mt-8">
               <span className="text-lg text-amber-400">Tournament Stats</span>
               <div className="flex items-center justify-between w-full px-4 py-2 gap-4 flex-wrap bg-gray-800 rounded-lg">
-                {Object.entries(CharactersStats[currentCharacter?.id]).map(([key, value]) => {
-                  const Icon = icons[key as keyof typeof icons];
+                {iconKeys.map((key) => {
+                  const Icon = icons[key];
+                  const value = charactersStats[currentCharacter?.id][key];
+                  if (value === undefined) return null;
                   return (
                     <div key={key} className="flex items-center gap-4">
                       <Icon className="w-4 h-4 fill-gray-950" />

@@ -38,4 +38,16 @@ export interface CharacterStats {
   pointsA: number;
   diffP: number;
   losses: number;
+  points: number;
+}
+
+export interface CharacterTable extends CharacterStats {
+  id: string;
+  name: string;
+  nation: string;
+  icon: string;
+  weapon: string;
+  vision: string;
+  position: number;
+  rarity: number;
 }

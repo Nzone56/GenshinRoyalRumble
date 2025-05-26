@@ -41,6 +41,7 @@ export const useCharactersStatsStore = create<CharactersStatsStore>((set) => ({
         pointsA: 0,
         diffP: 0,
         losses: 0,
+        points: 0,
       };
       initialCategories[c.id] = Object.fromEntries(allCategoryIds.map((catId) => [catId, 0]));
     });

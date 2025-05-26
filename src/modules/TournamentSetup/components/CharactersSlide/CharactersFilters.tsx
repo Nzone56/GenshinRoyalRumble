@@ -1,21 +1,16 @@
 /// <reference types="vite-plugin-svgr/client" />
 import { FormSelect } from "@components/form/FormSelect";
 import FILTER from "@assets/images/icons/reset-filters.svg?react";
-import type { FiltersSelect, FiltersType } from "@mytypes/Filters";
+import type { FiltersType } from "@mytypes/Filters";
+import { filtersSelects } from "@modules/TournamentSetup/hooks/useCharacterFilters";
 
 type CharactersFiltersProps = {
   filters: FiltersType;
-  filtersSelects: FiltersSelect[];
   handleChangeFilter: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   handleResetFilters: () => void;
 };
 
-export const CharactersFilters = ({
-  filters,
-  filtersSelects,
-  handleChangeFilter,
-  handleResetFilters,
-}: CharactersFiltersProps) => {
+export const CharactersFilters = ({ filters, handleChangeFilter, handleResetFilters }: CharactersFiltersProps) => {
   return (
     <div className="flex items-stretch justify-center gap-4 p-4 flex-grow flex-wrap">
       {filtersSelects.map((filter) => (

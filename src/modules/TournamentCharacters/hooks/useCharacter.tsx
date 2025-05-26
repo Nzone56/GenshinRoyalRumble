@@ -1,5 +1,5 @@
 import { useTournament } from "@hooks/useTournament";
-import { useSchedule } from "@modules/TournamentMatches/hook/useSchedule";
+import { useSchedule } from "@modules/TournamentMatches/hooks/useSchedule";
 import type { Match } from "@mytypes/Tournament";
 import { useCharactersStore } from "@store/useCharactersStore";
 import { useCharactersStatsStore } from "@store/useCharacterStatsStore";
@@ -81,7 +81,7 @@ export const useCharacter = () => {
   };
 
   return {
-    CharactersStats: stats,
+    charactersStats: stats,
     cardNotAvailable,
     setCardNotAvailable,
     characterIds,

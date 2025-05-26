@@ -1,4 +1,4 @@
-import { useSchedule } from "../hook/useSchedule";
+import { useSchedule } from "../hooks/useSchedule";
 
 export const RoundTabs = () => {
   const { schedule, currentRound, selectedRound, setSelectedRound } = useSchedule();

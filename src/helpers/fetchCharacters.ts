@@ -34,18 +34,17 @@ export const fetchCharacter = async (id: string) => {
   return character;
 };
 
-export const preloadCharacterImages = (ids: string[]) => {
-  // console.log("jmmm");
-  // ids.forEach((id) => {
-  //   const urls = [
-  //     `https://genshin.jmp.blue/characters/${id}/card`,
-  //     `https://genshin.jmp.blue/characters/${id}/icon`,
-  //     `https://genshin.jmp.blue/characters/${id}/iconside`,
-  //     `https://genshin.jmp.blue/characters/${id}/portrait`,
-  //   ];
-  //   urls.forEach((url) => {
-  //     const img = new Image();
-  //     img.src = url; // Browser saves it on Cache
-  //   });
-  // });
-};
+// export const preloadCharacterImages = (ids: string[]) => {
+//   ids.forEach((id) => {
+//     const urls = [
+//       `https://genshin.jmp.blue/characters/${id}/card`,
+//       `https://genshin.jmp.blue/characters/${id}/icon`,
+//       `https://genshin.jmp.blue/characters/${id}/iconside`,
+//       `https://genshin.jmp.blue/characters/${id}/portrait`,
+//     ];
+//     urls.forEach((url) => {
+//       const img = new Image();
+//       img.src = url; // Browser saves it on Cache
+//     });
+//   });
+// };
