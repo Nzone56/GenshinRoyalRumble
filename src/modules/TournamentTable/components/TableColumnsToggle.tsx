@@ -25,7 +25,7 @@ export const TableColumnsToggle = ({ visibleColumns, toggleColumn }: ColumnsTogg
     <div className="relative inline-block text-left" ref={ref}>
       <button
         onClick={() => setOpen((o) => !o)}
-        className="flex items-center justify-center w-[185px] p-2.5 rounded-lg border border-gray-600 shadow-sm px-4 py-2 bg-gray-700  text-lg font-medium text-white hover:bg-gray-600 focus:outline-none"
+        className="flex items-center justify-center w-[185px] p-2.5 rounded-lg border border-gray-600 shadow-sm px-4 py-2 bg-gray-700  text-lg edium text-white hover:bg-gray-600 focus:outline-none"
         aria-haspopup="true"
         aria-expanded={open}
       >

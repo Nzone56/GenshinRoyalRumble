@@ -7,7 +7,7 @@ export const NameSlide = memo(() => {
 
   return (
     <div className="flex flex-col items-center mb-5 text-center justify-center h-full animate-fade-in">
-      <h3 className="text-4xl font-semibold text-white">ENTER YOUR TOURNAMENT NAME</h3>
+      <h3 className="text-4xl  text-white">ENTER YOUR TOURNAMENT NAME</h3>
       <div className="flex flex-col items-center mt-10">
         <p className="leading-loose text-xl max-w-3xl text-gray-300">
           Give your tournament a name to kick things off — it can be something serious, funny, or just plain epic.

@@ -34,7 +34,7 @@ export const CharacterInformation = () => {
         <>
           <div className="flex flex-col gap-8">
             <div className="flex flex-col items-center">
-              <h2 className="text-3xl font-bold text-center">{currentCharacter?.name}</h2>
+              <h2 className="text-3xl  text-center">{currentCharacter?.name}</h2>
               <span className="text-amber-400">{currentCharacter?.title} </span>
             </div>
             <p>{currentCharacter?.description || "No description available"}</p>

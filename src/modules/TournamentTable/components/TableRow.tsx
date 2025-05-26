@@ -92,7 +92,7 @@ export const TableRow = ({ character, visibleColumns }: TableRowProps) => {
 
   return (
     <tr className="hover:bg-gray-700 border-t border-gray-600">
-      <td className="p-2 font-bold">{character.position}</td>
+      <td className="p-2 ">{character.position}</td>
 
       {columns.map(({ key, render }) =>
         visibleColumns[key] ? (

@@ -15,6 +15,7 @@ type CategoryFieldProps = {
 };
 export const CategoryField = ({ character, category }: CategoryFieldProps) => {
   const { setCategoryValue } = useTournament();
+  const { tournamentStarted } = useTournament();
 
   return (
     <div className="flex items-center justify-between p-2">
@@ -30,7 +31,7 @@ export const CategoryField = ({ character, category }: CategoryFieldProps) => {
         step="0.1"
         sizeClass="w-[150px] "
         className="ml-2 p-2.5"
-        disabled={false}
+        disabled={tournamentStarted}
         value={character.categories[category.name] || 0}
         onChange={(e) => {
           let num = parseFloat(e.target.value);

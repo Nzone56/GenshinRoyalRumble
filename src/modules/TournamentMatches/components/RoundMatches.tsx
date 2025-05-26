@@ -30,11 +30,11 @@ export const RoundMatches = () => {
                 alt={home?.name || "Home character"}
                 className="w-8 h-8 object-cover scale-x-[-1] rounded-full"
               />
-              <span className="text-white font-medium truncate">{home?.name || "--"}</span>
+              <span className="text-white edium truncate">{home?.name || "--"}</span>
             </div>
 
             {/* Score */}
-            <div className="text-lg font-bold text-center text-white w-1/3">
+            <div className="text-lg  text-center text-white w-1/3">
               {isCompleted ? (
                 <span>
                   {match.homePoints} - {match.awayPoints}
@@ -46,7 +46,7 @@ export const RoundMatches = () => {
 
             {/* Away */}
             <div className="flex items-center gap-2 justify-end w-1/3" title={away?.name}>
-              <span className="text-white font-medium truncate text-right">{away?.name || "--"}</span>
+              <span className="text-white edium truncate text-right">{away?.name || "--"}</span>
               <img
                 src={away?.images?.iconside || "/placeholder.png"}
                 alt={away?.name || "Away character"}

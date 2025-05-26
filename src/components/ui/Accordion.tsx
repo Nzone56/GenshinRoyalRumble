@@ -15,7 +15,7 @@ export const Accordion = ({ summary, className = "", children, ...props }: Accor
     <div {...props} className={`${selectBaseClass} ${className}`}>
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex justify-between items-center px-6 py-4 text-lg font-semibold text-white bg-gray-700 hover:bg-gray-600 transition-all cursor-pointer"
+        className="w-full flex justify-between items-center px-6 py-4 text-lg  text-white bg-gray-700 hover:bg-gray-600 transition-all cursor-pointer"
       >
         <span>{summary}</span>
       </div>

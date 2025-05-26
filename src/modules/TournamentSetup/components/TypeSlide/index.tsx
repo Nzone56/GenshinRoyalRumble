@@ -9,11 +9,12 @@ export const TypeSlide = memo(() => {
 
   return (
     <div className="flex flex-col items-center mb-5 text-center justify-center h-full animate-fade-in px-8">
-      <h3 className="text-4xl font-semibold text-white">SELECT THE TOURNAMENT TYPE</h3>
+      <h3 className="text-4xl  text-white">SELECT THE TOURNAMENT TYPE</h3>
       <div className="flex flex-col items-center mt-10">
         <p className="leading-loose text-lg max-w-3xl text-gray-300">
           Choose your preferred tournament structure,
-          <span className="text-amber-400"> each format offers unique rules and challenges</span>,so pick the one that best fits your competition!
+          <span className="text-amber-400"> each format offers unique rules and challenges</span>,so pick the one that
+          best fits your competition!
         </p>
         <div className="flex flex-row flex-wrap items-stretch justify-center gap-4 mt-12">
           {tournamentOptions.map((option) => (

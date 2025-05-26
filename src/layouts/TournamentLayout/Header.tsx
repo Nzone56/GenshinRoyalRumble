@@ -14,7 +14,7 @@ export const Header = () => {
   return (
     <div className="flex justify-between items-center w-full">
       <h2
-        className={`${location.pathname === `/tournament/home` ? "text-amber-400" : " text-white hover:text-amber-400"} text-3xl font-semibold cursor-pointer transition-colors duration-300`}
+        className={`${location.pathname === `/tournament/home` ? "text-amber-400" : " text-white hover:text-amber-400"} text-3xl  cursor-pointer transition-colors duration-300`}
         onClick={goHome}
       >
         {tournamentName}

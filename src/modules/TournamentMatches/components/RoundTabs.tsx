@@ -10,7 +10,7 @@ export const RoundTabs = () => {
           key={round.id}
           onClick={() => setSelectedRound(round.id)}
           className={`
-           cursor-pointer min-w-[40px] py-2 rounded-lg text-sm font-semibold transition duration-200
+           cursor-pointer min-w-[40px] py-2 rounded-lg text-sm  transition duration-200
             ${
               selectedRound === round.id
                 ? "bg-amber-500 text-white border-amber-600 r"

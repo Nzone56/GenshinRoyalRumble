@@ -1,6 +1,6 @@
 export const TypesDescription = {
   League: {
-    description:"Each team plays every other team twice following the website's custom and unique rules.",
+    description: "Each character plays every other character twice following the website's custom and unique rules.",
     requiredPlayers: "Minimum 4 players, even numbers only (4, 6, 8, ...)",
   },
   RoundRobin: {
@@ -28,6 +28,3 @@ export const TypesDescription = {
     requiredPlayers: "8, 16, 32, ... players (multiples of 4 or 8 for balanced groups)",
   },
 };
-
-
-

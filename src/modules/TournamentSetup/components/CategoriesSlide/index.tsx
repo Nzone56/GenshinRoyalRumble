@@ -13,7 +13,7 @@ export const CategoriesSlide = memo(() => {
 
   return (
     <div className="flex flex-col items-center gap-10 mb-5 text-center justify-center h-full animate-fade-in px-8">
-      <h3 className="text-4xl font-semibold text-white">NOW CHOOSE THE EVALUATION CATEGORIES</h3>
+      <h3 className="text-4xl  text-white">NOW CHOOSE THE EVALUATION CATEGORIES</h3>
       <p className="leading-loose text-lg max-w-3xl text-gray-300 ">
         Now, choose how matches will be evaluated in your tournament.
         <span className="text-amber-400"> Each method offers distinct rules and strategic depth</span>, so pick the one

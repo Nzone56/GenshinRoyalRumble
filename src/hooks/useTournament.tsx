@@ -5,7 +5,15 @@ import { useTournamentStore } from "@store/useTournamentStore";
 import { useCallback, useEffect } from "react";
 
 export const useTournament = () => {
-  const { id, config, loading, started: tournamentStarted, setTournament, setLoading } = useTournamentStore();
+  const {
+    id,
+    config,
+    loading,
+    started: tournamentStarted,
+    setTournament,
+    setLoading,
+    setStarted,
+  } = useTournamentStore();
   const { charactersData, setCharactersData, hasLoadedCharacters, setHasLoadedCharacters } = useCharactersStore();
   const { categories, stats, setCategoryValue, setInitialCharacterStatsData } = useCharactersStatsStore();
 
@@ -17,6 +25,10 @@ export const useTournament = () => {
       setTournament(id, rest);
     }
   }, [setTournament]);
+
+  const handleStartTournament = () => {
+    setStarted(!tournamentStarted);
+  };
 
   // Get Tournament
   useEffect(() => {
@@ -87,5 +99,6 @@ export const useTournament = () => {
     setCategoryValue,
     tournamentName: config.name,
     characters: charactersData,
+    handleStartTournament,
   };
 };

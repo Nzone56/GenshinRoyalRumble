@@ -1,8 +1,8 @@
 import type { PreviewCharacter } from "./Character";
 
 export type TournamentType =
-  | "League" // Home and away league format, all teams play each other twice
-  | "RoundRobin" // Single round-robin, each team plays each other once
+  | "League" // Home and away league format, all characters play each other twice
+  | "RoundRobin" // Single round-robin, each character plays each other once
   | "Elimination" // Knockout bracket, direct elimination
   | "GroupsElimination" // Group stage followed by knockout rounds (like Champions League/World Cup)
   | "Swiss" // Swiss system tournament format
@@ -11,10 +11,10 @@ export type TournamentType =
 
 export type EvaluationType = "manual" | "total" | "random";
 export type EvaluationTypeOption = {
-  key: EvaluationType,
-  name: string,
-  description: string,
-}
+  key: EvaluationType;
+  name: string;
+  description: string;
+};
 export interface TournamentTypeOption {
   label: string;
   value: TournamentType;

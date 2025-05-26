@@ -1,8 +1,7 @@
 import { useTournament } from "@hooks/useTournament";
 
 export const HomeTutorial = () => {
-  const { config, categories } = useTournament();
-
+  const { config, categories, handleStartTournament } = useTournament();
   const filledCharacters =
     Object.keys(categories).length > 0
       ? config.characters
@@ -10,12 +9,10 @@ export const HomeTutorial = () => {
           .filter((value) => value)
       : [];
 
-  const handleStartTournament = () => {};
-
   return (
     <div className="m-8 flex flex-col">
       <div className="flex flex-col gap-8">
-        <h3 className="text-2xl font-bold">
+        <h3 className="text-2xl ">
           Welcome to <span className="text-amber-400">{config.name}!</span>
         </h3>
 
@@ -27,12 +24,11 @@ export const HomeTutorial = () => {
 
       <div className="flex flex-col gap-8 items-center justify-center h-full flex-grow-1 mx-8">
         <p className="text-base leading-relaxed">
-          <span className="text-amber-400 font-medium">Table</span> shows the tournament bracket and standings.{" "}
-          <span className="text-amber-400 font-medium">Matches</span> displays the schedule, including previous and
-          upcoming games. <span className="text-amber-400 font-medium">Characters</span> lets you view stats for each
-          participant. <span className="text-amber-400 font-medium">Categories</span> is where you define character
-          attributes. Finally, <span className="text-amber-400 font-medium">Settings</span> allows you to customize your
-          tournament experience!
+          <span className="text-amber-400 edium">Table</span> shows the tournament bracket and standings.{" "}
+          <span className="text-amber-400 edium">Matches</span> displays the schedule, including previous and upcoming
+          games. <span className="text-amber-400 edium">Characters</span> lets you view stats for each participant.{" "}
+          <span className="text-amber-400 edium">Categories</span> is where you define character attributes. Finally,{" "}
+          <span className="text-amber-400 edium">Settings</span> allows you to customize your tournament experience!
         </p>
 
         <div className="flex flex-col">
@@ -47,9 +43,9 @@ export const HomeTutorial = () => {
           <button
             type="button"
             onClick={handleStartTournament}
-            disabled={filledCharacters.length < config.characters.length}
+            // disabled={filledCharacters.length < config.characters.length}
             className={`
-            px-8 py-3  rounded-xl text-white font-semibold transition duration-300
+            px-8 py-3  rounded-xl text-white  transition duration-300
             ${
               filledCharacters.length < config.characters.length
                 ? "bg-gray-400 cursor-not-allowed scale-100"
