@@ -4,7 +4,7 @@ import { useSchedule } from "@modules/TournamentMatches/hooks/useSchedule";
 import { FixtureMatch } from "./FixtureMatch";
 import { useMatchSimulation } from "@modules/TournamentHome/hooks/useMatchSimulation";
 
-export const FixtureResults = ({handleContinueNextRound}: {handleContinueNextRound: () => void}) => {
+export const FixtureResults = ({ handleContinueNextRound }: { handleContinueNextRound: () => void }) => {
   const { schedule, currentRound } = useSchedule();
   // const { characters } = useTournament();
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -24,14 +24,14 @@ export const FixtureResults = ({handleContinueNextRound}: {handleContinueNextRou
 
   return (
     <div className="flex flex-col items-center gap-4 m-8">
-      <h3 className="text-2xl text-amber-400">FIXTURE {currentRound}</h3>
+      <h3 className="text-2xl text-amber-400">FIXTURE {currentRound - 1}</h3>
       <button
-            type="button"
-            onClick={handleContinueNextRound}
-            className={`mt-4 px-8 py-3 rounded-xl text-white  transition duration-300 bg-amber-400 hover:scale-110 cursor-pointer`}
-          >
-            Back to home
-          </button>
+        type="button"
+        onClick={handleContinueNextRound}
+        className={`mt-4 px-8 py-3 rounded-xl text-white  transition duration-300 bg-amber-400 hover:scale-110 cursor-pointer`}
+      >
+        Back to home
+      </button>
       <div>
         {/* Match */}
         <FixtureMatch match={matches?.[currentIndex]} />
@@ -55,9 +55,7 @@ export const FixtureResults = ({handleContinueNextRound}: {handleContinueNextRou
           >
             Next ➡️
           </button>
-          
         </div>
-       
       </div>
     </div>
   );

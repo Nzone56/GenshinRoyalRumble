@@ -14,7 +14,7 @@ type CategoryFieldProps = {
   };
 };
 export const CategoryField = ({ character, category }: CategoryFieldProps) => {
-  const { setCategoryValue } = useTournament();
+  const { categories, setCategoryValue } = useTournament();
   const { tournamentStarted } = useTournament();
 
   return (
@@ -29,7 +29,7 @@ export const CategoryField = ({ character, category }: CategoryFieldProps) => {
         min="0"
         max="10"
         step="0.1"
-        sizeClass="w-[150px] "
+        sizeClass="w-[150px]"
         className="ml-2 p-2.5"
         disabled={tournamentStarted}
         value={character.categories[category.name] || 0}
@@ -40,6 +40,10 @@ export const CategoryField = ({ character, category }: CategoryFieldProps) => {
           if (num > 10) num = 10;
           num = Math.round(num * 10) / 10;
           setCategoryValue(character.id, category.name, num);
+          localStorage.setItem(
+            "categories",
+            JSON.stringify({ ...categories, [character.id]: { ...categories[character.id], [category.name]: num } }),
+          );
         }}
       />
     </div>

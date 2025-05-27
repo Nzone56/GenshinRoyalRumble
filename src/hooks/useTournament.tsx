@@ -1,4 +1,5 @@
 import { fetchCharacter } from "@helpers/fetchCharacters";
+import { roundNumber } from "@helpers/functions";
 import type { CharacterStats } from "@mytypes/Tournament";
 import { useCharactersStore } from "@store/useCharactersStore";
 import { useCharactersStatsStore } from "@store/useCharacterStatsStore";
@@ -17,11 +18,13 @@ export const useTournament = () => {
     setStarted,
   } = useTournamentStore();
   const { charactersData, setCharactersData, hasLoadedCharacters, setHasLoadedCharacters } = useCharactersStore();
-  const { categories, stats, setStats, setCategoryValue, setInitialCharacterStatsData } = useCharactersStatsStore();
+  const { categories, stats, setStats, setCategoryValue, setCategories, setInitialStats, setInitialCategories } =
+    useCharactersStatsStore();
   const { schedule, currentRound } = useScheduleStore();
 
   const getTournament = useCallback(() => {
     const storagedTournament = localStorage.getItem("Tournament");
+
     if (storagedTournament) {
       const parsed = JSON.parse(storagedTournament);
       const { id, ...rest } = parsed;
@@ -30,15 +33,16 @@ export const useTournament = () => {
   }, [setTournament]);
 
   const handleStartTournament = () => {
+    localStorage.setItem("categories", JSON.stringify(categories));
     setStarted(!tournamentStarted);
   };
 
   const calculateStandings = () => {
     if (!schedule) return [];
-  
+
     // Create a fresh copy of the stats object with zeroed values
     const newStats: Record<string, CharacterStats> = {};
-    
+
     for (const id in stats) {
       newStats[id] = {
         position: 0,
@@ -52,28 +56,27 @@ export const useTournament = () => {
         points: 0,
       };
     }
-  
+
     // Process all matches up to the current round
     for (const round of schedule.rounds.slice(0, currentRound - 1)) {
       for (const match of round.matches) {
-        const isPlayed =
-          match.homePoints !== null && match.awayPoints !== null;
+        const isPlayed = match.homePoints !== null && match.awayPoints !== null;
         if (!isPlayed) continue;
-  
+
         const home = newStats[match.home];
         const away = newStats[match.away];
-  
+
         // Update battles
         home.battles++;
         away.battles++;
-  
+
         // Update points scored and received
         home.pointsF += match.homePoints!;
         home.pointsA += match.awayPoints!;
-  
+
         away.pointsF += match.awayPoints!;
         away.pointsA += match.homePoints!;
-  
+
         // Update results
         if (match.homePoints! > match.awayPoints!) {
           home.wins++;
@@ -87,18 +90,23 @@ export const useTournament = () => {
         }
       }
     }
-  
+
     // Calculate diffP and points
     const resultStats = Object.entries(newStats).map(([id, data]) => {
       const points = data.wins * 3 + data.draws;
+      const pointsF = roundNumber(data.pointsF);
+      const pointsA = roundNumber(data.pointsA);
+      const diffP = roundNumber(pointsF - pointsA);
       return {
         id,
         ...data,
-        diffP: data.pointsF - data.pointsA,
+        pointsF,
+        pointsA,
+        diffP,
         points,
       };
     });
-  
+
     // Sort based on points, then diffP, then pointsF, then pointsA, then wins
     resultStats.sort((a, b) => {
       if (b.points !== a.points) return b.points - a.points;
@@ -107,13 +115,16 @@ export const useTournament = () => {
       if (b.pointsA !== a.pointsA) return a.pointsA - b.pointsA;
       return b.wins - a.wins;
     });
-  
+
     // Assign positions based on sorted order
     resultStats.forEach((entry, index) => {
       newStats[entry.id].position = index + 1;
       newStats[entry.id].points = entry.points;
       newStats[entry.id].diffP = entry.diffP;
+      newStats[entry.id].pointsF = entry.pointsF;
+      newStats[entry.id].pointsA = entry.pointsA;
     });
+
     // Update the state with new standings
     setStats(newStats);
   };
@@ -142,10 +153,30 @@ export const useTournament = () => {
         if (cancelled) return;
 
         setCharactersData(characters);
-        setInitialCharacterStatsData(
-          characters,
-          config.categories.map((cat) => cat.name),
-        );
+        setInitialStats(characters);
+        const storageedCategories = localStorage.getItem("categories");
+        if (storageedCategories) {
+          const parsedCategories = JSON.parse(storageedCategories);
+
+          setCategories(parsedCategories);
+
+          // const downloadJSON = (data, filename) => {
+          //   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+          //   const url = URL.createObjectURL(blob);
+          //   const a = document.createElement("a");
+          //   a.href = url;
+          //   a.download = filename;
+          //   a.click();
+          //   URL.revokeObjectURL(url);
+          // };
+
+          // downloadJSON(parsedCategories, "categories.json");
+        } else {
+          setInitialCategories(
+            characters,
+            config.categories.map((cat) => cat.name),
+          );
+        }
 
         setHasLoadedCharacters(true);
       } catch (error) {
@@ -166,9 +197,11 @@ export const useTournament = () => {
     hasLoadedCharacters,
     charactersData,
     setCharactersData,
-    setInitialCharacterStatsData,
+    setInitialCategories,
+    setInitialStats,
     setHasLoadedCharacters,
     setLoading,
+    setCategories,
   ]);
 
   useEffect(() => {

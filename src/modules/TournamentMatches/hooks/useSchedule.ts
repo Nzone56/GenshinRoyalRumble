@@ -80,23 +80,20 @@ export const useSchedule = () => {
 
   useEffect(() => {
     if (Object.keys(config.characters).length > 1 && (!schedule || schedule.rounds.length === 0)) {
-      console.log("GEnerate Schedule");
       generateSchedule();
     }
   }, [config.characters, schedule, generateSchedule]);
 
   const updateRound = (updatedRound: Round) => {
     if (!schedule) return;
-  
-    const updatedRounds = schedule.rounds.map((round) =>
-      round.id === updatedRound.id ? updatedRound : round
-    );
-  
+
+    const updatedRounds = schedule.rounds.map((round) => (round.id === updatedRound.id ? updatedRound : round));
+
     const updatedSchedule = { ...schedule, rounds: updatedRounds };
     setSchedule(updatedSchedule);
-    setCurrentRound(currentRound + 1)
+    setCurrentRound(currentRound + 1);
   };
-  
+
   const markRoundAsCompleted = () => {
     if (!schedule) return;
     setCurrentRound(currentRound + 1);

@@ -1,0 +1,422 @@
+{
+  "amber": {
+    "He": 8.6,
+    "Splash": 8,
+    "Up": 7.8,
+    "Low": 7.8,
+    "Clo": 8.4,
+    "Cha": 8,
+    "Ani": 7,
+    "Hey": 8.2
+  },
+  "arlecchino": {
+    "He": 9.1,
+    "Splash": 10,
+    "Up": 8.8,
+    "Low": 8.8,
+    "Clo": 9.5,
+    "Cha": 9.5,
+    "Ani": 10,
+    "Hey": 9.4
+  },
+  "ayaka": {
+    "He": 8.8,
+    "Splash": 9,
+    "Up": 7,
+    "Low": 7.2,
+    "Clo": 9.5,
+    "Cha": 8.5,
+    "Ani": 9,
+    "Hey": 7.6
+  },
+  "barbara": {
+    "He": 9.2,
+    "Splash": 7.8,
+    "Up": 6.8,
+    "Low": 7.6,
+    "Clo": 8,
+    "Cha": 8,
+    "Ani": 7.5,
+    "Hey": 8
+  },
+  "beidou": {
+    "He": 8.4,
+    "Splash": 7.4,
+    "Up": 9.4,
+    "Low": 9.2,
+    "Clo": 8.4,
+    "Cha": 7.5,
+    "Ani": 6.5,
+    "Hey": 10
+  },
+  "candace": {
+    "He": 8.5,
+    "Splash": 8,
+    "Up": 8.6,
+    "Low": 8.4,
+    "Clo": 8.8,
+    "Cha": 9,
+    "Ani": 7,
+    "Hey": 9.6
+  },
+  "charlotte": {
+    "He": 9.6,
+    "Splash": 8.4,
+    "Up": 7.8,
+    "Low": 7.6,
+    "Clo": 9.4,
+    "Cha": 8.5,
+    "Ani": 8,
+    "Hey": 8.2
+  },
+  "chiori": {
+    "He": 9.8,
+    "Splash": 9.6,
+    "Up": 7.6,
+    "Low": 8.4,
+    "Clo": 9.6,
+    "Cha": 10,
+    "Ani": 8.5,
+    "Hey": 7.8
+  },
+  "clorinde": {
+    "He": 9.6,
+    "Splash": 9.8,
+    "Up": 9.6,
+    "Low": 9.6,
+    "Clo": 8.8,
+    "Cha": 8.5,
+    "Ani": 9.5,
+    "Hey": 9.6
+  },
+  "collei": {
+    "He": 7.2,
+    "Splash": 7.8,
+    "Up": 6.4,
+    "Low": 7.8,
+    "Clo": 6,
+    "Cha": 7.5,
+    "Ani": 6.5,
+    "Hey": 7.6
+  },
+  "dehya": {
+    "He": 8.4,
+    "Splash": 9,
+    "Up": 8.7,
+    "Low": 9,
+    "Clo": 8.8,
+    "Cha": 8,
+    "Ani": 8.5,
+    "Hey": 8.2
+  },
+  "eula": {
+    "He": 7.6,
+    "Splash": 8.8,
+    "Up": 8.6,
+    "Low": 9.4,
+    "Clo": 8.6,
+    "Cha": 8.5,
+    "Ani": 8,
+    "Hey": 9.6
+  },
+  "faruzan": {
+    "He": 7,
+    "Splash": 7.6,
+    "Up": 6.2,
+    "Low": 6.8,
+    "Clo": 7,
+    "Cha": 7.5,
+    "Ani": 6.5,
+    "Hey": 7.8
+  },
+  "fischl": {
+    "He": 7.7,
+    "Splash": 7.4,
+    "Up": 7.8,
+    "Low": 7.8,
+    "Clo": 8.2,
+    "Cha": 7.5,
+    "Ani": 7,
+    "Hey": 7.4
+  },
+  "furina": {
+    "He": 8.2,
+    "Splash": 8.4,
+    "Up": 6,
+    "Low": 7,
+    "Clo": 8.2,
+    "Cha": 8,
+    "Ani": 7.5,
+    "Hey": 7.8
+  },
+  "ganyu": {
+    "He": 8.6,
+    "Splash": 8.2,
+    "Up": 8,
+    "Low": 9.8,
+    "Clo": 8.5,
+    "Cha": 8,
+    "Ani": 8,
+    "Hey": 7.8
+  },
+  "hu-tao": {
+    "He": 9.2,
+    "Splash": 8.6,
+    "Up": 6,
+    "Low": 7,
+    "Clo": 7.8,
+    "Cha": 8.5,
+    "Ani": 7.5,
+    "Hey": 7.8
+  },
+  "jean": {
+    "He": 9.4,
+    "Splash": 8.2,
+    "Up": 8.8,
+    "Low": 9.4,
+    "Clo": 8.2,
+    "Cha": 8,
+    "Ani": 7.5,
+    "Hey": 9.4
+  },
+  "keqing": {
+    "He": 8.8,
+    "Splash": 8.4,
+    "Up": 8.4,
+    "Low": 9,
+    "Clo": 8.6,
+    "Cha": 9,
+    "Ani": 8.5,
+    "Hey": 7.8
+  },
+  "kokomi": {
+    "He": 8.2,
+    "Splash": 8,
+    "Up": 7.2,
+    "Low": 8.6,
+    "Clo": 8.2,
+    "Cha": 8,
+    "Ani": 8,
+    "Hey": 8
+  },
+  "kuki-shinobu": {
+    "He": 6.5,
+    "Splash": 7.2,
+    "Up": 7.6,
+    "Low": 7.8,
+    "Clo": 7.4,
+    "Cha": 8,
+    "Ani": 7,
+    "Hey": 7.6
+  },
+  "layla": {
+    "He": 6.8,
+    "Splash": 8,
+    "Up": 7.8,
+    "Low": 8.2,
+    "Clo": 9.2,
+    "Cha": 8,
+    "Ani": 7,
+    "Hey": 9.8
+  },
+  "lisa": {
+    "He": 7.6,
+    "Splash": 7.5,
+    "Up": 9.4,
+    "Low": 9.2,
+    "Clo": 8.8,
+    "Cha": 8.5,
+    "Ani": 7,
+    "Hey": 9.6
+  },
+  "lynette": {
+    "He": 8.1,
+    "Splash": 8.2,
+    "Up": 7.6,
+    "Low": 8.8,
+    "Clo": 9.2,
+    "Cha": 9,
+    "Ani": 7,
+    "Hey": 8
+  },
+  "mona": {
+    "He": 10,
+    "Splash": 9.6,
+    "Up": 7.8,
+    "Low": 10,
+    "Clo": 9.6,
+    "Cha": 10,
+    "Ani": 8,
+    "Hey": 7.6
+  },
+  "navia": {
+    "He": 9.6,
+    "Splash": 8.6,
+    "Up": 8.8,
+    "Low": 9,
+    "Clo": 8.6,
+    "Cha": 10,
+    "Ani": 8,
+    "Hey": 9.6
+  },
+  "nilou": {
+    "He": 8,
+    "Splash": 8,
+    "Up": 6.6,
+    "Low": 7.4,
+    "Clo": 7.5,
+    "Cha": 8,
+    "Ani": 8,
+    "Hey": 7.8
+  },
+  "ningguang": {
+    "He": 7.6,
+    "Splash": 8.2,
+    "Up": 8.8,
+    "Low": 8.2,
+    "Clo": 7.8,
+    "Cha": 8,
+    "Ani": 7.5,
+    "Hey": 9.4
+  },
+  "noelle": {
+    "He": 7.8,
+    "Splash": 7.3,
+    "Up": 9,
+    "Low": 8,
+    "Clo": 7.8,
+    "Cha": 8,
+    "Ani": 7,
+    "Hey": 7.8
+  },
+  "raiden": {
+    "He": 10,
+    "Splash": 9.4,
+    "Up": 9.6,
+    "Low": 9.2,
+    "Clo": 9.8,
+    "Cha": 9.5,
+    "Ani": 9.5,
+    "Hey": 9.6
+  },
+  "rosaria": {
+    "He": 5.8,
+    "Splash": 8,
+    "Up": 9.4,
+    "Low": 9,
+    "Clo": 8,
+    "Cha": 7,
+    "Ani": 7,
+    "Hey": 9.4
+  },
+  "sara": {
+    "He": 9.4,
+    "Splash": 7.8,
+    "Up": 9.8,
+    "Low": 8.2,
+    "Clo": 8.8,
+    "Cha": 8.5,
+    "Ani": 7.5,
+    "Hey": 9.8
+  },
+  "shenhe": {
+    "He": 8.6,
+    "Splash": 8.8,
+    "Up": 9.8,
+    "Low": 10,
+    "Clo": 9.4,
+    "Cha": 8.5,
+    "Ani": 8.5,
+    "Hey": 9.8
+  },
+  "sucrose": {
+    "He": 6.2,
+    "Splash": 7.4,
+    "Up": 7.4,
+    "Low": 8.2,
+    "Clo": 8.2,
+    "Cha": 7,
+    "Ani": 6.5,
+    "Hey": 7.2
+  },
+  "xiangling": {
+    "He": 6,
+    "Splash": 7.6,
+    "Up": 7.2,
+    "Low": 6.8,
+    "Clo": 6.5,
+    "Cha": 7,
+    "Ani": 6.5,
+    "Hey": 8
+  },
+  "xianyun": {
+    "He": 9.6,
+    "Splash": 8.8,
+    "Up": 9.8,
+    "Low": 9.6,
+    "Clo": 9.2,
+    "Cha": 8,
+    "Ani": 9.5,
+    "Hey": 9.4
+  },
+  "xinyan": {
+    "He": 4,
+    "Splash": 7.8,
+    "Up": 7.4,
+    "Low": 7.5,
+    "Clo": 5.5,
+    "Cha": 5,
+    "Ani": 7,
+    "Hey": 7.4
+  },
+  "yae-miko": {
+    "He": 8.4,
+    "Splash": 8.7,
+    "Up": 8.6,
+    "Low": 8.6,
+    "Clo": 8.4,
+    "Cha": 9,
+    "Ani": 8.5,
+    "Hey": 9.4
+  },
+  "yanfei": {
+    "He": 7,
+    "Splash": 7.2,
+    "Up": 6.4,
+    "Low": 7.6,
+    "Clo": 7.2,
+    "Cha": 8,
+    "Ani": 7,
+    "Hey": 7.6
+  },
+  "yelan": {
+    "He": 9,
+    "Splash": 9.4,
+    "Up": 10,
+    "Low": 8.8,
+    "Clo": 10,
+    "Cha": 10,
+    "Ani": 10,
+    "Hey": 9.8
+  },
+  "yoimiya": {
+    "He": 9.4,
+    "Splash": 9,
+    "Up": 8.8,
+    "Low": 9.2,
+    "Clo": 9.6,
+    "Cha": 9.5,
+    "Ani": 9,
+    "Hey": 7.6
+  },
+  "yun-jin": {
+    "He": 7.3,
+    "Splash": 7.1,
+    "Up": 7,
+    "Low": 7.8,
+    "Clo": 8.4,
+    "Cha": 8,
+    "Ani": 7,
+    "Hey": 7.8
+  }
+}

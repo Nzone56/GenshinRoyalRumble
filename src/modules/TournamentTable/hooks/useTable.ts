@@ -2,6 +2,7 @@ import { useTournament } from "@hooks/useTournament";
 import { useCallback } from "react";
 import type { CharacterStats } from "@mytypes/Tournament";
 import { useSchedule } from "@modules/TournamentMatches/hooks/useSchedule";
+import { roundNumber } from "@helpers/functions";
 
 type StatKey = keyof Omit<CharacterStats, "id">;
 
@@ -10,28 +11,25 @@ export type TopPerformance = {
   value: number;
 };
 
-
 export const useTable = () => {
   const { stats } = useTournament();
   const { schedule } = useSchedule();
 
   const getStandings = useCallback(
-    (prop: StatKey = "points") => {
-      return Object.entries(stats)
-        .map(([id, data]) => ({
-          id,
-          ...data,
-        }))
-        .sort((a, b) => {
-          const valA = a[prop];
-          const valB = b[prop];
+    (prop?: StatKey) => {
+      const entries = Object.entries(stats).map(([id, data]) => ({
+        id,
+        ...data,
+      }));
 
-          return valB - valA; // todos los props son numéricos
-        })
-        .map((team, index) => ({
-          ...team,
-          position: index + 1,
-        }));
+      const sorted = prop
+        ? [...entries].sort((a, b) => (b[prop] ?? 0) - (a[prop] ?? 0))
+        : [...entries].sort((a, b) => (a.position ?? 999) - (b.position ?? 999));
+
+      return sorted.map((team, index) => ({
+        ...team,
+        position: index + 1,
+      }));
     },
     [stats],
   );
@@ -53,7 +51,7 @@ export const useTable = () => {
 
           categoryMap[category].push({
             character,
-            value: absDiff,
+            value: roundNumber(absDiff),
           });
         }
       }
@@ -87,7 +85,7 @@ export const useTable = () => {
             categoryCharacterTotals[category][character] = 0;
           }
 
-          categoryCharacterTotals[category][character] += absDiff;
+          categoryCharacterTotals[category][character] += roundNumber(absDiff);
         }
       }
     }

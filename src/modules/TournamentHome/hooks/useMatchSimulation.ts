@@ -1,3 +1,4 @@
+import { roundNumber } from "@helpers/functions";
 import { useTournament } from "@hooks/useTournament";
 import { useSchedule } from "@modules/TournamentMatches/hooks/useSchedule";
 import type { CategoryType } from "@mytypes/config";
@@ -5,10 +6,9 @@ import { useState } from "react";
 
 type Categories = Record<string, number>;
 
-
 export const useMatchSimulation = () => {
   const { config, categories, calculateStandings } = useTournament();
-  const { schedule, currentRound, updateRound, } = useSchedule();
+  const { schedule, currentRound, updateRound } = useSchedule();
   const [simulatingFixture, setSimulatingFixture] = useState(false);
 
   const getTopCategories = (categoriesObj: Categories, topN: number = 5): string[] => {
@@ -70,7 +70,7 @@ export const useMatchSimulation = () => {
     });
   };
 
-  const generateMatchResult = ( home: string, away: string) => {
+  const generateMatchResult = (home: string, away: string) => {
     const homeCategories = categories[home];
     const awayCategories = categories[away];
 
@@ -85,43 +85,42 @@ export const useMatchSimulation = () => {
     const comparisons = getComparassions(selected, homeCategories, awayCategories, categoryConfigMap);
     const totalHomePoints = comparisons.reduce((acc, c) => acc + (c.difference > 0 ? c.difference : 0), 0);
     const totalAwayPoints = comparisons.reduce((acc, c) => acc + (c.difference < 0 ? Math.abs(c.difference) : 0), 0);
-    return {comparisons, totalHomePoints, totalAwayPoints}
+    return { comparisons, totalHomePoints, totalAwayPoints };
   };
 
   const fillScheduleRound = () => {
-    if(!schedule) return null
-    const fullCurrentRound = schedule.rounds[currentRound - 1]
+    if (!schedule) return null;
+    const fullCurrentRound = schedule.rounds[currentRound - 1];
 
-    const filledMatches = fullCurrentRound.matches.map(match => {
-      const { comparisons, totalHomePoints, totalAwayPoints } = generateMatchResult(match.home, match.away)
+    const filledMatches = fullCurrentRound.matches.map((match) => {
+      const { comparisons, totalHomePoints, totalAwayPoints } = generateMatchResult(match.home, match.away);
       return {
         id: match.id,
         round: match.round,
         home: match.home,
         away: match.away,
-        homePoints: totalHomePoints,
-        awayPoints: totalAwayPoints,
-        categoriesResults: comparisons
-      }
-    })
-    
+        homePoints: roundNumber(totalHomePoints),
+        awayPoints: roundNumber(totalAwayPoints),
+        categoriesResults: comparisons,
+      };
+    });
 
-    updateRound({id: fullCurrentRound.id, matches: filledMatches})
+    updateRound({ id: fullCurrentRound.id, matches: filledMatches });
   };
 
   const handleSimulateRound = () => {
-    setSimulatingFixture(true)
-    fillScheduleRound()
-  }
+    setSimulatingFixture(true);
+    fillScheduleRound();
+  };
 
   const handleContinueNextRound = () => {
-    calculateStandings()
-    setSimulatingFixture(false)
-  }
+    calculateStandings();
+    setSimulatingFixture(false);
+  };
 
   return {
     simulatingFixture,
     handleSimulateRound,
-    handleContinueNextRound
+    handleContinueNextRound,
   };
 };

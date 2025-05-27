@@ -28,7 +28,8 @@ export const HomeTutorial = () => {
           <span className="text-amber-400 edium">Matches</span> displays the schedule, including previous and upcoming
           games. <span className="text-amber-400 edium">Characters</span> lets you view stats for each participant.{" "}
           <span className="text-amber-400 edium">Categories</span> is where you define character attributes. Finally,{" "}
-          <span className="text-amber-400 edium">Stats</span> where you can check more about the tournament and their characters!
+          <span className="text-amber-400 edium">Stats</span> where you can check more about the tournament and their
+          characters!
         </p>
 
         <div className="flex flex-col">
@@ -43,7 +44,7 @@ export const HomeTutorial = () => {
           <button
             type="button"
             onClick={handleStartTournament}
-            // disabled={filledCharacters.length < config.characters.length}
+            disabled={filledCharacters.length < config.characters.length}
             className={`
             px-8 py-3  rounded-xl text-white  transition duration-300
             ${

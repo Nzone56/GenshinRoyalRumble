@@ -1,5 +1,6 @@
 import { useTournament } from "@hooks/useTournament";
 import { useSchedule } from "../hooks/useSchedule";
+import clsx from "clsx"; // Asegúrate de tener esto instalado
 
 export const RoundMatches = () => {
   const { selectedRound, currentRound, schedule } = useSchedule();
@@ -18,6 +19,26 @@ export const RoundMatches = () => {
         const home = characters[match.home];
         const away = characters[match.away];
 
+        const isDraw = match.homePoints === match.awayPoints;
+        const homeWinner = isCompleted && match.homePoints > match.awayPoints;
+        const awayWinner = isCompleted && match.awayPoints > match.homePoints;
+
+        const homeTextClass = clsx("edium truncate", {
+          "text-white": !homeWinner,
+          "text-amber-400": homeWinner,
+        });
+
+        const awayTextClass = clsx("edium truncate text-right", {
+          "text-white": !awayWinner,
+          "text-amber-400": awayWinner,
+        });
+
+        const scoreNumberClass = (team: "home" | "away") =>
+          clsx({
+            "text-amber-400": (team === "home" && homeWinner) || (team === "away" && awayWinner),
+            "text-white": isDraw || (!homeWinner && !awayWinner),
+          });
+
         return (
           <div
             key={match.id}
@@ -30,14 +51,16 @@ export const RoundMatches = () => {
                 alt={home?.name || "Home character"}
                 className="w-8 h-8 object-cover scale-x-[-1] rounded-full"
               />
-              <span className="text-white edium truncate">{home?.name || "--"}</span>
+              <span className={homeTextClass}>{home?.name || "--"}</span>
             </div>
 
             {/* Score */}
-            <div className="text-lg  text-center text-white w-1/3">
+            <div className="text-lg text-center w-1/3">
               {isCompleted ? (
                 <span>
-                  {match.homePoints} - {match.awayPoints}
+                  <span className={scoreNumberClass("home")}>{match.homePoints}</span>{" "}
+                  <span className="text-white">-</span>{" "}
+                  <span className={scoreNumberClass("away")}>{match.awayPoints}</span>
                 </span>
               ) : (
                 <span className="text-gray-400">VS</span>
@@ -46,7 +69,7 @@ export const RoundMatches = () => {
 
             {/* Away */}
             <div className="flex items-center gap-2 justify-end w-1/3" title={away?.name}>
-              <span className="text-white edium truncate text-right">{away?.name || "--"}</span>
+              <span className={awayTextClass}>{away?.name || "--"}</span>
               <img
                 src={away?.images?.iconside || "/placeholder.png"}
                 alt={away?.name || "Away character"}
