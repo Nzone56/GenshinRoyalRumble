@@ -1,10 +1,10 @@
 import { useTournament } from "@hooks/useTournament";
 import { useSchedule } from "../hooks/useSchedule";
 import clsx from "clsx";
+import type { Match } from "@mytypes/Tournament";
 
-export const RoundMatches = () => {
-  // TODO: Add ellipsis icon and an option to see the full match details
-  //       in a modal or separate page.
+export const RoundMatches = ({setSelectedMatch} : {setSelectedMatch: (match: Match | null) => void}) => {
+  
   const { selectedRound, currentRound, schedule } = useSchedule();
   const { characters } = useTournament();
 
@@ -44,7 +44,8 @@ export const RoundMatches = () => {
         return (
           <div
             key={match.id}
-            className="flex justify-between items-center gap-4 p-4 rounded-xl shadow-md transition bg-gray-700"
+            className="flex justify-between items-center gap-4 p-4 rounded-xl shadow-md transition bg-gray-700 hover:bg-gray-500 cursor-pointer duration-300"
+            onClick={ () => setSelectedMatch(match)}
           >
             {/* Home */}
             <div className="flex items-center gap-2 w-1/3" title={home?.name}>
