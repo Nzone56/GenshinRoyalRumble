@@ -1,3 +1,4 @@
+import { useEffect, useMemo, useState } from "react";
 import { LoadingLogo } from "@components/ui/LoadingLogo";
 import { useTournament } from "@hooks/useTournament";
 import { CharactersFilters } from "@modules/TournamentSetup/components/CharactersSlide/CharactersFilters";
@@ -6,12 +7,12 @@ import { TableHeader } from "@modules/TournamentTable/components/TableHeader";
 import { TableRow } from "@modules/TournamentTable/components/TableRow";
 import { useTable } from "@modules/TournamentTable/hooks/useTable";
 import { useTableFilters } from "@modules/TournamentTable/hooks/useTableFilters";
-import { useMemo } from "react";
 
-//TODO: Add arrow icons to show the character  flow changes on the table
+// TODO: Add arrow icons to show the character flow changes on the table
 export const TournamentTable = () => {
   const { characters } = useTournament();
   const { getStandings } = useTable();
+  const [show, setShow] = useState(false);
 
   const charactersList = useMemo(() => {
     return getStandings().map((character) => ({
@@ -25,15 +26,30 @@ export const TournamentTable = () => {
     }));
   }, [getStandings, characters]);
 
-  const { filteredCharacters, visibleColumns, filters, handleChangeFilter, resetFilters, toggleColumn } =
-    useTableFilters({
-      charactersList,
-    });
+  const {
+    filteredCharacters,
+    visibleColumns,
+    filters,
+    handleChangeFilter,
+    resetFilters,
+    toggleColumn,
+  } = useTableFilters({
+    charactersList,
+  });
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setShow(true), 10);
+    return () => clearTimeout(timeout);
+  }, []);
 
   if (!filteredCharacters) return <LoadingLogo />;
 
   return (
-    <div className="w-full">
+    <div
+      className={`w-full transition-all duration-500 ease-out transform ${
+        show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+      }`}
+    >
       <div className="flex flex-col items-center justify-center my-8">
         <CharactersFilters
           filters={filters}
@@ -42,7 +58,7 @@ export const TournamentTable = () => {
         />
         <TableColumnsToggle visibleColumns={visibleColumns} toggleColumn={toggleColumn} />
       </div>
-      <div className="bg-gray-800 p-8 overflow-auto rounded-lg ">
+      <div className="bg-gray-800 p-8 overflow-auto rounded-lg">
         <table className="w-full text-white text-sm text-left">
           <thead>
             <TableHeader visibleColumns={visibleColumns} />

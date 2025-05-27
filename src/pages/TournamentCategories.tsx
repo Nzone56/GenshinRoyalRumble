@@ -1,14 +1,22 @@
+import { useEffect, useState } from "react";
 import { FormSelect } from "@components/form/FormSelect";
 import { LoadingLogo } from "@components/ui/LoadingLogo";
 import { useTournament } from "@hooks/useTournament";
 import { CharacterSetup } from "@modules/TournamentCategories/components/CharacterSetup";
 import { useTournamentCategories } from "@modules/TournamentCategories/hooks/useTournamentCategories";
-import { useEffect } from "react";
 
 export const TournamentCategories = () => {
   const { config, characters, categories } = useTournament();
-  const { imgError, setImgError, loading, setLoading, selectedCharacter, handleSelectCharacter } =
-    useTournamentCategories();
+  const {
+    imgError,
+    setImgError,
+    loading,
+    setLoading,
+    selectedCharacter,
+    handleSelectCharacter,
+  } = useTournamentCategories();
+
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -27,11 +35,20 @@ export const TournamentCategories = () => {
     };
   }, [selectedCharacter, setImgError, setLoading]);
 
+  useEffect(() => {
+    const timeout = setTimeout(() => setShow(true), 10);
+    return () => clearTimeout(timeout);
+  }, []);
+
   if (Object.keys(characters).length === 0) return <LoadingLogo />;
 
   return (
-    <div className="m-8">
-      <div className="flex flex-col items-center justify-between mb-4 gap-4 ">
+    <div
+      className={`m-8 transition-all duration-500 ease-out transform ${
+        show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+      }`}
+    >
+      <div className="flex flex-col items-center justify-between mb-4 gap-4">
         <p className="text-lg">
           Before starting the tournament, you must assign a value to each category for every character.
           <span className="text-amber-400"> This value cannot be changed once the tournament begins. </span>
@@ -51,14 +68,20 @@ export const TournamentCategories = () => {
               id={characters[curr].id}
               key={characters[curr].id}
               value={curr}
-              className={`${Object.values(categories[curr]).every((value) => value > 0) ? "" : "text-amber-400"}`}
+              className={`${
+                Object.values(categories[curr]).every((value) => value > 0) ? "" : "text-amber-400"
+              }`}
             >
               {characters[curr].name}
             </option>
           ))}
         </FormSelect>
       </div>
-      {loading ? <LoadingLogo /> : <CharacterSetup imgError={imgError} selectedCharacter={selectedCharacter} />}
+      {loading ? (
+        <LoadingLogo />
+      ) : (
+        <CharacterSetup imgError={imgError} selectedCharacter={selectedCharacter} />
+      )}
     </div>
   );
 };

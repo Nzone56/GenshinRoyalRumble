@@ -19,7 +19,7 @@ export const CategoriesSlide = memo(() => {
         <span className="text-amber-400"> Each method offers distinct rules and strategic depth</span>, so pick the one
         that best matches your vision for the competition!
       </p>
-      <div>
+      <div className="overflow-auto custom-scrollbar px-5">
         <div className="flex gap-4 mb-2">
           <span className="w-[calc(65px)] text-center">Native</span>
           <span className="flex-1">Name</span>

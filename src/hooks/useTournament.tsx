@@ -6,6 +6,7 @@ import { useCharactersStatsStore } from "@store/useCharacterStatsStore";
 import { useScheduleStore } from "@store/useScheduleStore";
 import { useTournamentStore } from "@store/useTournamentStore";
 import { useCallback, useEffect } from "react";
+import CategoriesJSON from "@modules/TournamentCategories/components/categories.json"
 
 export const useTournament = () => {
   const {
@@ -172,10 +173,11 @@ export const useTournament = () => {
 
           // downloadJSON(parsedCategories, "categories.json");
         } else {
-          setInitialCategories(
-            characters,
-            config.categories.map((cat) => cat.name),
-          );
+            setCategories(CategoriesJSON);
+            // setInitialCategories(
+            //   characters,
+            //   config.categories.map((cat) => cat.name),
+            // );
         }
 
         setHasLoadedCharacters(true);
