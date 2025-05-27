@@ -140,8 +140,6 @@ export const useTournament = () => {
       newStats[entry.id].pointsA = entry.pointsA;
     });
 
-    console.log(Object.values(newStats).map(stat => ({prevPosition: stat.prevPosition, position: stat.position})))
-
     localStorage.setItem("stats", JSON.stringify(newStats))
         // Update the state with new standings
     setStats(newStats);

@@ -30,7 +30,7 @@ export const FixtureResults = ({ handleContinueNextRound }: { handleContinueNext
         onClick={handleContinueNextRound}
         className={`mt-4 px-8 py-3 rounded-xl text-white  transition duration-300 bg-amber-400 hover:scale-110 cursor-pointer`}
       >
-        Back to home
+        Finish Fixture
       </button>
       <div>
         {/* Match */}

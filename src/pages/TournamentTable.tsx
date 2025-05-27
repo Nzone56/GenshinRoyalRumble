@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo} from "react";
 import { LoadingLogo } from "@components/ui/LoadingLogo";
 import { useTournament } from "@hooks/useTournament";
 import { CharactersFilters } from "@modules/TournamentSetup/components/CharactersSlide/CharactersFilters";
@@ -12,7 +12,7 @@ import { useTableFilters } from "@modules/TournamentTable/hooks/useTableFilters"
 export const TournamentTable = () => {
   const { characters } = useTournament();
   const { getStandings } = useTable();
-  const [show, setShow] = useState(false);
+
 
   const charactersList = useMemo(() => {
     return getStandings().map((character) => ({
@@ -37,18 +37,12 @@ export const TournamentTable = () => {
     charactersList,
   });
 
-  useEffect(() => {
-    const timeout = setTimeout(() => setShow(true), 10);
-    return () => clearTimeout(timeout);
-  }, []);
 
   if (!filteredCharacters) return <LoadingLogo />;
 
   return (
     <div
-      className={`w-full transition-all duration-500 ease-out transform ${
-        show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-      }`}
+      className={`w-full fade-in-up`}
     >
       <div className="flex flex-col items-center justify-center my-8">
         <CharactersFilters

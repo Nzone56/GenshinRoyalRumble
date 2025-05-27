@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { StatCategoryContainer } from "@modules/TournamentStats/components/StatCategoryContainer";
 import { StatContainer } from "@modules/TournamentStats/components/StatContainer";
 import { useTable, type TopPerformance } from "@modules/TournamentTable/hooks/useTable";
@@ -23,18 +22,9 @@ export const TournamentStats = () => {
     { id: "diffP", label: "Point Difference" },
   ];
 
-  const [show, setShow] = useState(false);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => setShow(true), 10);
-    return () => clearTimeout(timeout);
-  }, []);
-
   return (
     <div
-      className={`flex flex-wrap items-center justify-center gap-8 m-8 transition-all duration-500 ease-out transform ${
-        show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-      }`}
+      className={`flex flex-wrap items-center justify-center gap-8 m-8 fade-in-up`}
     >
       {stats.map((stat) => (
         <StatContainer key={stat.id} stat={stat} />

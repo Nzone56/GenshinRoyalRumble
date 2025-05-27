@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { FormSelect } from "@components/form/FormSelect";
 import { LoadingLogo } from "@components/ui/LoadingLogo";
 import { useTournament } from "@hooks/useTournament";
@@ -16,7 +16,6 @@ export const TournamentCategories = () => {
     handleSelectCharacter,
   } = useTournamentCategories();
 
-  const [show, setShow] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -35,19 +34,11 @@ export const TournamentCategories = () => {
     };
   }, [selectedCharacter, setImgError, setLoading]);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => setShow(true), 10);
-    return () => clearTimeout(timeout);
-  }, []);
 
   if (Object.keys(characters).length === 0) return <LoadingLogo />;
 
   return (
-    <div
-      className={`m-8 transition-all duration-500 ease-out transform ${
-        show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-      }`}
-    >
+    <div className={`m-8 fade-in-up`}>
       <div className="flex flex-col items-center justify-between mb-4 gap-4">
         <p className="text-lg">
           Before starting the tournament, you must assign a value to each category for every character.
