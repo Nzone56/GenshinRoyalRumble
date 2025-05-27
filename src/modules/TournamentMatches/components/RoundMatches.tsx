@@ -1,8 +1,10 @@
 import { useTournament } from "@hooks/useTournament";
 import { useSchedule } from "../hooks/useSchedule";
-import clsx from "clsx"; // Asegúrate de tener esto instalado
+import clsx from "clsx";
 
 export const RoundMatches = () => {
+  // TODO: Add ellipsis icon and an option to see the full match details
+  //       in a modal or separate page.
   const { selectedRound, currentRound, schedule } = useSchedule();
   const { characters } = useTournament();
 

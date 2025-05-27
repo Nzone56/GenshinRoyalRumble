@@ -6,6 +6,7 @@ import { FixtureResults } from "./SimulateFixture/FixtureResults";
 import { useScheduleStore } from "@store/useScheduleStore";
 import { Winner } from "./Winner";
 
+//TODO: FIX THE STYLES FOR LG-XL SCREENS
 type Props = {
   simulatingFixture: boolean;
   handleSimulateRound: () => void;

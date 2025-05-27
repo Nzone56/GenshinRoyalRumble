@@ -14,6 +14,7 @@ import { LoadingLogo } from "@components/ui/LoadingLogo";
 export const CharacterInformation = () => {
   const { charactersStats, currentCharacter, getLastMatches, getNextMatches } = useCharacter();
 
+  //TODO: Fix the icons and add clarity to stats
   const icons = {
     position: POSITION,
     points: POINTS,
@@ -71,7 +72,7 @@ export const CharacterInformation = () => {
                 <span className="text-lg text-amber-400">Next 3 Matches</span>
                 <div className="flex flex-col items-center justify-between w-full px-4 py-2 gap-4 flex-wrap bg-gray-800 rounded-lg">
                   {getNextMatches().map((match) => (
-                    <MatchPreview key={match.id} match={match} played={false}/>
+                    <MatchPreview key={match.id} match={match} played={false} />
                   ))}
                 </div>
               </div>

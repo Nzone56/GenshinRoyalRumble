@@ -8,6 +8,7 @@ import { useTable } from "@modules/TournamentTable/hooks/useTable";
 import { useTableFilters } from "@modules/TournamentTable/hooks/useTableFilters";
 import { useMemo } from "react";
 
+//TODO: Add arrow icons to show the character  flow changes on the table
 export const TournamentTable = () => {
   const { characters } = useTournament();
   const { getStandings } = useTable();
@@ -31,7 +32,7 @@ export const TournamentTable = () => {
 
   if (!filteredCharacters) return <LoadingLogo />;
 
-  return ( 
+  return (
     <div className="w-full">
       <div className="flex flex-col items-center justify-center my-8">
         <CharactersFilters
