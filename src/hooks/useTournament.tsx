@@ -21,9 +21,10 @@ export const useTournament = () => {
   const { charactersData, setCharactersData, hasLoadedCharacters, setHasLoadedCharacters } = useCharactersStore();
   const { categories, stats, setStats, setCategoryValue, setCategories, setInitialStats, setInitialCategories } =
     useCharactersStatsStore();
-  const { schedule, currentRound } = useScheduleStore();
+  const { schedule, setSchedule, currentRound, setCurrentRound } = useScheduleStore();
 
   const getTournament = useCallback(() => {
+    // Get tournament from storage
     const storagedTournament = localStorage.getItem("Tournament");
 
     if (storagedTournament) {
@@ -31,7 +32,19 @@ export const useTournament = () => {
       const { id, ...rest } = parsed;
       setTournament(id, rest);
     }
-  }, [setTournament]);
+
+    // Get schedule from storage
+    const storagedSchedule = localStorage.getItem("schedule")
+    if (storagedSchedule) {
+
+      const parsedSchedule = JSON.parse(storagedSchedule);
+      const { schedule, currentRound } = parsedSchedule
+      setCurrentRound(currentRound)
+      setStarted(true)
+      setSchedule(schedule);
+    }
+    //eslint-disable-next-line
+  }, []);
 
   const handleStartTournament = () => {
     localStorage.setItem("categories", JSON.stringify(categories));
@@ -40,7 +53,7 @@ export const useTournament = () => {
 
   const calculateStandings = () => {
     if (!schedule) return [];
-
+    
     // Create a fresh copy of the stats object with zeroed values
     const newStats: Record<string, CharacterStats> = {};
 
@@ -55,6 +68,7 @@ export const useTournament = () => {
         pointsA: 0,
         diffP: 0,
         points: 0,
+        prevPosition: stats[id].battles < 2  ? null : stats[id].position,
       };
     }
 
@@ -126,7 +140,10 @@ export const useTournament = () => {
       newStats[entry.id].pointsA = entry.pointsA;
     });
 
-    // Update the state with new standings
+    console.log(Object.values(newStats).map(stat => ({prevPosition: stat.prevPosition, position: stat.position})))
+
+    localStorage.setItem("stats", JSON.stringify(newStats))
+        // Update the state with new standings
     setStats(newStats);
   };
 
@@ -154,7 +171,16 @@ export const useTournament = () => {
         if (cancelled) return;
 
         setCharactersData(characters);
-        setInitialStats(characters);
+
+        // Get stats from storage
+        const storagedStats = localStorage.getItem("stats")
+        if (storagedStats) {
+          const parsedStats = JSON.parse(storagedStats);
+          setStats(parsedStats);
+        } else {
+          setInitialStats(characters);
+        }
+       
         const storageedCategories = localStorage.getItem("categories");
         if (storageedCategories) {
           const parsedCategories = JSON.parse(storageedCategories);
@@ -204,6 +230,7 @@ export const useTournament = () => {
     setHasLoadedCharacters,
     setLoading,
     setCategories,
+    setStats
   ]);
 
   useEffect(() => {

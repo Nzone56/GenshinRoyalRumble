@@ -10,7 +10,7 @@ export const useMatchSimulation = () => {
   const { config, categories, calculateStandings } = useTournament();
   const { schedule, currentRound, updateRound } = useSchedule();
   const [simulatingFixture, setSimulatingFixture] = useState(false);
-
+  
   const getTopCategories = (categoriesObj: Categories, topN: number = 5): string[] => {
     return Object.entries(categoriesObj)
       .sort(([, a], [, b]) => b - a)
@@ -116,6 +116,7 @@ export const useMatchSimulation = () => {
   const handleContinueNextRound = () => {
     calculateStandings();
     setSimulatingFixture(false);
+    localStorage.setItem("schedule", JSON.stringify({schedule, currentRound}));
   };
 
   return {

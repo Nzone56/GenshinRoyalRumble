@@ -1,6 +1,10 @@
 import { getNationImages, getVisionImages, getWeaponImages } from "@helpers/getIcons";
 import type { CharacterTable } from "@mytypes/Tournament";
 import type { TableColumn } from "../hooks/useTableFilters";
+import LINE from "@assets/images/icons/line.svg?react"
+import ARROWUP from "@assets/images/icons/arrow-up.svg?react"
+import ARROWDOWN from "@assets/images/icons/arrow-down.svg?react"
+
 
 type TableRowProps = {
   character: CharacterTable;
@@ -90,6 +94,20 @@ export const TableRow = ({ character, visibleColumns }: TableRowProps) => {
     },
   ];
 
+  
+
+  const getPrevPositionIcon = () => {
+    if (character.prevPosition == null || character.prevPosition === character.position) {
+      return <LINE className="w-8 h-8 rounded-full fill-gray-300" />;
+    }
+  
+    if (character.prevPosition > character.position) {
+      return <ARROWUP className="w-8 h-8 rounded-full fill-green-400" />;
+    }
+  
+    return <ARROWDOWN className="w-8 h-8 rounded-full fill-red-400" />;
+  };
+
   return (
     <tr className="hover:bg-gray-700 border-t border-gray-600">
       <td className="p-2 ">{character.position}</td>
@@ -101,6 +119,9 @@ export const TableRow = ({ character, visibleColumns }: TableRowProps) => {
           </td>
         ) : null,
       )}
+      <td>
+        {getPrevPositionIcon()}      
+      </td>
     </tr>
   );
 };

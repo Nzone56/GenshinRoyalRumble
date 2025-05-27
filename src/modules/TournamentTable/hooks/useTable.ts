@@ -1,8 +1,8 @@
-import { useTournament } from "@hooks/useTournament";
 import { useCallback } from "react";
 import type { CharacterStats } from "@mytypes/Tournament";
 import { useSchedule } from "@modules/TournamentMatches/hooks/useSchedule";
 import { roundNumber } from "@helpers/functions";
+import { useCharactersStatsStore } from "@store/useCharacterStatsStore";
 
 type StatKey = keyof Omit<CharacterStats, "id">;
 
@@ -12,7 +12,7 @@ export type TopPerformance = {
 };
 
 export const useTable = () => {
-  const { stats } = useTournament();
+  const { stats } = useCharactersStatsStore();
   const { schedule } = useSchedule();
 
   const getStandings = useCallback(
@@ -21,11 +21,16 @@ export const useTable = () => {
         id,
         ...data,
       }));
-
+  
       const sorted = prop
-        ? [...entries].sort((a, b) => (b[prop] ?? 0) - (a[prop] ?? 0))
+        ? [...entries].sort((a, b) => {
+            if (prop === "pointsA") {
+              return (a[prop] ?? 0) - (b[prop] ?? 0); // Lowe to high
+            }
+            return (b[prop] ?? 0) - (a[prop] ?? 0); // High to low
+          })
         : [...entries].sort((a, b) => (a.position ?? 999) - (b.position ?? 999));
-
+  
       return sorted.map((team, index) => ({
         ...team,
         position: index + 1,
@@ -33,7 +38,6 @@ export const useTable = () => {
     },
     [stats],
   );
-
   const getTop5CategoryPerformances = () => {
     const categoryMap: Record<string, TopPerformance[]> = {};
 

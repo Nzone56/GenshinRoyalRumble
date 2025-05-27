@@ -49,6 +49,7 @@ export interface CharacterStats {
   diffP: number;
   losses: number;
   points: number;
+  prevPosition: number | null;
 }
 
 export interface CharacterTable extends CharacterStats {

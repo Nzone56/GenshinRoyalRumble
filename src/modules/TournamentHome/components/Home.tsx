@@ -18,7 +18,7 @@ export const Home = ({ simulatingFixture, handleSimulateRound, handleContinueNex
   if (!schedule) return <span>Unexpected Error</span>;
 
   return (
-    <div className={`${simulatingFixture ? "absolute h-screen w-screen " : "flex flex-col w-full m-8 gap-8"} `}>
+    <div className={`${simulatingFixture ? "absolute h-screen w-screen " : "flex flex-col w-full p-8 gap-8"} `}>
       {simulatingFixture ? (
         <FixtureResults handleContinueNextRound={handleContinueNextRound} />
       ) : (

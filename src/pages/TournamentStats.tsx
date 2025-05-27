@@ -17,7 +17,7 @@ export const TournamentStats = () => {
   const topTotals = (getTop5CategoryTotals() as Record<string, TopPerformance[]>) || {};
 
   const stats: StatType[] = [
-    { id: "wins", label: "Wins" },
+    { id: "wins", label: "Wins",},
     { id: "pointsF", label: "Points For" },
     { id: "pointsA", label: "Points Against" },
     { id: "diffP", label: "Point Difference" },

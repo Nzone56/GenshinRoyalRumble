@@ -37,6 +37,7 @@ export const useCharactersStatsStore = create(
           diffP: 0,
           losses: 0,
           points: 0,
+          prevPosition: null,
         };
       });
 

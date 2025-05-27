@@ -14,7 +14,7 @@ export const LastFixturePreview = () => {
 
   if (!lastPlayedRound) {
     return (
-      <div className="flex items-center justify-center p-4 bg-gray-800 rounded-xl h-[320px] flex-grow-1 max-w-[500px]">
+      <div className="flex items-center justify-center p-4 bg-gray-800 rounded-xl h-[320px] flex-grow-1 min-w-[350px] max-w-[500px]">
         No previous results available.
       </div>
     );
