@@ -1,6 +1,5 @@
 import { TablePreview } from "./TablePreview";
 import { LastFixturePreview } from "./LastFixturePreview";
-import { FixturePreview } from "./FixturePreview";
 import { StartFixture } from "./StartFixture";
 import { FixtureResults } from "./SimulateFixture/FixtureResults";
 import { useScheduleStore } from "@store/useScheduleStore";
@@ -23,11 +22,13 @@ export const Home = ({ simulatingFixture, handleSimulateRound, handleContinueNex
         <FixtureResults handleContinueNextRound={handleContinueNextRound} />
       ) : (
         <div className="flex flex-col items-center justify-center gap-8">
-          {currentRound > schedule?.rounds.length && <Winner />}
-          <StartFixture handleStartFixture={handleSimulateRound} />
+          {currentRound > schedule?.rounds.length ? (
+            <Winner />
+          ) : (
+            <StartFixture handleStartFixture={handleSimulateRound} />
+          )}
           <div className="flex flex-col items-center w-full h-full max-w-[1200px] gap-8">
-            <FixturePreview />
-            {schedule?.rounds.length && currentRound < schedule?.rounds.length && (
+            {schedule?.rounds.length && currentRound <= schedule?.rounds.length && (
               <div className="flex items-center w-full gap-8">
                 <TablePreview />
                 <LastFixturePreview />
