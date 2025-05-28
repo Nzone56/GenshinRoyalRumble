@@ -26,14 +26,14 @@ export const FixturePreview = () => {
           return (
             <div
               key={match.id}
-              className="flex items-center justify-between px-3 py-2 bg-gray-800 rounded-xl hover:bg-gray-700 transition"
+              className="flex items-center justify-between px-3 py-2 bg-gray-800 rounded-xl"
             >
               {/* Home character */}
               <div className="flex items-center gap-3 w-1/3" title={home?.name}>
                 <img
                   src={home?.images?.icon}
                   alt={home?.name || "Home character"}
-                  className="w-12 h-12 object-cover scale-x-[-1] rounded-full border-2 border-white"
+                  className="w-12 h-12 object-cover rounded-full border-2 border-white"
                 />
                 <span className="text-white  truncate">{home?.name || "--"}</span>
               </div>
@@ -47,7 +47,7 @@ export const FixturePreview = () => {
                 <img
                   src={away?.images?.icon}
                   alt={away?.name || "Away character"}
-                  className="w-12 h-12 object-contain rounded-full border-2 border-white"
+                  className="w-12 h-12 object-contain scale-x-[-1] rounded-full border-2 border-white"
                 />
               </div>
             </div>

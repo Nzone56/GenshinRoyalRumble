@@ -5,6 +5,9 @@ import type { CategoryType } from "@mytypes/config";
 import { useState } from "react";
 
 type Categories = Record<string, number>;
+const NUMBER_MATCH_CATEGORIES = 3
+const NUMBER_TOP_CATEGORIES = 1
+const NUMBER_TOP_CATEGORIES_POLL = 3
 
 export const useMatchSimulation = () => {
   const { config, categories, calculateStandings } = useTournament();
@@ -43,7 +46,7 @@ export const useMatchSimulation = () => {
     );
   };
 
-  const getComparassions = (
+  const getComparisons = (
     selected: string[],
     homeCategories: Record<string, number>,
     awayCategories: Record<string, number>,
@@ -77,12 +80,12 @@ export const useMatchSimulation = () => {
     const categoryConfigMap = mapCategoryConfig(config.categories);
 
     const allKeys = Object.keys(homeCategories);
-    const top5Keys = getTopCategories(homeCategories, 5);
-    const top3Random = getRandomItems(top5Keys, 3);
-    const extra2Random = getAdditionalRandomCategories(allKeys, top5Keys, 2);
-    const selected = [...top3Random, ...extra2Random];
+    const topKeys = getTopCategories(homeCategories, NUMBER_TOP_CATEGORIES_POLL);
+    const randomTopCategories = getRandomItems(topKeys, NUMBER_TOP_CATEGORIES);
+    const extraRandom = getAdditionalRandomCategories(allKeys, topKeys, NUMBER_MATCH_CATEGORIES - NUMBER_TOP_CATEGORIES);
+    const selected = [...randomTopCategories, ...extraRandom];
 
-    const comparisons = getComparassions(selected, homeCategories, awayCategories, categoryConfigMap);
+    const comparisons = getComparisons(selected, homeCategories, awayCategories, categoryConfigMap);
     const totalHomePoints = comparisons.reduce((acc, c) => acc + (c.difference > 0 ? c.difference : 0), 0);
     const totalAwayPoints = comparisons.reduce((acc, c) => acc + (c.difference < 0 ? Math.abs(c.difference) : 0), 0);
     return { comparisons, totalHomePoints, totalAwayPoints };
