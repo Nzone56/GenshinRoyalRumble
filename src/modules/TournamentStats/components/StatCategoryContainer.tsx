@@ -1,16 +1,17 @@
 import { roundNumber } from "@helpers/functions";
 import { useTournament } from "@hooks/useTournament";
-import type { TopPerformance } from "@modules/TournamentTable/hooks/useTable";
+import { useTable, type TopPerformance } from "@modules/TournamentTable/hooks/useTable";
 import React from "react";
 
 type CategoryTopListProps = {
   category: string;
   performances: TopPerformance[];
-  label: string;
+  label?: string;
 };
 
 export const StatCategoryContainer: React.FC<CategoryTopListProps> = ({ category, performances, label }) => {
   const { characters } = useTournament();
+  const { getTotalMatchesInCategoryByCharacter } = useTable()
   return (
     <div className="flex flex-col w-full p-4 bg-white dark:bg-gray-800 rounded-xl h-[320px] flex-grow-1 max-w-[400px]">
       <h3 className="text-xl">
@@ -41,6 +42,10 @@ export const StatCategoryContainer: React.FC<CategoryTopListProps> = ({ category
               </span>
               <span className={`w-10 text-right  ${index === 0 ? "text-amber-400" : "text-gray-300"}`}>
                 {roundNumber(value)}
+              </span>
+
+              <span className={`w-10 text-right text-xs  ${index === 0 ? "text-amber-400" : "text-gray-300"}`}>
+                ({(getTotalMatchesInCategoryByCharacter(category, character))})
               </span>
             </div>
           );

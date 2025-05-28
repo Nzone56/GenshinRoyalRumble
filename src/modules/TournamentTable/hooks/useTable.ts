@@ -21,7 +21,7 @@ export const useTable = () => {
         id,
         ...data,
       }));
-  
+
       const sorted = prop
         ? [...entries].sort((a, b) => {
             if (prop === "pointsA") {
@@ -30,7 +30,7 @@ export const useTable = () => {
             return (b[prop] ?? 0) - (a[prop] ?? 0); // High to low
           })
         : [...entries].sort((a, b) => (a.position ?? 999) - (b.position ?? 999));
-  
+
       return sorted.map((team, index) => ({
         ...team,
         position: index + 1,
@@ -61,7 +61,7 @@ export const useTable = () => {
       }
     }
 
-    // Reducir a top 5 por categoría
+    // Get only top 5
     for (const category in categoryMap) {
       categoryMap[category] = categoryMap[category].sort((a, b) => b.value - a.value).slice(0, 5);
     }
@@ -78,23 +78,23 @@ export const useTable = () => {
       for (const match of round.matches) {
         for (const categoryResult of match.categoriesResults) {
           const { category, difference } = categoryResult;
-          const absDiff = Math.abs(difference);
-          const character = difference >= 0 ? match.home : match.away;
-
-          if (!categoryCharacterTotals[category]) {
-            categoryCharacterTotals[category] = {};
+  
+          for (const character of [match.home, match.away]) {
+            if (!categoryCharacterTotals[category]) {
+              categoryCharacterTotals[category] = {};
+            }
+            if (!categoryCharacterTotals[category][character]) {
+              categoryCharacterTotals[category][character] = 0;
+            }
           }
-
-          if (!categoryCharacterTotals[category][character]) {
-            categoryCharacterTotals[category][character] = 0;
-          }
-
-          categoryCharacterTotals[category][character] += roundNumber(absDiff);
+  
+          categoryCharacterTotals[category][match.home] += roundNumber(difference);
+          categoryCharacterTotals[category][match.away] -= roundNumber(difference);
         }
       }
     }
 
-    // Para cada categoría, obtener top 5 personajes con mayor suma
+    // For each category, get top 5 character with best diff
     const result: Record<string, TopPerformance[]> = {};
 
     for (const category in categoryCharacterTotals) {
@@ -110,5 +110,83 @@ export const useTable = () => {
     return result;
   };
 
-  return { getStandings, getTop5CategoryPerformances, getTop5CategoryTotals };
+  const getTop5CategoryAverages = () => {
+    if (!schedule) return {};
+
+    // { [category]: { [character]: { total: number, matches: number } } }
+    const categoryCharacterStats: Record<string, Record<string, { total: number; matches: number }>> = {};
+
+    for (const round of schedule.rounds) {
+      for (const match of round.matches) {
+        for (const categoryResult of match.categoriesResults) {
+          const { category, difference } = categoryResult;
+
+          for (const character of [match.home, match.away]) {
+            if (!categoryCharacterStats[category]) {
+              categoryCharacterStats[category] = {};
+            }
+
+            if (!categoryCharacterStats[category][character]) {
+              categoryCharacterStats[category][character] = { total: 0, matches: 0 };
+            }
+          }
+
+          categoryCharacterStats[category][match.home].total += roundNumber(difference);
+          categoryCharacterStats[category][match.home].matches += 1;
+
+          categoryCharacterStats[category][match.away].total -= roundNumber(difference);
+          categoryCharacterStats[category][match.away].matches += 1;
+        }
+      }
+    }
+
+    const result: Record<string, TopPerformance[]> = {};
+
+    for (const category in categoryCharacterStats) {
+      const charStats = categoryCharacterStats[category];
+      const top5 = Object.entries(charStats)
+        .map(([character, { total, matches }]) => ({
+          character,
+          value: matches > 0 ? +(total / matches).toFixed(2) : 0,
+        }))
+        .sort((a, b) => b.value - a.value)
+        .slice(0, 5);
+
+      result[category] = top5;
+    }
+
+    return result;
+  };
+
+  const getTotalMatchesInCategoryByCharacter = (category: string, character: string): number => {
+    if (!schedule) return 0;
+
+    let count = 0;
+
+    for (const round of schedule.rounds) {
+      for (const match of round.matches) {
+        const characterInMatch = match.home === character || match.away === character;
+
+        if (!characterInMatch) continue;
+
+        const participatedInCategory = match.categoriesResults.some(
+          (categoryResult) => categoryResult.category === category,
+        );
+
+        if (participatedInCategory) {
+          count++;
+        }
+      }
+    }
+
+    return count;
+  };
+
+  return {
+    getStandings,
+    getTop5CategoryPerformances,
+    getTop5CategoryTotals,
+    getTop5CategoryAverages,
+    getTotalMatchesInCategoryByCharacter,
+  };
 };
