@@ -18,23 +18,22 @@ export const Home = ({ simulatingFixture, handleSimulateRound, handleContinueNex
   if (!schedule) return <span>Unexpected Error</span>;
 
   return (
-    <div className={`${simulatingFixture ? "absolute h-screen w-screen " : "flex flex-col w-full p-8 gap-8"} `}>
+    <div className={`${simulatingFixture ? "absolute h-screen w-screen " : "flex flex-col w-full"} `}>
       {simulatingFixture ? (
         <FixtureResults handleContinueNextRound={handleContinueNextRound} />
       ) : (
         <div className="flex flex-col items-center justify-center gap-8">
           {currentRound > schedule?.rounds.length && <Winner />}
-          <div className="flex items-center justify-between w-full ">
-            <TablePreview />
-            <LastFixturePreview />
+          <StartFixture handleStartFixture={handleSimulateRound} />
+          <div className="flex flex-col items-center w-full h-full max-w-[1200px] gap-8">
+            <FixturePreview />
+            {schedule?.rounds.length && currentRound < schedule?.rounds.length && (
+              <div className="flex items-center w-full gap-8">
+                <TablePreview />
+                <LastFixturePreview />
+              </div>
+            )}
           </div>
-
-          {schedule?.rounds.length && currentRound < schedule?.rounds.length && (
-            <>
-              <FixturePreview />
-              <StartFixture handleStartFixture={handleSimulateRound} />
-            </>
-          )}
         </div>
       )}
     </div>

@@ -6,7 +6,7 @@ import { CharacterGroupCard } from "./CharacterGroupCard";
 import { CharacterCard } from "./CharacterCard";
 
 export const CharactersSlide = memo(() => {
-  const { filters, filtersSelects, filteredCharacters, handleChangeFilter, handleResetFilters } = useCharacterFilters();
+  const { filters, filteredCharacters, handleChangeFilter, handleResetFilters } = useCharacterFilters();
   const { characters, charactersList, charactersValidation, handleAddGroupCard, handleAddCharacter } =
     useTournamentStoreForm();
 
@@ -23,7 +23,6 @@ export const CharactersSlide = memo(() => {
       <div className="flex flex-col items-center m-5">
         <CharactersFilters
           filters={filters}
-          filtersSelects={filtersSelects}
           handleChangeFilter={handleChangeFilter}
           handleResetFilters={handleResetFilters}
         />

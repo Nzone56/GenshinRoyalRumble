@@ -60,6 +60,16 @@ export const useCharacter = () => {
     setLoading(false);
   };
 
+  
+  const getAllMatches = () => {
+    if(!schedule) return []
+    const allMatches = schedule?.rounds
+      .flatMap((r) => r.matches)
+      .filter((match: Match) => match?.home === currentCharacter?.id || match?.away === currentCharacter?.id);
+    
+      return allMatches
+  }
+
   const getLastMatches = () => {
     const playedRounds = schedule?.rounds.filter((r) => r.id < currentRound);
     if (!playedRounds) return [];
@@ -98,5 +108,6 @@ export const useCharacter = () => {
     setSelectedCharacterIndex,
     getLastMatches,
     getNextMatches,
+    getAllMatches,
   };
 };

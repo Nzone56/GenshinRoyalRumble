@@ -10,9 +10,12 @@ import DIFFP from "@assets/images/icons/stats/diff-points.svg?react";
 import POINTS from "@assets/images/icons/stats/points.svg?react";
 import { MatchPreview } from "./MatchPreview";
 import { LoadingLogo } from "@components/ui/LoadingLogo";
+import { useScheduleStore } from "@store/useScheduleStore";
+import type { Match } from "@mytypes/Tournament";
 
-export const CharacterInformation = () => {
-  const { charactersStats, currentCharacter, getLastMatches, getNextMatches } = useCharacter();
+export const CharacterInformation = ({ setSelectedMatch }: { setSelectedMatch: (match: Match) => void }) => {
+  const { charactersStats, currentCharacter, getLastMatches, getNextMatches, getAllMatches } = useCharacter();
+  const { currentRound } = useScheduleStore();
 
   //TODO: Fix the icons and add clarity to stats
   const icons = {
@@ -57,12 +60,19 @@ export const CharacterInformation = () => {
                 })}
               </div>
             </div>
-            <div className="flex justify-around w-full gap-4 mt-8">
+            <div className="flex items-stretch justify-around w-full gap-4 mt-8">
               <div className="flex flex-col gap-4 mt-8">
                 <span className="text-lg text-amber-400">Last 3 Matches</span>
-                <div className="flex flex-col items-center justify-between w-full px-4 py-2 gap-4 flex-wrap bg-gray-800 rounded-lg">
+                <div className="flex flex-col items-center justify-between w-full py-2 gap-4 bg-gray-800 rounded-lg">
                   {getLastMatches().length > 0 ? (
-                    getLastMatches().map((match) => <MatchPreview key={match.id} match={match} played={true} />)
+                    getLastMatches().map((match) => (
+                      <MatchPreview
+                        key={match.id}
+                        match={match}
+                        currentRound={currentRound}
+                        setSelectedMatch={setSelectedMatch}
+                      />
+                    ))
                   ) : (
                     <div className="text-gray-400 italic text-sm py-4">No matches played yet.</div>
                   )}
@@ -70,9 +80,31 @@ export const CharacterInformation = () => {
               </div>
               <div className="flex flex-col gap-4 mt-8">
                 <span className="text-lg text-amber-400">Next 3 Matches</span>
-                <div className="flex flex-col items-center justify-between w-full px-4 py-2 gap-4 flex-wrap bg-gray-800 rounded-lg">
-                  {getNextMatches().map((match) => (
-                    <MatchPreview key={match.id} match={match} played={false} />
+                <div className="flex flex-col items-center justify-between w-full py-2 gap-4 bg-gray-800 rounded-lg">
+                  {getNextMatches().length > 0 ? (
+                    getNextMatches().map((match) => (
+                      <MatchPreview
+                        key={match.id}
+                        match={match}
+                        currentRound={currentRound}
+                        setSelectedMatch={setSelectedMatch}
+                      />
+                    ))
+                  ) : (
+                    <div className="text-gray-400 italic text-sm py-4">No more matches remaining.</div>
+                  )}
+                </div>
+              </div>
+              <div className="flex flex-col gap-4 mt-8 max-w-[160px] flex-grow-1">
+                <span className="text-lg text-amber-400">All matches</span>
+                <div className="flex flex-col items-center justify-between py-2 gap-4 bg-gray-800 rounded-lg max-h-[360px] overflow-y-auto custom-scrollbar">
+                  {getAllMatches().map((match) => (
+                    <MatchPreview
+                      key={match.id}
+                      match={match}
+                      currentRound={currentRound}
+                      setSelectedMatch={setSelectedMatch}
+                    />
                   ))}
                 </div>
               </div>

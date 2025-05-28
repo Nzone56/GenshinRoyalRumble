@@ -1,2 +1,2 @@
-export const roundNumber = (value: number, decimals = 2): number =>
+export const roundNumber = (value: number, decimals = 1): number =>
   Number(Math.round(Number(value + "e" + decimals)) + "e-" + decimals);

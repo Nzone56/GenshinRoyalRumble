@@ -8,7 +8,7 @@ export const TablePreview = () => {
   const topFive = getStandings()?.slice(0, 5) || [];
 
   return (
-    <div className="flex flex-col w-full p-4 bg-white dark:bg-gray-800 rounded-xl h-[320px] flex-grow-1 max-w-[500px] min-w-[350px] ">
+    <div className="flex flex-col w-full p-4 bg-white dark:bg-gray-800 rounded-xl h-[320px] flex-grow-1">
       <h3 className="text-xl text-amber-400">Standings</h3>
       <div className="flex flex-col items-center justify-center flex-grow-1 my-2">
         {topFive.map(({ position, id, points }, index) => {

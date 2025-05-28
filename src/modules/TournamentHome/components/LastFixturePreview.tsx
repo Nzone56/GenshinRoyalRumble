@@ -21,7 +21,7 @@ export const LastFixturePreview = () => {
   }
 
   return (
-    <div className="p-4 rounded-xl bg-gray-800 flex-grow-1 max-w-[500px]">
+    <div className="p-4 rounded-xl bg-gray-800 flex-grow-1 w-full">
       <h3 className="text-lg text-amber-400">Last Fixture ({lastPlayedRound.id})</h3>
       <div className="space-y-2 h-[260px] overflow-auto custom-scrollbar">
         {lastPlayedRound.matches.map((match) => {

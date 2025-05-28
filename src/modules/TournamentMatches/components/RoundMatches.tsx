@@ -61,9 +61,9 @@ export const RoundMatches = ({setSelectedMatch} : {setSelectedMatch: (match: Mat
             <div className="text-lg text-center w-1/3">
               {isCompleted ? (
                 <span>
-                  <span className={scoreNumberClass("home")}>{match.homePoints}</span>{" "}
+                  <span className={scoreNumberClass("home")}>{match.homePoints.toFixed(1)}</span>{" "}
                   <span className="text-white">-</span>{" "}
-                  <span className={scoreNumberClass("away")}>{match.awayPoints}</span>
+                  <span className={scoreNumberClass("away")}>{match.awayPoints.toFixed(1)}</span>
                 </span>
               ) : (
                 <span className="text-gray-400">VS</span>

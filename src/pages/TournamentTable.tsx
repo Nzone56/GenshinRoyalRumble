@@ -1,4 +1,4 @@
-import { useMemo} from "react";
+import { useMemo } from "react";
 import { LoadingLogo } from "@components/ui/LoadingLogo";
 import { useTournament } from "@hooks/useTournament";
 import { CharactersFilters } from "@modules/TournamentSetup/components/CharactersSlide/CharactersFilters";
@@ -8,11 +8,9 @@ import { TableRow } from "@modules/TournamentTable/components/TableRow";
 import { useTable } from "@modules/TournamentTable/hooks/useTable";
 import { useTableFilters } from "@modules/TournamentTable/hooks/useTableFilters";
 
-// TODO: Add arrow icons to show the character flow changes on the table
 export const TournamentTable = () => {
   const { characters } = useTournament();
   const { getStandings } = useTable();
-
 
   const charactersList = useMemo(() => {
     return getStandings().map((character) => ({
@@ -26,24 +24,15 @@ export const TournamentTable = () => {
     }));
   }, [getStandings, characters]);
 
-  const {
-    filteredCharacters,
-    visibleColumns,
-    filters,
-    handleChangeFilter,
-    resetFilters,
-    toggleColumn,
-  } = useTableFilters({
-    charactersList,
-  });
-
+  const { filteredCharacters, visibleColumns, filters, handleChangeFilter, resetFilters, toggleColumn } =
+    useTableFilters({
+      charactersList,
+    });
 
   if (!filteredCharacters) return <LoadingLogo />;
 
   return (
-    <div
-      className={`w-full fade-in-up`}
-    >
+    <div className={`w-full fade-in-up`}>
       <div className="flex flex-col items-center justify-center my-8">
         <CharactersFilters
           filters={filters}
