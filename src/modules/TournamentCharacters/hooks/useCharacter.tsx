@@ -5,6 +5,7 @@ import { useCharactersStore } from "@store/useCharactersStore";
 import { useCharactersStatsStore } from "@store/useCharacterStatsStore";
 import { useMemo, useState } from "react";
 
+type animation =  (b: boolean) => void
 export const useCharacter = () => {
   const { config } = useTournament();
 
@@ -60,7 +61,24 @@ export const useCharacter = () => {
     setLoading(false);
   };
 
-  
+  const prevSlide = (setNextAnimation: animation , setPrevAnimation: animation) => {
+    setLoading(true);
+    setPrevAnimation(true);
+    setNextAnimation(false);
+  };
+
+  const nextSlide = (setNextAnimation: animation, setPrevAnimation: animation )=> {
+    setLoading(true);
+    setNextAnimation(true);
+    setPrevAnimation(false);
+  };
+
+  // Handles the select item from the carrousel
+  const setCharacterById = (id: string, setNextAnimation: animation, setPrevAnimation: animation) => {
+    setSelectedCharacterIndex(characterIds.findIndex((char: string) => char === id) - 1);
+    nextSlide(setNextAnimation, setPrevAnimation);
+  };
+
   const getAllMatches = () => {
     if(!schedule) return []
     const allMatches = schedule?.rounds
@@ -105,7 +123,10 @@ export const useCharacter = () => {
     prevCharacter,
     handleNextCharacter,
     handlePrevCharacter,
+    prevSlide,
+    nextSlide,
     setSelectedCharacterIndex,
+    setCharacterById,
     getLastMatches,
     getNextMatches,
     getAllMatches,

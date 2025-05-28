@@ -111,7 +111,7 @@ export const TableRow = ({ character, visibleColumns }: TableRowProps) => {
   };
 
   const handleSelectCharacter = () => {
-    setSelectedCharacterIndex(characterIds.findIndex((char: string) => char === character.id) - 1);
+    setSelectedCharacterIndex(characterIds.findIndex((char: string) => char === character.id));
     navigate("/tournament/characters");
   };
 

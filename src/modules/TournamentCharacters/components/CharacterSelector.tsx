@@ -10,37 +10,24 @@ type props = {
 };
 
 export const CharacterSelector = ({ setNextAnimation, setPrevAnimation }: props) => {
-  const { characterIds, charactersData, currentCharacter, loading, setLoading, setSelectedCharacterIndex } =
-    useCharacter();
+  const { setCharacterById, charactersData, currentCharacter, loading, prevSlide, nextSlide } = useCharacter();
   const [isEditing, setIsEditing] = useState(false);
 
-  const prevSlide = () => {
-    setLoading(true);
-    setPrevAnimation(true);
-    setNextAnimation(false);
-  };
-
-  const nextSlide = () => {
-    setLoading(true);
-    setNextAnimation(true);
-    setPrevAnimation(false);
-  };
-
-  // Handles the select item from the carrousel
-  const setCharacterById = (id: string) => {
-    setSelectedCharacterIndex(characterIds.findIndex((char: string) => char === id) - 1);
-    nextSlide();
-  };
-
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCharacterById(e.target.value);
+    setCharacterById(e.target.value, setNextAnimation, setPrevAnimation);
     setIsEditing(false);
   };
 
+  //TODO: FIX SELECTOR ANIMATION
   const iconsStyles = `w-6 h-6  ${loading ? "fill-gray-700" : "fill-slate-300 hover:fill-amber-500"}`;
   return (
     <div className="flex items-center">
-      <button className="cursor-pointer" onClick={prevSlide} disabled={loading} aria-label="Previous Character">
+      <button
+        className="cursor-pointer"
+        onClick={() => prevSlide(setNextAnimation, setPrevAnimation)}
+        disabled={loading}
+        aria-label="Previous Character"
+      >
         <LCHEVRON className={iconsStyles} />
       </button>
       <div className="flex items-center justify-center w-[275px] h-[38px] px-4 text-xl">
@@ -65,7 +52,12 @@ export const CharacterSelector = ({ setNextAnimation, setPrevAnimation }: props)
           </span>
         )}
       </div>
-      <button className="cursor-pointer" onClick={nextSlide} disabled={loading} aria-label="Next Character">
+      <button
+        className="cursor-pointer"
+        onClick={() => nextSlide(setNextAnimation, setPrevAnimation)}
+        disabled={loading}
+        aria-label="Next Character"
+      >
         <RCHEVRON className={iconsStyles} />
       </button>
     </div>
