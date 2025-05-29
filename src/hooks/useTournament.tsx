@@ -6,7 +6,7 @@ import { useCharactersStatsStore } from "@store/useCharacterStatsStore";
 import { useScheduleStore } from "@store/useScheduleStore";
 import { useTournamentStore } from "@store/useTournamentStore";
 import { useCallback, useEffect } from "react";
-import CategoriesJSON from "@modules/TournamentCategories/components/categories.json"
+import CategoriesJSON from "@modules/TournamentCategories/components/categories.json";
 
 export const useTournament = () => {
   const {
@@ -34,13 +34,12 @@ export const useTournament = () => {
     }
 
     // Get schedule from storage
-    const storagedSchedule = localStorage.getItem("schedule")
+    const storagedSchedule = localStorage.getItem("schedule");
     if (storagedSchedule) {
-
       const parsedSchedule = JSON.parse(storagedSchedule);
-      const { schedule, currentRound } = parsedSchedule
-      setCurrentRound(currentRound)
-      setStarted(true)
+      const { schedule, currentRound } = parsedSchedule;
+      setCurrentRound(currentRound);
+      setStarted(true);
       setSchedule(schedule);
     }
     //eslint-disable-next-line
@@ -53,7 +52,7 @@ export const useTournament = () => {
 
   const calculateStandings = () => {
     if (!schedule) return [];
-    
+
     // Create a fresh copy of the stats object with zeroed values
     const newStats: Record<string, CharacterStats> = {};
 
@@ -68,7 +67,7 @@ export const useTournament = () => {
         pointsA: 0,
         diffP: 0,
         points: 0,
-        prevPosition: stats[id].battles < 2  ? null : stats[id].position,
+        prevPosition: stats[id].battles < 1 ? null : stats[id].position,
       };
     }
 
@@ -140,8 +139,8 @@ export const useTournament = () => {
       newStats[entry.id].pointsA = entry.pointsA;
     });
 
-    localStorage.setItem("stats", JSON.stringify(newStats))
-        // Update the state with new standings
+    localStorage.setItem("stats", JSON.stringify(newStats));
+    // Update the state with new standings
     setStats(newStats);
   };
 
@@ -171,14 +170,14 @@ export const useTournament = () => {
         setCharactersData(characters);
 
         // Get stats from storage
-        const storagedStats = localStorage.getItem("stats")
+        const storagedStats = localStorage.getItem("stats");
         if (storagedStats) {
           const parsedStats = JSON.parse(storagedStats);
           setStats(parsedStats);
         } else {
           setInitialStats(characters);
         }
-       
+
         const storageedCategories = localStorage.getItem("categories");
         if (storageedCategories) {
           const parsedCategories = JSON.parse(storageedCategories);
@@ -197,11 +196,11 @@ export const useTournament = () => {
 
           // downloadJSON(parsedCategories, "categories.json");
         } else {
-            setCategories(CategoriesJSON);
-            // setInitialCategories(
-            //   characters,
-            //   config.categories.map((cat) => cat.name),
-            // );
+          setCategories(CategoriesJSON);
+          // setInitialCategories(
+          //   characters,
+          //   config.categories.map((cat) => cat.name),
+          // );
         }
 
         setHasLoadedCharacters(true);
@@ -228,7 +227,7 @@ export const useTournament = () => {
     setHasLoadedCharacters,
     setLoading,
     setCategories,
-    setStats
+    setStats,
   ]);
 
   useEffect(() => {

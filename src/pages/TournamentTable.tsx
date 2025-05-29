@@ -24,20 +24,30 @@ export const TournamentTable = () => {
     }));
   }, [getStandings, characters]);
 
-  const { filteredCharacters, visibleColumns, filters, handleChangeFilter, resetFilters, toggleColumn } =
-    useTableFilters({
-      charactersList,
-    });
+  const {
+    filteredCharacters,
+    visibleColumns,
+    filters,
+    handleChangeFilter,
+    resetFilters,
+    toggleColumn,
+    tableColors,
+    setTableColors,
+  } = useTableFilters({
+    charactersList,
+  });
 
   if (!filteredCharacters) return <LoadingLogo />;
 
   return (
-    <div className={`w-full fade-in-up`}>
+    <div className={`w-full fade-in-up max-w-7xl mx-auto`}>
       <div className="flex flex-col items-center justify-center my-8">
         <CharactersFilters
           filters={filters}
           handleChangeFilter={handleChangeFilter}
           handleResetFilters={resetFilters}
+          tableColors={tableColors}
+          setTableColors={setTableColors}
         />
         <TableColumnsToggle visibleColumns={visibleColumns} toggleColumn={toggleColumn} />
       </div>
@@ -48,7 +58,12 @@ export const TournamentTable = () => {
           </thead>
           <tbody>
             {filteredCharacters.map((character) => (
-              <TableRow key={character.id} visibleColumns={visibleColumns} character={character} />
+              <TableRow
+                key={character.id}
+                visibleColumns={visibleColumns}
+                character={character}
+                tableColors={tableColors}
+              />
             ))}
           </tbody>
         </table>

@@ -4,6 +4,7 @@ import { StartFixture } from "./StartFixture";
 import { FixtureResults } from "./SimulateFixture/FixtureResults";
 import { useScheduleStore } from "@store/useScheduleStore";
 import { Winner } from "./Winner";
+import { FixturePreview } from "./FixturePreview";
 
 //TODO: FIX THE STYLES FOR LG-XL SCREENS
 type Props = {
@@ -27,13 +28,14 @@ export const Home = ({ simulatingFixture, handleSimulateRound, handleContinueNex
           ) : (
             <StartFixture handleStartFixture={handleSimulateRound} />
           )}
-          <div className="flex flex-col items-center w-full h-full max-w-[1200px] gap-8">
+          <div className="flex flex-col items-center w-full h-full max-w-6xl gap-8">
             {schedule?.rounds.length && currentRound <= schedule?.rounds.length && (
               <div className="flex items-center w-full gap-8">
                 <TablePreview />
                 <LastFixturePreview />
               </div>
             )}
+            <FixturePreview />
           </div>
         </div>
       )}

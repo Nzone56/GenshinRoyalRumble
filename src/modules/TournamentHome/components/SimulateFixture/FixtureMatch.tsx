@@ -8,16 +8,14 @@ type Props = {
 };
 
 export const FixtureMatch = ({ match }: Props) => {
-
   const [imagesLoaded, setImagesLoaded] = useState([false, false]);
-  const { characters } = useTournament()
+  const { characters } = useTournament();
 
   useEffect(() => {
-    setImagesLoaded([false, false])
+    setImagesLoaded([false, false]);
   }, [match]);
-  
-  if(!match) return <span> Unexpected Error </span>
 
+  if (!match) return <span> Unexpected Error </span>;
 
   const allImagesLoaded = imagesLoaded.every(Boolean);
 
@@ -29,7 +27,9 @@ export const FixtureMatch = ({ match }: Props) => {
         </div>
       )}
 
-      <div className={`flex items-center justify-between px-3 py-2 transition-opacity ${allImagesLoaded ? "opacity-100" : "opacity-0"} duration-500`}>
+      <div
+        className={`flex items-center justify-between px-3 py-2 transition-opacity ${allImagesLoaded ? "opacity-100" : "opacity-0"} duration-500`}
+      >
         {/* Home character */}
         <div className="flex flex-col justify-center items-center gap-3 w-1/3">
           <h2 className="text-3xl">{characters[match?.home].name}</h2>
@@ -43,7 +43,6 @@ export const FixtureMatch = ({ match }: Props) => {
 
         <div className="flex flex-col justify-center items-center gap-4 max-w-xl">
           {match.categoriesResults.map(({ category, homeWeighted, awayWeighted }) => {
-          
             const homeVal = Number(homeWeighted.toFixed(1));
             const awayVal = Number(awayWeighted.toFixed(1));
             const homeDiff = homeVal > awayVal ? (homeVal - awayVal).toFixed(1) : "0.0";

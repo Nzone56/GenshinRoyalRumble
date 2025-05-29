@@ -7,15 +7,8 @@ import { useTournamentCategories } from "@modules/TournamentCategories/hooks/use
 
 export const TournamentCategories = () => {
   const { config, characters, categories } = useTournament();
-  const {
-    imgError,
-    setImgError,
-    loading,
-    setLoading,
-    selectedCharacter,
-    handleSelectCharacter,
-  } = useTournamentCategories();
-
+  const { imgError, setImgError, loading, setLoading, selectedCharacter, handleSelectCharacter } =
+    useTournamentCategories();
 
   useEffect(() => {
     setLoading(true);
@@ -34,11 +27,10 @@ export const TournamentCategories = () => {
     };
   }, [selectedCharacter, setImgError, setLoading]);
 
-
   if (Object.keys(characters).length === 0) return <LoadingLogo />;
 
   return (
-    <div className={`m-8 fade-in-up`}>
+    <div className={`m-8 fade-in-up max-w-7xl mx-auto`}>
       <div className="flex flex-col items-center justify-between mb-4 gap-4">
         <p className="text-lg">
           Before starting the tournament, you must assign a value to each category for every character.
@@ -59,20 +51,14 @@ export const TournamentCategories = () => {
               id={characters[curr].id}
               key={characters[curr].id}
               value={curr}
-              className={`${
-                Object.values(categories[curr]).every((value) => value > 0) ? "" : "text-amber-400"
-              }`}
+              className={`${Object.values(categories[curr]).every((value) => value > 0) ? "" : "text-amber-400"}`}
             >
               {characters[curr].name}
             </option>
           ))}
         </FormSelect>
       </div>
-      {loading ? (
-        <LoadingLogo />
-      ) : (
-        <CharacterSetup imgError={imgError} selectedCharacter={selectedCharacter} />
-      )}
+      {loading ? <LoadingLogo /> : <CharacterSetup imgError={imgError} selectedCharacter={selectedCharacter} />}
     </div>
   );
 };

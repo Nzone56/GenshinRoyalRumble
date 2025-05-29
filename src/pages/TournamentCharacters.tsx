@@ -17,9 +17,9 @@ export const TournamentCharacters = () => {
       {selectedMatch ? (
         <DetailedMatch match={selectedMatch} setSelectedMatch={setSelectedMatch} />
       ) : (
-        <div className="flex justify-around h-full fade-in-up">
+        <div className="flex justify-around h-full fade-in-up w-full max-w-7xl">
           <CharacterCarrousel />
-          <CharacterInformation setSelectedMatch={setSelectedMatch}/>
+          <CharacterInformation setSelectedMatch={setSelectedMatch} />
         </div>
       )}
     </div>

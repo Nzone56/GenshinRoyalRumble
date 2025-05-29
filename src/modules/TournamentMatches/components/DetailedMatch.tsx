@@ -7,7 +7,6 @@ type detailedMatchProps = {
 };
 
 export const DetailedMatch = ({ match, setSelectedMatch }: detailedMatchProps) => {
-
   return (
     <div className="fade-in-up">
       <button

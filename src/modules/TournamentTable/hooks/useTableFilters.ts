@@ -46,6 +46,7 @@ export const useTableFilters = ({ charactersList }: { charactersList: CharacterT
   const [visibleColumns, setVisibleColumns] = useState<Record<TableColumn, boolean>>(initialColumns);
   const [filteredCharacters, setFilteredCharacters] = useState([...charactersList]);
   const [filters, setFilters] = useState<FiltersType>(initialFilters);
+  const [tableColors, setTableColors] = useState(true);
 
   const toggleColumn = (col: TableColumn) => {
     setVisibleColumns((prev) => ({ ...prev, [col]: !prev[col] }));
@@ -90,5 +91,7 @@ export const useTableFilters = ({ charactersList }: { charactersList: CharacterT
     toggleColumn,
     resetFilters,
     resetColumns,
+    tableColors,
+    setTableColors,
   };
 };

@@ -9,9 +9,10 @@ import { getPrevPositionIcon } from "../helpers/TableVariables";
 type TableRowProps = {
   character: CharacterTable;
   visibleColumns: Record<TableColumn, boolean>;
+  tableColors: boolean;
 };
 
-export const TableRow = ({ character, visibleColumns }: TableRowProps) => {
+export const TableRow = ({ character, visibleColumns, tableColors }: TableRowProps) => {
   const navigate = useNavigate();
 
   const { characterIds, setSelectedCharacterIndex } = useCharacter();
@@ -102,9 +103,23 @@ export const TableRow = ({ character, visibleColumns }: TableRowProps) => {
     navigate("/tournament/characters");
   };
 
+  const getRowColorClass = () => {
+    if (!tableColors) return "";
+
+    const pos = character.position;
+
+    // Asumiendo que hay más de 7 personajes en total
+    if (pos === 1) return "bg-yellow-600/20";
+    if (pos >= 2 && pos <= 4) return "bg-green-600/20";
+    if (pos >= 5 && pos <= 7) return "bg-blue-600/20";
+    if (pos > characterIds.length - 3) return "bg-red-600/20";
+
+    return "";
+  };
+
   return (
     <tr
-      className="hover:bg-gray-700 border-t border-gray-600 cursor-pointer transition duration-300"
+      className={`hover:bg-gray-700 border-t border-gray-600 cursor-pointer transition duration-300 ${getRowColorClass()}`}
       onClick={handleSelectCharacter}
     >
       <td className="p-2 ">{character.position}</td>

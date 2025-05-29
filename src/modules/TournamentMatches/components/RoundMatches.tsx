@@ -3,8 +3,7 @@ import { useSchedule } from "../hooks/useSchedule";
 import clsx from "clsx";
 import type { Match } from "@mytypes/Tournament";
 
-export const RoundMatches = ({setSelectedMatch} : {setSelectedMatch: (match: Match | null) => void}) => {
-  
+export const RoundMatches = ({ setSelectedMatch }: { setSelectedMatch: (match: Match | null) => void }) => {
   const { selectedRound, currentRound, schedule } = useSchedule();
   const { characters } = useTournament();
 
@@ -14,6 +13,11 @@ export const RoundMatches = ({setSelectedMatch} : {setSelectedMatch: (match: Mat
   if (!round) {
     return <div className="p-4 text-gray-500">No matches available</div>;
   }
+
+  const handleSelectMatch = (match: Match) => {
+    if (match.round >= currentRound) return;
+    setSelectedMatch(match);
+  };
 
   return (
     <div className="w-full p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -44,8 +48,8 @@ export const RoundMatches = ({setSelectedMatch} : {setSelectedMatch: (match: Mat
         return (
           <div
             key={match.id}
-            className="flex justify-between items-center gap-4 p-4 rounded-xl shadow-md transition bg-gray-700 hover:bg-gray-500 cursor-pointer duration-300"
-            onClick={ () => setSelectedMatch(match)}
+            className={`flex justify-between items-center gap-4 p-4 rounded-xl shadow-md transition bg-gray-700 ${match.round >= currentRound ? "" : "hover:bg-gray-500 cursor-pointer"} duration-300`}
+            onClick={() => handleSelectMatch(match)}
           >
             {/* Home */}
             <div className="flex items-center gap-2 w-1/3" title={home?.name}>

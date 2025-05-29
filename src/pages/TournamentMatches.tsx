@@ -8,14 +8,14 @@ export const TournamentMatches = () => {
   const [selectedMatch, setSelectedMatch] = useState<Match | null>(null);
 
   return (
-    <div className={`flex flex-col m-8 fade-in-up`}>
+    <div className={`flex flex-col m-8 fade-in-up max-w-7xl mx-auto`}>
       {selectedMatch ? (
-        <DetailedMatch match={selectedMatch} setSelectedMatch={setSelectedMatch}/>
+        <DetailedMatch match={selectedMatch} setSelectedMatch={setSelectedMatch} />
       ) : (
-        <div className="flex flex-col fade-in-up">
+        <div className="flex flex-col fade-in-up max-w-7xl mx-auto">
           <h3 className="text-2xl">Fixtures</h3>
           <RoundTabs />
-          <RoundMatches setSelectedMatch={setSelectedMatch}/>
+          <RoundMatches setSelectedMatch={setSelectedMatch} />
         </div>
       )}
     </div>
